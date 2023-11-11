@@ -9,7 +9,7 @@ function SuccessfulAlert({ showAlert, setShowAlert }) {
     if (showAlert) {
         return (
             <Alert variant='success' onClose={() => setShowAlert(false)} dismissible>
-                <strong>Successful login</strong>
+                <strong>Successfully login</strong>
             </Alert>
         )
     }
