@@ -1,8 +1,8 @@
-import { useRouteError } from "react-router-dom";
+import { useRouteError } from 'react-router-dom'
 
 export default function ErrorPage() {
-  const error = useRouteError();
-  console.error(error);
+  const error = useRouteError()
+  console.error(error)
 
   const centerText = {
     'text-align': 'center',
@@ -16,5 +16,5 @@ export default function ErrorPage() {
         <i>{error.statusText || error.message}</i>
       </p>
     </div>
-  );
+  )
 }
