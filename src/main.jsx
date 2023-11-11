@@ -6,6 +6,7 @@ import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import ErrorPage from './error-page'
 import Signup from './account/signup'
+import Signin from './account/signin.jsx'
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
         path: 'signup',
         element: <Signup />,
       },
+      {
+        path: 'signin',
+        element: <Signin />,
+      },
     ],
   },
 ])
@@ -26,3 +31,4 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <RouterProvider router={router} />
   </React.StrictMode>
 )
+
