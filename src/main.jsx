@@ -8,13 +8,19 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 import ErrorPage from "./error-page";
+import Profile from './account/profile-page';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App/>,
     errorElement: <ErrorPage />,
-  }
+  },
+  {
+    path: '/profile',
+    element: <Profile />,
+    errorElement: <ErrorPage />,
+  },
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
