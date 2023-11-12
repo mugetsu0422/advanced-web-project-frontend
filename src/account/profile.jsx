@@ -17,22 +17,13 @@ const Profile = ({ name, email, msg }) => {
 
     const { name, email, password, phone, address } = formData;
 
-    // Add your validation logic here
-
-    // Add your fetch logic here
-
-    console.log('Name:', name);
-    console.log('Email:', email);
-    console.log('Password:', password);
-    console.log('Phone:', phone);
-    console.log('Address:', address);
   };
 
   return (
     <div className="profile">
       <div className="row">
         <div className="col-sm-9 pb-4">
-          <p className="title text-center">Hồ sơ</p>
+          <p className="title text-center">Profile</p>
           <form className="profile-form" onSubmit={handleSubmit}>
             {msg && (
               <Alert variant="success" className="text-center pr-0" dismissible>
@@ -42,7 +33,7 @@ const Profile = ({ name, email, msg }) => {
             <div className="row">
               <div className="col-md-6">
                 <Form.Group>
-                  <Form.Label htmlFor="txtName">Tên</Form.Label>
+                  <Form.Label htmlFor="txtName">Username</Form.Label>
                   <Form.Control
                     type="text"
                     id="txtName"
@@ -68,7 +59,7 @@ const Profile = ({ name, email, msg }) => {
             <div className="row">
               <div className="col-md-6">
                 <Form.Group>
-                  <Form.Label htmlFor="txtPassword">Mật khẩu</Form.Label>
+                  <Form.Label htmlFor="txtPassword">Password</Form.Label>
                   <Form.Control
                     type="password"
                     id="txtPassword"
@@ -79,12 +70,15 @@ const Profile = ({ name, email, msg }) => {
               </div>
               <div className="col-md-6">
                 <Form.Group>
-                  <Form.Label htmlFor="txtPhone">Điện thoại</Form.Label>
+                  <Form.Label htmlFor="txtPhone">Telephone</Form.Label>
                   <Form.Control
                     type="text"
                     id="txtPhone"
                     value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    onChange={(e) => {
+                      const input = e.target.value.replace(/\D/g, '');
+                      setFormData({ ...formData, phone: input });
+                    }}
                   />
                 </Form.Group>
               </div>
@@ -92,7 +86,7 @@ const Profile = ({ name, email, msg }) => {
             <div className="row">
               <div className="col-md-6">
                 <Form.Group>
-                  <Form.Label htmlFor="txtAddress">Địa chỉ</Form.Label>
+                  <Form.Label htmlFor="txtAddress">Address</Form.Label>
                   <Form.Control
                     type="text"
                     id="txtAddress"
@@ -102,11 +96,9 @@ const Profile = ({ name, email, msg }) => {
                 </Form.Group>
               </div>
             </div>
-            <div className="submit-button">
-              <Button type="submit" className="btn btn-profile">
-                Lưu
-              </Button>
-            </div>
+            <Button type="submit" className="submit-button">
+                Save
+            </Button>
           </form>
         </div>
       </div>
