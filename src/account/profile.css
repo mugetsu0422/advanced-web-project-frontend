@@ -21,16 +21,7 @@ a.profile-item {
 .card,.col-sm-9 {
     border: 1px solid #aacdaf;
     border-radius: 0.25rem;
-}
-
-.list-group-item:hover {
-    background-color: #aacdaf;
-    color: white;
-}
-
-.active-menu {
-    background-color: #aacdaf;
-    color: white;
+    margin: auto;
 }
 
 .title {

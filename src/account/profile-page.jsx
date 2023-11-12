@@ -8,8 +8,8 @@ const Profile = ({ name, email, msg }) => {
     name: '',
     email: '',
     password: '',
-    phone: '', 
-    address: '', 
+    phone: '',
+    address: '',
   });
 
   const handleSubmit = (e) => {
@@ -31,20 +31,6 @@ const Profile = ({ name, email, msg }) => {
   return (
     <div className="profile">
       <div className="row">
-        <div className="col-sm-3">
-        <Card>
-            <Card.Header className="profile-item student-name">{name}</Card.Header>
-            <ul className="list-group list-group-flush">
-              <Link to="/profile" className="profile-item">
-                <li className="list-group-item active-menu">Hồ sơ</li>
-              </Link>
-              <Link to="/security" className="profile-item">
-                <li className="list-group-item">Bảo mật</li>
-              </Link>
-            </ul>
-          </Card>
-        </div>
-
         <div className="col-sm-9 pb-4">
           <p className="title text-center">Hồ sơ</p>
           <form className="profile-form" onSubmit={handleSubmit}>
@@ -53,53 +39,69 @@ const Profile = ({ name, email, msg }) => {
                 {msg}
               </Alert>
             )}
-            <Form.Group>
-              <Form.Label htmlFor="txtName">Tên</Form.Label>
-              <Form.Control
-                type="text"
-                id="txtName"
-                placeholder={name}
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label htmlFor="txtEmail">Email</Form.Label>
-              <Form.Control
-                type="email"
-                id="txtEmail"
-                placeholder={email}
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label htmlFor="txtPassword">Mật khẩu</Form.Label>
-              <Form.Control
-                type="password"
-                id="txtPassword"
-                value={formData.password}
-                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label htmlFor="txtPhone">Điện thoại</Form.Label>
-              <Form.Control
-                type="text"
-                id="txtPhone"
-                value={formData.phone}
-                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label htmlFor="txtAddress">Địa chỉ</Form.Label>
-              <Form.Control
-                type="text"
-                id="txtAddress"
-                value={formData.address}
-                onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-              />
-            </Form.Group>
+            <div className="row">
+              <div className="col-md-6">
+                <Form.Group>
+                  <Form.Label htmlFor="txtName">Tên</Form.Label>
+                  <Form.Control
+                    type="text"
+                    id="txtName"
+                    placeholder={name}
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  />
+                </Form.Group>
+              </div>
+              <div className="col-md-6">
+                <Form.Group>
+                  <Form.Label htmlFor="txtEmail">Email</Form.Label>
+                  <Form.Control
+                    type="email"
+                    id="txtEmail"
+                    placeholder={email}
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  />
+                </Form.Group>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-md-6">
+                <Form.Group>
+                  <Form.Label htmlFor="txtPassword">Mật khẩu</Form.Label>
+                  <Form.Control
+                    type="password"
+                    id="txtPassword"
+                    value={formData.password}
+                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                  />
+                </Form.Group>
+              </div>
+              <div className="col-md-6">
+                <Form.Group>
+                  <Form.Label htmlFor="txtPhone">Điện thoại</Form.Label>
+                  <Form.Control
+                    type="text"
+                    id="txtPhone"
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  />
+                </Form.Group>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-md-6">
+                <Form.Group>
+                  <Form.Label htmlFor="txtAddress">Địa chỉ</Form.Label>
+                  <Form.Control
+                    type="text"
+                    id="txtAddress"
+                    value={formData.address}
+                    onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                  />
+                </Form.Group>
+              </div>
+            </div>
             <div className="submit-button">
               <Button type="submit" className="btn btn-profile">
                 Lưu

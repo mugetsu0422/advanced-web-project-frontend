@@ -1,3 +1,4 @@
+import { Outlet } from 'react-router-dom'
 import './App.css'
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         </div> */}
         <a href="/login" className="right">Log in</a>
       </div>
+      <Outlet />
     </>
   )
 }
