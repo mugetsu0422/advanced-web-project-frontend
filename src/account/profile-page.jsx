@@ -21,7 +21,6 @@ const Profile = ({ name, email, msg }) => {
 
     // Add your fetch logic here
 
-    // Example of printing the values for testing
     console.log('Name:', name);
     console.log('Email:', email);
     console.log('Password:', password);
@@ -36,11 +35,11 @@ const Profile = ({ name, email, msg }) => {
         <Card>
             <Card.Header className="profile-item student-name">{name}</Card.Header>
             <ul className="list-group list-group-flush">
-              <Link to="/student/profile" className="profile-item">
+              <Link to="/profile" className="profile-item">
                 <li className="list-group-item active-menu">Hồ sơ</li>
               </Link>
-              <Link to="/student/security" className="profile-item">
-                <li className="list-group-item">Chủ đề đã học</li>
+              <Link to="/security" className="profile-item">
+                <li className="list-group-item">Bảo mật</li>
               </Link>
             </ul>
           </Card>
