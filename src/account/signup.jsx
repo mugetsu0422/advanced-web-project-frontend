@@ -4,13 +4,22 @@ import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { Form as BootstrapForm } from 'react-bootstrap'
 import Alert from 'react-bootstrap/Alert'
-import Container from 'react-bootstrap/Container';
+import Container from 'react-bootstrap/Container'
+import axios from 'axios'
+import bcrypt from 'bcryptjs'
+import { SALT_ROUNDS } from '../constants/constants'
 
 function SuccessfulAlert({ showAlert, setShowAlert }) {
-  if (showAlert) {
+  if (showAlert == 201) {
     return (
-      <Alert variant="success" onClose={() => setShowAlert(false)} dismissible>
+      <Alert variant="success" onClose={() => setShowAlert('')} dismissible>
         <strong>Your account has been successfully created</strong>
+      </Alert>
+    )
+  } else if (showAlert == 400) {
+    return (
+      <Alert variant="danger" onClose={() => setShowAlert('')} dismissible>
+        <strong>Your username has been existed!</strong>
       </Alert>
     )
   }
@@ -75,10 +84,13 @@ function SignupForm({ handleChange, handleSubmit, validated, inputs }) {
               Confirm password does not match!
             </BootstrapForm.Control.Feedback>
           </BootstrapForm.Group>
-          <button className={styles["register-btn"]} type="submit" form="register-form">
+          <button
+            className={styles['register-btn']}
+            type="submit"
+            form="register-form">
             SIGN UP
           </button>
-          <div className={styles["info-div"]}>
+          <div className={styles['info-div']}>
             <p>
               Already have an account?{' '}
               <Link style={{ textDecoration: 'none' }} to={'/signin'}>
@@ -93,7 +105,7 @@ function SignupForm({ handleChange, handleSubmit, validated, inputs }) {
 }
 
 function Signup() {
-  const [showAlert, setShowAlert] = useState(false)
+  const [showAlert, setShowAlert] = useState(0)
   const [inputs, setInputs] = useState({})
   const [validated, setValidated] = useState(false)
 
@@ -115,14 +127,24 @@ function Signup() {
     }
 
     // Send HTTP Request
-    // If successful
-    setShowAlert(true)
-    // If not successful
+    axios
+      .post('//localhost:4000/users', {
+        username: inputs.username,
+        password: bcrypt.hashSync(inputs.password, SALT_ROUNDS),
+      })
+      .then(() => {
+        // If successful
+        setShowAlert(201)
+      })
+      .catch(() => {
+        // If not successful (duplicate username)
+        setShowAlert(400)
+      })
   }
 
   return (
     <>
-      <Container fluid className={`${styles["container-fluid"]}`}>
+      <Container fluid className={`${styles['container-fluid']}`}>
         <SuccessfulAlert
           showAlert={showAlert}
           setShowAlert={setShowAlert}></SuccessfulAlert>
