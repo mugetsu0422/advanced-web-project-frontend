@@ -119,6 +119,7 @@
 .my-input:focus {
     outline: none;
     box-shadow: 0 0 0 0.2rem #5aa3a1;
+    border-color: #afd3d2;
 }
 
 .invalid-feedback {
