@@ -21,10 +21,10 @@ const Profile = ({ name, email, msg }) => {
 
   return (
     <div className={styles.profile}>
-    <div className={`row ${styles.row}`}>
-      <div className={`col-sm-9 pb-4 ${styles.colSm9}`}>
+    <div className={`row`}>
+      <div className={`col-sm-9 pb-4 ${styles['col-sm-9']}`}>
         <p className={`title text-center ${styles.title}`}>Profile</p>
-        <form className={`profile-form ${styles.profileForm}`} onSubmit={handleSubmit}>
+        <form className={`profile-form ${styles['profile-form']}`} onSubmit={handleSubmit}>
           {msg && (
             <Alert variant="success" className={`text-center pr-0 ${styles.alert}`} dismissible>
               {msg}
@@ -40,7 +40,7 @@ const Profile = ({ name, email, msg }) => {
                     placeholder={name}
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className={styles.formControl}
+                    className={styles['form-control']}
                   />
                 </Form.Group>
               </div>
@@ -53,7 +53,7 @@ const Profile = ({ name, email, msg }) => {
                     placeholder={email}
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className={styles.formControl}
+                    className={styles['form-control']}
                   />
                 </Form.Group>
               </div>
@@ -67,7 +67,7 @@ const Profile = ({ name, email, msg }) => {
                     id="txtPassword"
                     value={formData.password}
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                    className={styles.formControl}
+                    className={styles['form-control']}
                   />
                 </Form.Group>
               </div>
@@ -82,7 +82,7 @@ const Profile = ({ name, email, msg }) => {
                       const input = e.target.value.replace(/\D/g, '');
                       setFormData({ ...formData, phone: input });
                     }}
-                    className={styles.formControl}
+                    className={styles['form-control']}
                   />
                 </Form.Group>
               </div>
@@ -96,12 +96,12 @@ const Profile = ({ name, email, msg }) => {
                     id="txtAddress"
                     value={formData.address}
                     onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                    className={styles.formControl}
+                    className={styles['form-control']}
                   />
                 </Form.Group>
               </div>
             </div>
-            <button type="submit" className={styles.submitBtn}>
+            <button type="submit" className={styles['submit-btn']}>
               SAVE
             </button>
           </form>
