@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Form, Button, Card, Alert } from 'react-bootstrap';
-import './profile.css';
+import { Form, Alert } from 'react-bootstrap';
+import styles from './profile.module.css';
 
 const Profile = ({ name, email, msg }) => {
   const [formData, setFormData] = useState({
@@ -20,15 +20,15 @@ const Profile = ({ name, email, msg }) => {
   };
 
   return (
-    <div className="profile">
-      <div className="row">
-        <div className="col-sm-9 pb-4">
-          <p className="title text-center">Profile</p>
-          <form className="profile-form" onSubmit={handleSubmit}>
-            {msg && (
-              <Alert variant="success" className="text-center pr-0" dismissible>
-                {msg}
-              </Alert>
+    <div className={styles.profile}>
+    <div className={`row ${styles.row}`}>
+      <div className={`col-sm-9 pb-4 ${styles.colSm9}`}>
+        <p className={`title text-center ${styles.title}`}>Profile</p>
+        <form className={`profile-form ${styles.profileForm}`} onSubmit={handleSubmit}>
+          {msg && (
+            <Alert variant="success" className={`text-center pr-0 ${styles.alert}`} dismissible>
+              {msg}
+            </Alert>
             )}
             <div className="row">
               <div className="col-md-6">
@@ -40,6 +40,7 @@ const Profile = ({ name, email, msg }) => {
                     placeholder={name}
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    className={styles.formControl}
                   />
                 </Form.Group>
               </div>
@@ -52,6 +53,7 @@ const Profile = ({ name, email, msg }) => {
                     placeholder={email}
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    className={styles.formControl}
                   />
                 </Form.Group>
               </div>
@@ -65,6 +67,7 @@ const Profile = ({ name, email, msg }) => {
                     id="txtPassword"
                     value={formData.password}
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                    className={styles.formControl}
                   />
                 </Form.Group>
               </div>
@@ -79,6 +82,7 @@ const Profile = ({ name, email, msg }) => {
                       const input = e.target.value.replace(/\D/g, '');
                       setFormData({ ...formData, phone: input });
                     }}
+                    className={styles.formControl}
                   />
                 </Form.Group>
               </div>
@@ -92,13 +96,14 @@ const Profile = ({ name, email, msg }) => {
                     id="txtAddress"
                     value={formData.address}
                     onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                    className={styles.formControl}
                   />
                 </Form.Group>
               </div>
             </div>
-            <Button type="submit" className="submit-button">
-                Save
-            </Button>
+            <button type="submit" className={styles.submitBtn}>
+              SAVE
+            </button>
           </form>
         </div>
       </div>
