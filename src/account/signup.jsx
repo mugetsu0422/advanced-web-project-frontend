@@ -1,9 +1,10 @@
-import Alert from 'react-bootstrap/Alert'
-import './signup.css'
+import styles from './signup.module.css'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { Form as BootstrapForm } from 'react-bootstrap'
+import Alert from 'react-bootstrap/Alert'
+import Container from 'react-bootstrap/Container';
 
 function SuccessfulAlert({ showAlert, setShowAlert }) {
   if (showAlert) {
@@ -24,11 +25,13 @@ function SignupForm({ handleChange, handleSubmit, validated, inputs }) {
         noValidate
         validated={validated}
         onSubmit={handleSubmit}>
-        <div className="form-div">
-          <BootstrapForm.Group controlId="username" className="my-input-group">
+        <div className={styles['form-div']}>
+          <BootstrapForm.Group
+            controlId="username"
+            className={styles['my-input-group']}>
             <BootstrapForm.Label></BootstrapForm.Label>
             <BootstrapForm.Control
-              className="my-input"
+              className={styles['my-input']}
               required
               type="text"
               name="username"
@@ -37,10 +40,12 @@ function SignupForm({ handleChange, handleSubmit, validated, inputs }) {
               onChange={handleChange}
             />
           </BootstrapForm.Group>
-          <BootstrapForm.Group controlId="password" className="my-input-group">
+          <BootstrapForm.Group
+            controlId="password"
+            className={styles['my-input-group']}>
             <BootstrapForm.Label></BootstrapForm.Label>
             <BootstrapForm.Control
-              className="my-input"
+              className={styles['my-input']}
               required
               type="password"
               name="password"
@@ -52,10 +57,10 @@ function SignupForm({ handleChange, handleSubmit, validated, inputs }) {
           </BootstrapForm.Group>
           <BootstrapForm.Group
             controlId="confirmPassword"
-            className="my-input-group">
+            className={styles['my-input-group']}>
             <BootstrapForm.Label></BootstrapForm.Label>
             <BootstrapForm.Control
-              className="my-input"
+              className={styles['my-input']}
               required
               pattern={inputs.password}
               type="password"
@@ -70,10 +75,10 @@ function SignupForm({ handleChange, handleSubmit, validated, inputs }) {
               Confirm password does not match!
             </BootstrapForm.Control.Feedback>
           </BootstrapForm.Group>
-          <button className="register-btn" type="submit" form="register-form">
+          <button className={styles["register-btn"]} type="submit" form="register-form">
             SIGN UP
           </button>
-          <div className="info-div">
+          <div className={styles["info-div"]}>
             <p>
               Already have an account?{' '}
               <Link style={{ textDecoration: 'none' }} to={'/signin'}>
@@ -117,7 +122,7 @@ function Signup() {
 
   return (
     <>
-      <div className="container-fluid">
+      <Container fluid className={`${styles["container-fluid"]}`}>
         <SuccessfulAlert
           showAlert={showAlert}
           setShowAlert={setShowAlert}></SuccessfulAlert>
@@ -126,7 +131,7 @@ function Signup() {
           handleSubmit={handleSubmit}
           validated={validated}
           inputs={inputs}></SignupForm>
-      </div>
+      </Container>
     </>
   )
 }
