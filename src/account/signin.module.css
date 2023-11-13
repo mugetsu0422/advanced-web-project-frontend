@@ -14,7 +14,7 @@
             0 6px 20px 0;
     }
 
-    .login-btn {
+    .signin-btn {
         background-color: #71aca9;
         color: white;
         border: 2px solid #71aca9;
@@ -43,7 +43,7 @@
             0 6px 20px 0;
     }
 
-    .login-btn {
+    .signin-btn {
         background-color: #71aca9;
         color: white;
         border: 2px solid #71aca9;
@@ -104,7 +104,7 @@
     padding: 10px;
 }
 
-.login-btn {
+.signin-btn {
     background-color: #71aca9;
     color: white;
     border: 2px solid #71aca9;
@@ -123,12 +123,6 @@
 
 .invalid-feedback {
     width: 80%;
-}
-
-.not-match-confirmPassword {
-    width: 80%;
-    font-size: 0.875rem;
-    color: #dc3545;
 }
 
 .info-div {

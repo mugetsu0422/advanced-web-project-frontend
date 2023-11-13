@@ -1,15 +1,16 @@
-import "./signin.css"
+import styles from './signin.module.css';
 import Alert from 'react-bootstrap/Alert';
 import { useState } from 'react';
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { Form as BootstrapForm } from 'react-bootstrap';
+import Container from 'react-bootstrap/Container';
 
 function SuccessfulAlert({ showAlert, setShowAlert }) {
     if (showAlert) {
         return (
             <Alert variant='success' onClose={() => setShowAlert(false)} dismissible>
-                <strong>Successfully login</strong>
+                <strong>Successfully sign in</strong>
             </Alert>
         )
     }
@@ -19,12 +20,12 @@ function SuccessfulAlert({ showAlert, setShowAlert }) {
 function SigninForm({ handleChange, handleSubmit, validated, inputs }) {
     return (
         <>
-            <BootstrapForm id="login-form" noValidate validated={validated} onSubmit={handleSubmit} >
-                <div className='form-div'>
-                    <BootstrapForm.Group controlId="username" className='my-input-group'>
+            <BootstrapForm id="signin-form" noValidate validated={validated} onSubmit={handleSubmit} >
+                <div className={styles['form-div']}>
+                    <BootstrapForm.Group controlId="username" className={styles['my-input-group']}>
                         <BootstrapForm.Label></BootstrapForm.Label>
                         <BootstrapForm.Control
-                            className='my-input'
+                            className={styles['my-input']}
                             required
                             type="text"
                             name='username'
@@ -36,7 +37,7 @@ function SigninForm({ handleChange, handleSubmit, validated, inputs }) {
                     <BootstrapForm.Group controlId="password" className='my-input-group'>
                         <BootstrapForm.Label></BootstrapForm.Label>
                         <BootstrapForm.Control
-                            className='my-input'
+                            className={styles['my-input']}
                             required
                             type="password"
                             name='password'
@@ -46,8 +47,8 @@ function SigninForm({ handleChange, handleSubmit, validated, inputs }) {
                             onChange={handleChange}
                         />
                     </BootstrapForm.Group>
-                    <button className="login-btn" type="submit" form="login-form">LOG IN</button>
-                    <div className="info-div">
+                    <button className={styles['signin-btn']} type="submit" form="signin-form">SIGN IN</button>
+                    <div className={styles['info-div']}>
                         <p>No account yet? <Link style={{ textDecoration: 'none' }} to={'/signup'}>Sign up</Link ></p>
                     </div>
                 </div>
@@ -75,9 +76,6 @@ function Signin() {
             return
         }
 
-        const username = form.username.value;
-        const password = form.password.value;
-
         // Send HTTP Request
         // If successful
         setShowAlert(true)
@@ -86,10 +84,10 @@ function Signin() {
 
     return (
         <>
-            <div className="container-fluid">
+            <Container fluid className={`${styles["container-fluid"]}`}>
                 <SuccessfulAlert showAlert={showAlert} setShowAlert={setShowAlert}></SuccessfulAlert>
                 <SigninForm handleChange={handleChange} handleSubmit={handleSubmit} validated={validated} inputs={inputs}></SigninForm>
-            </div>
+            </Container>
         </>
     );
 }
