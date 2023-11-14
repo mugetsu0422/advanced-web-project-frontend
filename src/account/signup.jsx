@@ -80,7 +80,7 @@ function SignupForm({ handleChange, handleSubmit, validated, inputs }) {
               onChange={handleChange}
               isInvalid={inputs.confirmPassword != inputs.password}
             />
-            <BootstrapForm.Control.Feedback type="invalid">
+            <BootstrapForm.Control.Feedback type="invalid" className={styles['invalid-feedback']}>
               Confirm password does not match!
             </BootstrapForm.Control.Feedback>
           </BootstrapForm.Group>
@@ -128,10 +128,13 @@ function Signup() {
 
     // Send HTTP Request
     axios
-      .post('//localhost:4000/users', {
-        username: inputs.username,
-        password: bcrypt.hashSync(inputs.password, SALT_ROUNDS),
-      })
+      .post(
+        `//${import.meta.env.SERVER_HOST}:${import.meta.env.SERVER_PORT}/users`,
+        {
+          username: inputs.username,
+          password: bcrypt.hashSync(inputs.password, SALT_ROUNDS),
+        }
+      )
       .then(() => {
         // If successful
         setShowAlert(201)
@@ -161,7 +164,7 @@ function Signup() {
 export default Signup
 
 SuccessfulAlert.propTypes = {
-  showAlert: PropTypes.bool.isRequired,
+  showAlert: PropTypes.number.isRequired,
   setShowAlert: PropTypes.func.isRequired,
 }
 
