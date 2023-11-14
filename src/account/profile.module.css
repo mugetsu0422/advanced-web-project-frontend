@@ -1,0 +1,85 @@
+:root {
+    --main-color: #afd3d2;
+}
+
+.profile {
+    padding: 3rem 6rem;
+}
+
+.card {
+    margin-top: 2rem;
+    width: 100%;
+    border: 1px solid var(--main-color);
+    border-radius: 0.25rem;
+    box-shadow: 0px 4px 8px var(--main-color);
+}
+
+.profile-item {
+    border: 1px solid var(--main-color);
+    padding: 1rem;
+    transition: background-color 0.3s ease;
+    color: black;
+    text-decoration: none;
+}
+
+.profile-item:hover {
+    background-color: #71aca9;
+    color: white;
+}
+
+.active-menu {
+    background-color: #71aca9;
+    color: white;
+}
+
+.col-sm-9 {
+    border: 1px solid var(--main-color);
+    border-radius: 0.25rem;
+    margin: auto;
+}
+
+.title {
+    font-size: 4rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.alert-container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.profile-form {
+    margin: 0rem auto;
+    max-width: 50rem;
+}
+
+.form-control {
+    border-radius: 1rem;
+    border: 2px solid #afd3d2;
+    height: 3rem;
+    margin: 5px 0 5px 0;
+    padding: 10px;
+}
+
+.form-control:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem #5aa3a1;
+    border-color: #afd3d2;
+}
+
+.submit-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #71aca9;
+    color: white;
+    border: 2px solid #71aca9;
+    border-radius: 2.5rem;
+    width: 50%;
+    height: 2.5rem;
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin: auto;
+    margin-top: 20px;
+}

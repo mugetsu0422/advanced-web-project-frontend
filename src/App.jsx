@@ -1,35 +1,89 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Outlet } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import styles from './App.module.css'
+import { useEffect, useState } from 'react'
+import Cookies from 'js-cookie'
+import { ThreeDotsVertical } from 'react-bootstrap-icons'
+import Dropdown from 'react-bootstrap/Dropdown'
+import PropTypes from 'prop-types'
+
+function AccountSection({ isSignin, setIsSignin }) {
+  function showDropdown() {}
+  function signOut() {
+    Cookies.remove('authToken')
+    setIsSignin(false)
+    window.location.href = '/'
+  }
+
+  if (isSignin) {
+    return (
+      <>
+        <Dropdown className={`${styles['dropdown']}`}>
+          <div className={`${styles['right']}`} onClick={showDropdown}>
+            User
+          </div>
+          <ThreeDotsVertical
+            className={`${styles['more-icon']}`}></ThreeDotsVertical>
+          <div className={`${styles['dropdown-content']}`}>
+            <Link
+              className={`${styles['dropdown-item']} dropdown-item`}
+              to={'/profile'}>
+              Profile
+            </Link>
+            <Dropdown.Item
+              className={`${styles['dropdown-item']}`}
+              onClick={signOut}>
+              Sign Out
+            </Dropdown.Item>
+          </div>
+        </Dropdown>
+      </>
+    )
+  } else {
+    return (
+      <>
+        <Link to={'/signin'} className={`${styles['right']}`}>
+          Log in
+        </Link>
+      </>
+    )
+  }
+}
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [isSignin, setIsSignin] = useState(false)
+
+  useEffect(() => {
+    if (Cookies.get('authToken')) {
+      setIsSignin(true)
+    } else {
+      setIsSignin(false)
+    }
+  }, [])
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className={`${styles['nav']}`}>
+        <Link to={'/'} className={`${styles['left']}`}>
+          MATCHA
+        </Link>
+        <nav className={`${styles['navbar']}`}>
+          <Link to={'#'}>1</Link>
+          <Link to={'#'}>2</Link>
+          <Link to={'#'}>3</Link>
+        </nav>
+        <AccountSection
+          isSignin={isSignin}
+          setIsSignin={setIsSignin}></AccountSection>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Outlet />
     </>
   )
 }
 
 export default App
+
+AccountSection.propTypes = {
+  isSignin: PropTypes.bool.isRequired,
+  setIsSignin: PropTypes.func.isRequired,
+}
