@@ -13,7 +13,7 @@
     border-radius: 0.25rem;
     box-shadow: 0px 4px 8px var(--main-color);
 }
-  
+
 .profile-item {
     border: 1px solid var(--main-color);
     padding: 1rem;
@@ -21,12 +21,12 @@
     color: black;
     text-decoration: none;
 }
-  
+
 .profile-item:hover {
     background-color: #71aca9;
     color: white;
 }
-  
+
 .active-menu {
     background-color: #71aca9;
     color: white;
@@ -47,7 +47,7 @@
 .alert-container {
     width: 80%;
     margin: 0 auto;
-  }
+}
 
 .profile-form {
     margin: 0rem auto;

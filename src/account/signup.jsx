@@ -80,7 +80,9 @@ function SignupForm({ handleChange, handleSubmit, validated, inputs }) {
               onChange={handleChange}
               isInvalid={inputs.confirmPassword != inputs.password}
             />
-            <BootstrapForm.Control.Feedback type="invalid" className={styles['invalid-feedback']}>
+            <BootstrapForm.Control.Feedback
+              type="invalid"
+              className={styles['invalid-feedback']}>
               Confirm password does not match!
             </BootstrapForm.Control.Feedback>
           </BootstrapForm.Group>
@@ -129,7 +131,9 @@ function Signup() {
     // Send HTTP Request
     axios
       .post(
-        `//${import.meta.env.VITE_SERVER_HOST}:${import.meta.env.VITE_SERVER_PORT}/users`,
+        `//${import.meta.env.VITE_SERVER_HOST}:${
+          import.meta.env.VITE_SERVER_PORT
+        }/users`,
         {
           username: inputs.username,
           password: bcrypt.hashSync(inputs.password, SALT_ROUNDS),

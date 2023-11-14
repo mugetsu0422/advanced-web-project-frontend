@@ -25,9 +25,11 @@ function AccountSection({ isSignin, setIsSignin }) {
           <ThreeDotsVertical
             className={`${styles['more-icon']}`}></ThreeDotsVertical>
           <div className={`${styles['dropdown-content']}`}>
-            <Dropdown.Item className={`${styles['dropdown-item']}`}>
+            <Link
+              className={`${styles['dropdown-item']} dropdown-item`}
+              to={'/profile'}>
               Profile
-            </Dropdown.Item>
+            </Link>
             <Dropdown.Item
               className={`${styles['dropdown-item']}`}
               onClick={signOut}>

@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Form, Card, Alert } from 'react-bootstrap';
-import styles from './profile.module.css';
-import Cookies from 'js-cookie';
-import axios from 'axios';
-import { jwtDecode } from 'jwt-decode';
-import bcrypt from 'bcryptjs';
-import { SALT_ROUNDS } from '../constants/constants';
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { Form, Card, Alert } from 'react-bootstrap'
+import styles from './profile.module.css'
+import Cookies from 'js-cookie'
+import axios from 'axios'
+import { jwtDecode } from 'jwt-decode'
+import bcrypt from 'bcryptjs'
+import { SALT_ROUNDS } from '../constants/constants'
 
 function SuccessfulAlert({ showAlert, setShowAlert }) {
   if (showAlert == 201) {
@@ -27,38 +27,40 @@ function SuccessfulAlert({ showAlert, setShowAlert }) {
 
 const ChangePassword = () => {
   const [showAlert, setShowAlert] = useState(0)
-  const [oldPassword, setOldPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [submitted, setSubmitted] = useState(false);
+  const [oldPassword, setOldPassword] = useState('')
+  const [newPassword, setNewPassword] = useState('')
+  const [submitted, setSubmitted] = useState(false)
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setSubmitted(true);
+    e.preventDefault()
+    setSubmitted(true)
 
-    if(!oldPassword.trim())
-      return;
-    if(!newPassword.trim())
-      return;
-  
-    const token = Cookies.get('authToken');
-    const decodedToken = jwtDecode(token);
+    if (!oldPassword.trim()) return
+    if (!newPassword.trim()) return
+
+    const token = Cookies.get('authToken')
+    const decodedToken = jwtDecode(token)
     try {
-      const response = await axios.post(`//${import.meta.env.VITE_SERVER_HOST}:${import.meta.env.VITE_SERVER_PORT}/users/change-password`, {
-        userId: decodedToken.sub,
-        oldPassword: oldPassword,
-        newPassword: bcrypt.hashSync(newPassword, SALT_ROUNDS)
-      });
-  
-      setShowAlert(201);
-      setOldPassword('');
-      setNewPassword('');
-      setSubmitted(false);
+      const response = await axios.post(
+        `//${import.meta.env.VITE_SERVER_HOST}:${
+          import.meta.env.VITE_SERVER_PORT
+        }/users/change-password`,
+        {
+          userId: decodedToken.sub,
+          oldPassword: oldPassword,
+          newPassword: bcrypt.hashSync(newPassword, SALT_ROUNDS),
+        }
+      )
+
+      setShowAlert(201)
+      setOldPassword('')
+      setNewPassword('')
+      setSubmitted(false)
     } catch {
-      setShowAlert(400);
-      setSubmitted(false);
+      setShowAlert(400)
+      setSubmitted(false)
     }
-  };
-  
+  }
 
   return (
     <div className={styles.profile}>
@@ -71,8 +73,7 @@ const ChangePassword = () => {
               </Link>
               <Link
                 to="/profile/changePassword"
-                className={`${styles['profile-item']} ${styles['active-menu']}`}
-              >
+                className={`${styles['profile-item']} ${styles['active-menu']}`}>
                 Change password
               </Link>
             </ul>
@@ -81,9 +82,14 @@ const ChangePassword = () => {
         <div className={`col-sm-9 pb-4 ${styles['col-sm-9']}`}>
           <p className={`title text-center ${styles.title}`}>Change Password</p>
           <div className={styles['alert-container']}>
-            <SuccessfulAlert showAlert={showAlert} setShowAlert={setShowAlert} />
+            <SuccessfulAlert
+              showAlert={showAlert}
+              setShowAlert={setShowAlert}
+            />
           </div>
-          <form className={`profile-form ${styles['profile-form']}`} onSubmit={handleSubmit}>
+          <form
+            className={`profile-form ${styles['profile-form']}`}
+            onSubmit={handleSubmit}>
             <div className="row">
               <div className="col-md-12">
                 <Form.Group>
@@ -93,7 +99,9 @@ const ChangePassword = () => {
                     id="oldPassword"
                     value={oldPassword}
                     onChange={(e) => setOldPassword(e.target.value)}
-                    className={`${styles['form-control']} ${(submitted && !oldPassword.trim()) ? styles['invalid'] : ''}`}
+                    className={`${styles['form-control']} ${
+                      submitted && !oldPassword.trim() ? styles['invalid'] : ''
+                    }`}
                     isInvalid={submitted && !oldPassword.trim()}
                   />
                 </Form.Group>
@@ -108,7 +116,9 @@ const ChangePassword = () => {
                     id="newPassword"
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
-                    className={`${styles['form-control']} ${(submitted && !newPassword.trim()) ? styles['invalid'] : ''}`}
+                    className={`${styles['form-control']} ${
+                      submitted && !newPassword.trim() ? styles['invalid'] : ''
+                    }`}
                     isInvalid={submitted && !newPassword.trim()}
                   />
                 </Form.Group>
@@ -121,7 +131,7 @@ const ChangePassword = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ChangePassword;
+export default ChangePassword
