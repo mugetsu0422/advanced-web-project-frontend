@@ -72,9 +72,11 @@ const Profile = ({ username, email, msg }) => {
       })
       .then(() => {
         setShowAlert(201);
+        setSubmitted(false);
       })
       .catch(() => {
         setShowAlert(400);
+        setSubmitted(false);
       })
     }
   };

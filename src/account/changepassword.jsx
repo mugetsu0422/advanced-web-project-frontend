@@ -52,8 +52,10 @@ const ChangePassword = () => {
       setShowAlert(201);
       setOldPassword('');
       setNewPassword('');
+      setSubmitted(false);
     } catch {
       setShowAlert(400);
+      setSubmitted(false);
     }
   };
   
