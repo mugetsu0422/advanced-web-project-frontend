@@ -87,16 +87,20 @@ a.dropdown-item:hover {
     .dropdown {
         display: flex;
     }
+
     .left {
         margin: auto;
     }
+
     .dropdown {
         width: 10%;
     }
+
     .navbar a,
     .right {
         display: none;
     }
+
     .more-icon {
         float: right;
         display: block;
