@@ -12,13 +12,13 @@ import { SALT_ROUNDS } from '../constants/constants'
 function SuccessfulAlert({ showAlert, setShowAlert }) {
   if (showAlert == 201) {
     return (
-      <Alert variant="success" onClose={() => setShowAlert('')} dismissible>
+      <Alert variant="success" onClose={() => setShowAlert(0)} dismissible>
         <strong>Your account has been successfully created</strong>
       </Alert>
     )
   } else if (showAlert == 400) {
     return (
-      <Alert variant="danger" onClose={() => setShowAlert('')} dismissible>
+      <Alert variant="danger" onClose={() => setShowAlert(0)} dismissible>
         <strong>Your username has been existed!</strong>
       </Alert>
     )

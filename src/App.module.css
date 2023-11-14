@@ -23,6 +23,10 @@
     padding-right: 20px;
 }
 
+.right:hover {
+    cursor: pointer;
+}
+
 .navbar {
     padding: 0;
 }
@@ -47,7 +51,13 @@
 .dropdown {
     width: auto;
     height: 100%;
-    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* display: none; */
+}
+
+.more-icon {
     display: none;
 }
 
@@ -63,6 +73,7 @@
 .dropdown-item {
     width: 100%;
     text-align: center;
+    padding: 0.25rem 1.5rem
 }
 
 a.dropdown-item.active,
@@ -73,13 +84,6 @@ a.dropdown-item:hover {
 
 .dropdown:hover .dropdown-content {
     display: block;
-}
-
-.more-icon {
-    /* padding-right: 20px; */
-    display: none;
-    align-self: center;
-    justify-self: center;
 }
 
 /* When the screen is less than 660 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */

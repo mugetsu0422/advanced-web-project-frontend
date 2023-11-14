@@ -9,6 +9,9 @@ import Signup from './account/signup'
 import Signin from './account/signin.jsx'
 import Profile from './account/profile'
 import ChangePassword from './account/changepassword'
+import HomePage from './common/HomePage.jsx'
+import LandingPage from './common/LandingPage.jsx'
+import Cookies from 'js-cookie'
 
 const router = createBrowserRouter([
   {
@@ -32,6 +35,10 @@ const router = createBrowserRouter([
         path: 'profile/changePassword',
         element: <ChangePassword />,
       },
+      {
+        path: '',
+        element: <>{(Cookies.get('authToken') ? <HomePage></HomePage> : <LandingPage></LandingPage>)}</>
+      }
     ],
   },
 ])
