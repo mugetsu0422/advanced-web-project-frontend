@@ -9,10 +9,16 @@ import axios from 'axios'
 import Cookies from 'js-cookie';
 
 function SuccessfulAlert({ showAlert, setShowAlert }) {
-    if (showAlert) {
+    if (showAlert == 201) {
         return (
-            <Alert variant='success' onClose={() => setShowAlert(false)} dismissible>
-                <strong>Successfully sign in</strong>
+            <Alert variant="success" onClose={() => setShowAlert('')} dismissible>
+                <strong>Your account has been successfully login</strong>
+            </Alert>
+        )
+    } else if (showAlert == 400) {
+        return (
+            <Alert variant="danger" onClose={() => setShowAlert('')} dismissible>
+                <strong>Your username or password is incorrect!</strong>
             </Alert>
         )
     }
