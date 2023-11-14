@@ -11,13 +11,13 @@ import Cookies from 'js-cookie';
 function SuccessfulAlert({ showAlert, setShowAlert }) {
     if (showAlert == 201) {
         return (
-            <Alert variant="success" onClose={() => setShowAlert('')} dismissible>
+            <Alert variant="success" onClose={() => setShowAlert(0)} dismissible>
                 <strong>Your account has been successfully login</strong>
             </Alert>
         )
     } else if (showAlert == 400) {
         return (
-            <Alert variant="danger" onClose={() => setShowAlert('')} dismissible>
+            <Alert variant="danger" onClose={() => setShowAlert(0)} dismissible>
                 <strong>Your username or password is incorrect!</strong>
             </Alert>
         )
@@ -95,8 +95,8 @@ function Signin() {
             )
             .then((response) => {
                 // If successful
-                Cookies.set('authToken', response.data.access_token, { expires: 7 });
-                setShowAlert(201);
+                Cookies.set('authToken', response.data.access_token, { expires: 1 });
+                window.location.href = "/";
             })
             .catch((error) => {
                 // If not successful (duplicate username or other error)

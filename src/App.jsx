@@ -1,32 +1,78 @@
 import { Outlet } from 'react-router-dom'
 import { Link } from 'react-router-dom'
-import './App.css'
+import styles from './App.module.css'
+import { useEffect, useState } from 'react'
+import Cookies from 'js-cookie'
+import { ThreeDotsVertical } from 'react-bootstrap-icons'
+import Dropdown from 'react-bootstrap/Dropdown'
+import PropTypes from 'prop-types'
 
-function App() {
-  return (
-    <>
-      <div className="nav">
-        <Link to={'/'} className="left">
-          MATCHA
-        </Link>
-        <nav className="navbar">
-          <Link className="Review" to={'#'}>
-            1
-          </Link>
-          <Link className="Learn" to={'#'}>
-            2
-          </Link>
-          <Link className="Handbook" to={'#'}>
-            3
-          </Link>
-        </nav>
-        {/* <div>
-          <form id="frmLogout" action="/logout" method="post"></form>
-          <a className="right" href="javascript: $('#frmLogout').submit();">Log out</a>
-        </div> */}
-        <Link to={'/signin'} className="right">
+function AccountSection({ isSignin, setIsSignin }) {
+  function showDropdown() {}
+  function signOut() {
+    Cookies.remove('authToken')
+    setIsSignin(false)
+    window.location.href = '/'
+  }
+
+  if (isSignin) {
+    return (
+      <>
+        <Dropdown className={`${styles['dropdown']}`}>
+          <div className={`${styles['right']}`} onClick={showDropdown}>
+            User
+          </div>
+          <ThreeDotsVertical
+            className={`${styles['more-icon']}`}></ThreeDotsVertical>
+          <div className={`${styles['dropdown-content']}`}>
+            <Dropdown.Item className={`${styles['dropdown-item']}`}>
+              Profile
+            </Dropdown.Item>
+            <Dropdown.Item
+              className={`${styles['dropdown-item']}`}
+              onClick={signOut}>
+              Sign Out
+            </Dropdown.Item>
+          </div>
+        </Dropdown>
+      </>
+    )
+  } else {
+    return (
+      <>
+        <Link to={'/signin'} className={`${styles['right']}`}>
           Log in
         </Link>
+      </>
+    )
+  }
+}
+
+function App() {
+  const [isSignin, setIsSignin] = useState(false)
+
+  useEffect(() => {
+    if (Cookies.get('authToken')) {
+      setIsSignin(true)
+    } else {
+      setIsSignin(false)
+    }
+  }, [])
+
+  return (
+    <>
+      <div className={`${styles['nav']}`}>
+        <Link to={'/'} className={`${styles['left']}`}>
+          MATCHA
+        </Link>
+        <nav className={`${styles['navbar']}`}>
+          <Link to={'#'}>1</Link>
+          <Link to={'#'}>2</Link>
+          <Link to={'#'}>3</Link>
+        </nav>
+        <AccountSection
+          isSignin={isSignin}
+          setIsSignin={setIsSignin}></AccountSection>
       </div>
       <Outlet />
     </>
@@ -34,3 +80,8 @@ function App() {
 }
 
 export default App
+
+AccountSection.propTypes = {
+  isSignin: PropTypes.bool.isRequired,
+  setIsSignin: PropTypes.func.isRequired,
+}
