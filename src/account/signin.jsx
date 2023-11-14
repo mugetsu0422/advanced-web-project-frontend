@@ -5,12 +5,20 @@ import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { Form as BootstrapForm } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
+import axios from 'axios'
+import Cookies from 'js-cookie';
 
 function SuccessfulAlert({ showAlert, setShowAlert }) {
-    if (showAlert) {
+    if (showAlert == 201) {
         return (
-            <Alert variant='success' onClose={() => setShowAlert(false)} dismissible>
-                <strong>Successfully sign in</strong>
+            <Alert variant="success" onClose={() => setShowAlert('')} dismissible>
+                <strong>Your account has been successfully login</strong>
+            </Alert>
+        )
+    } else if (showAlert == 400) {
+        return (
+            <Alert variant="danger" onClose={() => setShowAlert('')} dismissible>
+                <strong>Your username or password is incorrect!</strong>
             </Alert>
         )
     }
@@ -34,7 +42,7 @@ function SigninForm({ handleChange, handleSubmit, validated, inputs }) {
                             onChange={handleChange}
                         />
                     </BootstrapForm.Group>
-                    <BootstrapForm.Group controlId="password" className='my-input-group'>
+                    <BootstrapForm.Group controlId="password" className={styles['my-input-group']}>
                         <BootstrapForm.Label></BootstrapForm.Label>
                         <BootstrapForm.Control
                             className={styles['my-input']}
@@ -58,7 +66,7 @@ function SigninForm({ handleChange, handleSubmit, validated, inputs }) {
 }
 
 function Signin() {
-    const [showAlert, setShowAlert] = useState(false)
+    const [showAlert, setShowAlert] = useState(0)
     const [inputs, setInputs] = useState({});
     const [validated, setValidated] = useState(false);
 
@@ -76,10 +84,25 @@ function Signin() {
             return
         }
 
-        // Send HTTP Request
-        // If successful
-        setShowAlert(true)
-        // If not successful
+
+        axios
+            .post(
+                `//${import.meta.env.VITE_SERVER_HOST}:${import.meta.env.VITE_SERVER_PORT}/signin`,
+                {
+                    username: inputs.username,
+                    password: inputs.password,
+                }
+            )
+            .then((response) => {
+                // If successful
+                Cookies.set('authToken', response.data.access_token, { expires: 7 });
+                setShowAlert(201);
+            })
+            .catch((error) => {
+                // If not successful (duplicate username or other error)
+                setShowAlert(400);
+                console.error('Error from server:', error);
+            });
     }
 
     return (
@@ -95,7 +118,7 @@ function Signin() {
 export default Signin;
 
 SuccessfulAlert.propTypes = {
-    showAlert: PropTypes.bool.isRequired,
+    showAlert: PropTypes.number.isRequired,
     setShowAlert: PropTypes.func.isRequired,
 }
 

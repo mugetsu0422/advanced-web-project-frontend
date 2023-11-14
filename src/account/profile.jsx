@@ -21,14 +21,14 @@ const Profile = ({ name, email, msg }) => {
 
   return (
     <div className={styles.profile}>
-    <div className={`row`}>
-      <div className={`col-sm-9 pb-4 ${styles['col-sm-9']}`}>
-        <p className={`title text-center ${styles.title}`}>Profile</p>
-        <form className={`profile-form ${styles['profile-form']}`} onSubmit={handleSubmit}>
-          {msg && (
-            <Alert variant="success" className={`text-center pr-0 ${styles.alert}`} dismissible>
-              {msg}
-            </Alert>
+      <div className={`row`}>
+        <div className={`col-sm-9 pb-4 ${styles['col-sm-9']}`}>
+          <p className={`title text-center ${styles.title}`}>Profile</p>
+          <form className={`profile-form ${styles['profile-form']}`} onSubmit={handleSubmit}>
+            {msg && (
+              <Alert variant="success" className={`text-center pr-0 ${styles.alert}`} dismissible>
+                {msg}
+              </Alert>
             )}
             <div className="row">
               <div className="col-md-6">

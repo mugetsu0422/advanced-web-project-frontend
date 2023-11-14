@@ -129,7 +129,7 @@ function Signup() {
     // Send HTTP Request
     axios
       .post(
-        `//${import.meta.env.SERVER_HOST}:${import.meta.env.SERVER_PORT}/users`,
+        `//${import.meta.env.VITE_SERVER_HOST}:${import.meta.env.VITE_SERVER_PORT}/users`,
         {
           username: inputs.username,
           password: bcrypt.hashSync(inputs.password, SALT_ROUNDS),
