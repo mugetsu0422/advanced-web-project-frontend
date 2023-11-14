@@ -4,26 +4,45 @@ import { Form, Alert, Card } from 'react-bootstrap';
 import styles from './profile.module.css';
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import { jwtDecode } from "jwt-decode";
+
+function SuccessfulAlert({ showAlert, setShowAlert }) {
+  if (showAlert == 201) {
+    return (
+      <Alert variant="success" onClose={() => setShowAlert('')} dismissible>
+        <strong>Edit profile successfully</strong>
+      </Alert>
+    )
+  } else if (showAlert == 400) {
+    return (
+      <Alert variant="danger" onClose={() => setShowAlert('')} dismissible>
+        <strong>Username has been existed</strong>
+      </Alert>
+    )
+  }
+  return null
+}
 
 const Profile = ({ username, email, msg }) => {
+  const [showAlert, setShowAlert] = useState(0)
   const [formData, setFormData] = useState({
     username: '',
     email: '',
     phone: '',
     address: '',
   });
+  const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
-    const token = Cookies.get('authToken')
-    console.log(token);
+    const token = Cookies.get('authToken');
+    const decodedToken = jwtDecode(token);
 
     if (token) {
       axios
-      .get(`//${import.meta.env.SERVER_HOST}:${import.meta.env.SERVER_PORT}/users:${decoded.UserID}`)
+      .get(`//${import.meta.env.VITE_SERVER_HOST}:${import.meta.env.VITE_SERVER_PORT}/users/${decodedToken.sub}`)
         .then((response) => {
           const userData = response.data;
           setFormData(userData);
-          console.log(userData);
         })
         .catch((error) => {
           console.error('Error fetching user data:', error);
@@ -33,26 +52,29 @@ const Profile = ({ username, email, msg }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitted(true);
 
     const { username, email, phone, address } = formData;
 
-    const token = localStorage.getItem('jwtToken');
+    if(!username.trim())
+      return;
+
+    const token = Cookies.get('authToken');
+    const decodedToken = jwtDecode(token);
+
     if (token) {
-      const decoded = jwt_decode(token);
       axios
-      .put(`//${import.meta.env.SERVER_HOST}:${import.meta.env.SERVER_PORT}/users:${decoded.UserID}`, {
+      .put(`//${import.meta.env.VITE_SERVER_HOST}:${import.meta.env.VITE_SERVER_PORT}/users/${decodedToken.sub}`, {
         username: username,
         email: email,
         phone: phone,
         address: address,
       })
       .then(() => {
-        // If successful
-      
+        setShowAlert(201);
       })
       .catch(() => {
-        // If not successful 
-        
+        setShowAlert(400);
       })
     }
   };
@@ -74,6 +96,9 @@ const Profile = ({ username, email, msg }) => {
       </div>
       <div className={`col-sm-9 pb-4 ${styles['col-sm-9']}`}>
         <p className={`title text-center ${styles.title}`}>Profile</p>
+        <div className={styles['alert-container']}>
+          <SuccessfulAlert showAlert={showAlert} setShowAlert={setShowAlert} />
+        </div>
         <form className={`profile-form ${styles['profile-form']}`} onSubmit={handleSubmit}>
           {msg && (
             <Alert variant="success" className={`text-center pr-0 ${styles.alert}`} dismissible>
@@ -90,7 +115,8 @@ const Profile = ({ username, email, msg }) => {
                     placeholder={username}
                     value={formData.username}
                     onChange={(e) => setFormData({ ...formData, username: e.target.value })}
-                    className={styles['form-control']}
+                    className={`${styles['form-control']} ${(submitted && !formData.username.trim()) ? styles['invalid'] : ''}`}
+                    isInvalid={submitted && !formData.username.trim()}
                   />
                 </Form.Group>
               </div>
