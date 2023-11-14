@@ -8,6 +8,7 @@ import ErrorPage from './error-page'
 import Signup from './account/signup'
 import Signin from './account/signin.jsx'
 import Profile from './account/profile'
+import ChangePassword from './account/changepassword'
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: 'profile',
         element: <Profile />,
+      },
+      {
+        path: 'profile/changePassword',
+        element: <ChangePassword />,
       },
     ],
   },

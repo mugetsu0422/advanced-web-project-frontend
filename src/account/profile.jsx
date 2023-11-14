@@ -1,34 +1,84 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Form, Alert } from 'react-bootstrap';
+import { Form, Alert, Card } from 'react-bootstrap';
 import styles from './profile.module.css';
+import Cookies from 'js-cookie';
+import axios from 'axios';
 
-const Profile = ({ name, email, msg }) => {
+const Profile = ({ username, email, msg }) => {
   const [formData, setFormData] = useState({
-    name: '',
+    username: '',
     email: '',
-    password: '',
     phone: '',
     address: '',
   });
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    const token = Cookies.get('authToken')
+    console.log(token);
+
+    if (token) {
+      axios
+      .get(`//${import.meta.env.SERVER_HOST}:${import.meta.env.SERVER_PORT}/users:${decoded.UserID}`)
+        .then((response) => {
+          const userData = response.data;
+          setFormData(userData);
+          console.log(userData);
+        })
+        .catch((error) => {
+          console.error('Error fetching user data:', error);
+        });
+    }
+  }, []);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { name, email, password, phone, address } = formData;
+    const { username, email, phone, address } = formData;
 
+    const token = localStorage.getItem('jwtToken');
+    if (token) {
+      const decoded = jwt_decode(token);
+      axios
+      .put(`//${import.meta.env.SERVER_HOST}:${import.meta.env.SERVER_PORT}/users:${decoded.UserID}`, {
+        username: username,
+        email: email,
+        phone: phone,
+        address: address,
+      })
+      .then(() => {
+        // If successful
+      
+      })
+      .catch(() => {
+        // If not successful 
+        
+      })
+    }
   };
 
   return (
     <div className={styles.profile}>
-      <div className={`row`}>
-        <div className={`col-sm-9 pb-4 ${styles['col-sm-9']}`}>
-          <p className={`title text-center ${styles.title}`}>Profile</p>
-          <form className={`profile-form ${styles['profile-form']}`} onSubmit={handleSubmit}>
-            {msg && (
-              <Alert variant="success" className={`text-center pr-0 ${styles.alert}`} dismissible>
-                {msg}
-              </Alert>
+    <div className={`row`}>
+      <div className="col-sm-3">
+        <Card>
+          <ul className="list-group list-group-flush">
+            <Link to="/profile" className={`${styles['profile-item']} ${styles['active-menu']}`}>
+              Profile
+            </Link>
+            <Link to="changePassword" className={`${styles['profile-item']}`}>
+              Change password
+            </Link>
+          </ul>
+        </Card>
+      </div>
+      <div className={`col-sm-9 pb-4 ${styles['col-sm-9']}`}>
+        <p className={`title text-center ${styles.title}`}>Profile</p>
+        <form className={`profile-form ${styles['profile-form']}`} onSubmit={handleSubmit}>
+          {msg && (
+            <Alert variant="success" className={`text-center pr-0 ${styles.alert}`} dismissible>
+              {msg}
+            </Alert>
             )}
             <div className="row">
               <div className="col-md-6">
@@ -37,9 +87,9 @@ const Profile = ({ name, email, msg }) => {
                   <Form.Control
                     type="text"
                     id="txtName"
-                    placeholder={name}
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    placeholder={username}
+                    value={formData.username}
+                    onChange={(e) => setFormData({ ...formData, username: e.target.value })}
                     className={styles['form-control']}
                   />
                 </Form.Group>
@@ -61,18 +111,6 @@ const Profile = ({ name, email, msg }) => {
             <div className="row">
               <div className="col-md-6">
                 <Form.Group>
-                  <Form.Label htmlFor="txtPassword">Password</Form.Label>
-                  <Form.Control
-                    type="password"
-                    id="txtPassword"
-                    value={formData.password}
-                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                    className={styles['form-control']}
-                  />
-                </Form.Group>
-              </div>
-              <div className="col-md-6">
-                <Form.Group>
                   <Form.Label htmlFor="txtPhone">Telephone</Form.Label>
                   <Form.Control
                     type="text"
@@ -86,8 +124,6 @@ const Profile = ({ name, email, msg }) => {
                   />
                 </Form.Group>
               </div>
-            </div>
-            <div className="row">
               <div className="col-md-6">
                 <Form.Group>
                   <Form.Label htmlFor="txtAddress">Address</Form.Label>
