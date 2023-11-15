@@ -40,9 +40,13 @@ const Profile = ({ username, email, msg }) => {
     if (token) {
       axios
         .get(
-          `//${import.meta.env.VITE_SERVER_HOST}:${
-            import.meta.env.VITE_SERVER_PORT
-          }/users/${decodedToken.sub}`
+          `//${import.meta.env.VITE_SERVER_HOST}:${import.meta.env.VITE_SERVER_PORT
+          }/users/${decodedToken.sub}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }
         )
         .then((response) => {
           const userData = response.data
@@ -68,14 +72,17 @@ const Profile = ({ username, email, msg }) => {
     if (token) {
       axios
         .put(
-          `//${import.meta.env.VITE_SERVER_HOST}:${
-            import.meta.env.VITE_SERVER_PORT
-          }/users/${decodedToken.sub}`,
+          `//${import.meta.env.VITE_SERVER_HOST}:${import.meta.env.VITE_SERVER_PORT}/users/${decodedToken.sub}`,
           {
             username: username,
             email: email,
             phone: phone,
             address: address,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
         )
         .then(() => {
@@ -137,11 +144,10 @@ const Profile = ({ username, email, msg }) => {
                     onChange={(e) =>
                       setFormData({ ...formData, username: e.target.value })
                     }
-                    className={`${styles['form-control']} ${
-                      submitted && !formData.username.trim()
+                    className={`${styles['form-control']} ${submitted && !formData.username.trim()
                         ? styles['invalid']
                         : ''
-                    }`}
+                      }`}
                     isInvalid={submitted && !formData.username.trim()}
                   />
                 </Form.Group>
