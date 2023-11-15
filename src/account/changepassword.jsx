@@ -49,6 +49,11 @@ const ChangePassword = () => {
           userId: decodedToken.sub,
           oldPassword: oldPassword,
           newPassword: bcrypt.hashSync(newPassword, SALT_ROUNDS),
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       )
 
