@@ -42,9 +42,7 @@ const ChangePassword = () => {
     const decodedToken = jwtDecode(token)
     try {
       const response = await axios.post(
-        `//${import.meta.env.VITE_SERVER_HOST}:${
-          import.meta.env.VITE_SERVER_PORT
-        }/users/change-password`,
+        `${import.meta.env.VITE_SERVER_HOST}/users/change-password`,
         {
           userId: decodedToken.sub,
           oldPassword: oldPassword,
