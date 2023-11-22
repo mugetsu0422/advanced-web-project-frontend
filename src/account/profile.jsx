@@ -40,8 +40,7 @@ const Profile = ({ username, email, msg }) => {
     if (token) {
       axios
         .get(
-          `//${import.meta.env.VITE_SERVER_HOST}:${import.meta.env.VITE_SERVER_PORT
-          }/users/${decodedToken.sub}`,
+          `${import.meta.env.VITE_SERVER_HOST}/users/${decodedToken.sub}`,
           {
             headers: {
               Authorization: `Bearer ${token}`
@@ -72,7 +71,7 @@ const Profile = ({ username, email, msg }) => {
     if (token) {
       axios
         .put(
-          `//${import.meta.env.VITE_SERVER_HOST}:${import.meta.env.VITE_SERVER_PORT}/users/${decodedToken.sub}`,
+          `${import.meta.env.VITE_SERVER_HOST}/users/${decodedToken.sub}`,
           {
             username: username,
             email: email,

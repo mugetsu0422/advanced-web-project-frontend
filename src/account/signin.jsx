@@ -104,9 +104,7 @@ function Signin() {
 
     axios
       .post(
-        `//${import.meta.env.VITE_SERVER_HOST}:${
-          import.meta.env.VITE_SERVER_PORT
-        }/signin`,
+        `${import.meta.env.VITE_SERVER_HOST}/signin`,
         {
           username: inputs.username,
           password: inputs.password,
