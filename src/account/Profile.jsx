@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Form, Alert, Card } from 'react-bootstrap'
-import styles from './profile.module.css'
+import styles from './Profile.module.css'
 import Cookies from 'js-cookie'
 import axios from 'axios'
 import { jwtDecode } from 'jwt-decode'

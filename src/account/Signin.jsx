@@ -1,36 +1,35 @@
-import styles from './signup.module.css'
+import styles from './Signin.module.css'
+import Alert from 'react-bootstrap/Alert'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { Form as BootstrapForm } from 'react-bootstrap'
-import Alert from 'react-bootstrap/Alert'
 import Container from 'react-bootstrap/Container'
 import axios from 'axios'
-import bcrypt from 'bcryptjs'
-import { SALT_ROUNDS } from '../constants/constants'
+import Cookies from 'js-cookie'
 
 function SuccessfulAlert({ showAlert, setShowAlert }) {
   if (showAlert == 201) {
     return (
       <Alert variant="success" onClose={() => setShowAlert(0)} dismissible>
-        <strong>Your account has been successfully created</strong>
+        <strong>Your account has been successfully login</strong>
       </Alert>
     )
   } else if (showAlert == 400) {
     return (
       <Alert variant="danger" onClose={() => setShowAlert(0)} dismissible>
-        <strong>Your username has been existed!</strong>
+        <strong>Your username or password is incorrect!</strong>
       </Alert>
     )
   }
   return null
 }
 
-function SignupForm({ handleChange, handleSubmit, validated, inputs }) {
+function SigninForm({ handleChange, handleSubmit, validated, inputs }) {
   return (
     <>
       <BootstrapForm
-        id="register-form"
+        id="signin-form"
         noValidate
         validated={validated}
         onSubmit={handleSubmit}>
@@ -64,39 +63,17 @@ function SignupForm({ handleChange, handleSubmit, validated, inputs }) {
               onChange={handleChange}
             />
           </BootstrapForm.Group>
-          <BootstrapForm.Group
-            controlId="confirmPassword"
-            className={styles['my-input-group']}>
-            <BootstrapForm.Label></BootstrapForm.Label>
-            <BootstrapForm.Control
-              className={styles['my-input']}
-              required
-              pattern={inputs.password}
-              type="password"
-              name="confirmPassword"
-              placeholder="Confirm password"
-              autoComplete="on"
-              defaultValue={inputs.confirmPassword || ''}
-              onChange={handleChange}
-              isInvalid={inputs.confirmPassword != inputs.password}
-            />
-            <BootstrapForm.Control.Feedback
-              type="invalid"
-              className={styles['invalid-feedback']}>
-              Confirm password does not match!
-            </BootstrapForm.Control.Feedback>
-          </BootstrapForm.Group>
           <button
-            className={styles['register-btn']}
+            className={styles['signin-btn']}
             type="submit"
-            form="register-form">
-            SIGN UP
+            form="signin-form">
+            SIGN IN
           </button>
           <div className={styles['info-div']}>
             <p>
-              Already have an account?{' '}
-              <Link style={{ textDecoration: 'none' }} to={'/signin'}>
-                Sign in
+              No account yet?{' '}
+              <Link style={{ textDecoration: 'none' }} to={'/signup'}>
+                Sign up
               </Link>
             </p>
           </div>
@@ -106,7 +83,7 @@ function SignupForm({ handleChange, handleSubmit, validated, inputs }) {
   )
 }
 
-function Signup() {
+function Signin() {
   const [showAlert, setShowAlert] = useState(0)
   const [inputs, setInputs] = useState({})
   const [validated, setValidated] = useState(false)
@@ -121,29 +98,27 @@ function Signup() {
     event.preventDefault()
     setValidated(true)
     const form = event.currentTarget
-    if (
-      form.checkValidity() === false ||
-      inputs.confirmPassword != inputs.password
-    ) {
+    if (form.checkValidity() === false) {
       return
     }
 
-    // Send HTTP Request
     axios
       .post(
-        `${import.meta.env.VITE_SERVER_HOST}/users`,
+        `${import.meta.env.VITE_SERVER_HOST}/signin`,
         {
           username: inputs.username,
-          password: bcrypt.hashSync(inputs.password, SALT_ROUNDS),
+          password: inputs.password,
         }
       )
-      .then(() => {
+      .then((response) => {
         // If successful
-        setShowAlert(201)
+        Cookies.set('authToken', response.data.access_token, { expires: 1 })
+        window.location.href = '/'
       })
-      .catch(() => {
-        // If not successful (duplicate username)
+      .catch((error) => {
+        // If not successful (duplicate username or other error)
         setShowAlert(400)
+        console.error('Error from server:', error)
       })
   }
 
@@ -153,24 +128,24 @@ function Signup() {
         <SuccessfulAlert
           showAlert={showAlert}
           setShowAlert={setShowAlert}></SuccessfulAlert>
-        <SignupForm
+        <SigninForm
           handleChange={handleChange}
           handleSubmit={handleSubmit}
           validated={validated}
-          inputs={inputs}></SignupForm>
+          inputs={inputs}></SigninForm>
       </Container>
     </>
   )
 }
 
-export default Signup
+export default Signin
 
 SuccessfulAlert.propTypes = {
   showAlert: PropTypes.number.isRequired,
   setShowAlert: PropTypes.func.isRequired,
 }
 
-SignupForm.propTypes = {
+SigninForm.propTypes = {
   handleChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   validated: PropTypes.bool.isRequired,
