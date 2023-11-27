@@ -9,6 +9,7 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import Google from '../assets/google.png'
 import Facebook from '../assets/facebook.png'
+import { jwtDecode } from 'jwt-decode'
 
 function SuccessfulAlert({ showAlert, setShowAlert }) {
   if (showAlert == 201) {
@@ -171,6 +172,9 @@ function Signin() {
       .then((response) => {
         // If successful
         Cookies.set('authToken', response.data.access_token, { expires: 1 })
+        const decodedToken = jwtDecode(response.data.access_token)
+        // localStorage.setItem('username', decodedToken.username)
+        localStorage.setItem('role', decodedToken.role)
         window.location.href = '/'
       })
       .catch((error) => {
