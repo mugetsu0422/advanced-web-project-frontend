@@ -5,7 +5,7 @@ export default function ErrorPage() {
   console.error(error)
 
   const centerText = {
-    'text-align': 'center',
+    textAlign: 'center',
   }
 
   return (
@@ -13,7 +13,9 @@ export default function ErrorPage() {
       <h1>Oops!</h1>
       <p>Sorry, an unexpected error has occurred.</p>
       <p>
-        <i>{error.statusText || error.message}</i>
+        <i>
+          {error.status} {error.statusText}
+        </i>
       </p>
     </div>
   )

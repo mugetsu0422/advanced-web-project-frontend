@@ -10,8 +10,8 @@ import Signin from './account/Signin.jsx'
 import Profile from './account/Profile.jsx'
 import ChangePassword from './account/ChangePassword.jsx'
 import HomePage from './common/HomePage.jsx'
-import LandingPage from './common/LandingPage.jsx'
-import Cookies from 'js-cookie'
+import ProtectedRoute from './auth/ProtectedRoute.jsx'
+import SigninRoute from './auth/SigninRoute.jsx'
 
 const router = createBrowserRouter([
   {
@@ -37,14 +37,30 @@ const router = createBrowserRouter([
       },
       {
         path: '',
+        element: <SigninRoute />,
+      },
+      {
+        path: '/student',
         element: (
-          <>
-            {Cookies.get('authToken') ? (
-              <HomePage></HomePage>
-            ) : (
-              <LandingPage></LandingPage>
-            )}
-          </>
+          <ProtectedRoute requiredRole={'student'}>
+            <HomePage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/teacher',
+        element: (
+          <ProtectedRoute requiredRole={'teacher'}>
+            <HomePage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/admin',
+        element: (
+          <ProtectedRoute requiredRole={'admin'}>
+            <HomePage />
+          </ProtectedRoute>
         ),
       },
     ],
