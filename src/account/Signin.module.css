@@ -25,6 +25,12 @@
         font-weight: bold;
         margin: 20px;
     }
+
+    .social-login {
+        width: 80%;
+        height: 2.5rem;
+        display: flex;
+    }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -53,6 +59,12 @@
         font-size: 1.25rem;
         font-weight: bold;
         margin: 20px;
+    }
+
+    .social-login {
+        width: 80%;
+        height: 2.5rem;
+        display: flex;
     }
 }
 
@@ -128,4 +140,51 @@
 
 .info-div {
     font-size: 1.2rem;
+}
+
+.social-google-login-button {
+    padding: 15px 25px;
+    color: white;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    cursor: pointer;
+    background-color: #df4930;
+    border-radius: 2.5rem;
+    width: 45%;
+    height: 2.5rem;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.social-facebook-login-button {
+    padding: 15px 25px;
+    color: white;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    cursor: pointer;
+    background-color: #507cc0;
+    border-radius: 2.5rem;
+    width: 45%;
+    height: 2.5rem;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.or {
+    margin-bottom: 10px;
+}
+
+.social-login {
+    width: 50%;
+    height: 2.5rem;
+    display: flex;
+    justify-content: space-between;
 }
