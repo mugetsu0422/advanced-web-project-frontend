@@ -15,6 +15,8 @@ import SetNewPassword from './account/SetNewPassword.jsx'
 import HomePage from './common/HomePage.jsx'
 import ProtectedRoute from './auth/ProtectedRoute.jsx'
 import SigninRoute from './auth/SigninRoute.jsx'
+import StudentHome from './student/StudentHome.jsx'
+import TeacherHome from './teacher/TeacherHome.jsx'
 
 const router = createBrowserRouter([
   {
@@ -60,7 +62,7 @@ const router = createBrowserRouter([
         path: '/student',
         element: (
           <ProtectedRoute requiredRole={'student'}>
-            <HomePage />
+            <StudentHome />
           </ProtectedRoute>
         ),
       },
@@ -68,7 +70,7 @@ const router = createBrowserRouter([
         path: '/teacher',
         element: (
           <ProtectedRoute requiredRole={'teacher'}>
-            <HomePage />
+            <TeacherHome />
           </ProtectedRoute>
         ),
       },

@@ -376,17 +376,6 @@ function Signup() {
         <SuccessfulAlert
           showAlert={showAlert}
           setShowAlert={setShowAlert}></SuccessfulAlert>
-        {/* <SignupForm
-          handleChange={handleChange}
-          handleSubmit={handleSubmit}
-          validated={validated}
-          inputs={inputs}></SignupForm>
-        <PersonalInformation
-          handleChange={handleChange}
-          handleChangeNumber={handleChangeNumber}
-          handleSubmit={handleSubmit}
-          validated={validated}
-          inputs={inputs}></PersonalInformation> */}
         <FormContext.Provider
           value={{
             handleChange: handleChange,
