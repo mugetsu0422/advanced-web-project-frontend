@@ -6,7 +6,6 @@ import Cookies from 'js-cookie'
 import { ThreeDotsVertical } from 'react-bootstrap-icons'
 import Dropdown from 'react-bootstrap/Dropdown'
 import PropTypes from 'prop-types'
-import axios from 'axios'
 
 function AccountSection({ isSignin, setIsSignin }) {
   function showDropdown() { }
