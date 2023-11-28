@@ -13,10 +13,6 @@
     -webkit-box-orient: vertical;
  }
 
-.container-fluid {
-    min-height: calc(100vh - 4rem);
-}
-
 .class-card {
     border: 2px solid #afd3d2;
     width: 100%;
