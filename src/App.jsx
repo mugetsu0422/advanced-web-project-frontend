@@ -27,7 +27,7 @@ function AccountSection({ isSignin, setIsSignin }) {
           <div className={`${styles['dropdown-content']}`}>
             <Link
               className={`${styles['dropdown-item']} dropdown-item`}
-              to={'/profile'}>
+              to={'/profile/detail'}>
               Profile
             </Link>
             <Dropdown.Item
