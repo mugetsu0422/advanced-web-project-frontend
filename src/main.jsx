@@ -9,11 +9,11 @@ import Signup from './account/Signup.jsx'
 import Signin from './account/Signin.jsx'
 import Profile from './account/Profile.jsx'
 import ChangePassword from './account/ChangePassword.jsx'
-import HomePage from './common/HomePage.jsx'
 import ProtectedRoute from './auth/ProtectedRoute.jsx'
 import SigninRoute from './auth/SigninRoute.jsx'
 import StudentHome from './student/StudentHome.jsx'
 import TeacherHome from './teacher/TeacherHome.jsx'
+import AdminHome from './admin/AdminHome.jsx'
 
 const router = createBrowserRouter([
   {
@@ -61,7 +61,7 @@ const router = createBrowserRouter([
         path: '/admin',
         element: (
           <ProtectedRoute requiredRole={'admin'}>
-            <HomePage />
+            <AdminHome />
           </ProtectedRoute>
         ),
       },
