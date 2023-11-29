@@ -76,7 +76,7 @@ function SigninForm({ handleChange, handleSubmit, validated, inputs }) {
                 Sign up
               </Link>
               <br/>
-              <Link style={{ textDecoration: 'none' }} to={'/forget-password/request-reset-password'}>
+              <Link style={{ textDecoration: 'none' }} to={'/forget-password'}>
                 Forgot password?
               </Link>
             </p>

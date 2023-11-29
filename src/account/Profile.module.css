@@ -83,3 +83,8 @@
     margin: auto;
     margin-top: 20px;
 }
+
+.successful-alert {
+    width: 80%;
+    margin: 2rem auto 0;
+}
