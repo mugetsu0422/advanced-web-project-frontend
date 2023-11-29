@@ -35,8 +35,12 @@ function SuccessfulAlert({ showAlert, setShowAlert }) {
 
 function Roles() {
   const { inputs, setInputs, formState, setFormState } = useContext(FormContext)
+  const [isInvalid, setIsInvalid] = useState(false)
 
   function roleClick(role) {
+    if (isInvalid) {
+      setIsInvalid(false)
+    }
     if (role != inputs.role) {
       setInputs((values) => ({ ...values, ['role']: role }))
     }
@@ -45,7 +49,7 @@ function Roles() {
   return (
     <>
       <div className={styles['form-div']}>
-        <div className={styles['title']}>Please select your role</div>
+        <div className={styles['title']}>Select your role</div>
         <div className={styles['role-description']}>
           {inputs.role === 'teacher'
             ? 'Guide classes, post assignments, and monitor student progress in a virtual classroom.'
@@ -53,6 +57,9 @@ function Roles() {
           {inputs.role === 'student'
             ? 'Access materials, submit assignments, and collaborate with classmates for an interactive learning experience.'
             : ''}
+        </div>
+        <div className={`${styles['role-description']} text-danger`}>
+          {isInvalid ? 'Please select your role to continue' : ''}
         </div>
         <div className={styles['role-icon-group']}>
           <div
@@ -84,6 +91,10 @@ function Roles() {
           className={styles['register-btn']}
           type="button"
           onClick={() => {
+            if (!inputs.role) {
+              setIsInvalid(true)
+              return
+            }
             setFormState(formState + 1)
           }}>
           CONTINUE
@@ -356,6 +367,7 @@ function Signup() {
     }
     const user = { ...inputs }
     user.password = bcrypt.hashSync(inputs.password, SALT_ROUNDS)
+    delete user.confirmPassword
 
     // Send HTTP Request
     axios
