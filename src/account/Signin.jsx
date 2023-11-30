@@ -9,6 +9,7 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import Google from '../assets/google.png'
 import Facebook from '../assets/facebook.png'
+import { jwtDecode } from 'jwt-decode'
 
 function SuccessfulAlert({ showAlert, setShowAlert }) {
   if (showAlert == 201) {
@@ -79,6 +80,9 @@ function SigninForm({ handleChange, handleSubmit, validated, inputs }) {
               onChange={handleChange}
             />
           </BootstrapForm.Group>
+          <Link className={`text-decoration-none w-75 text-end`} to={'/forget-password'}>
+            Forgot password?
+          </Link>
           <button
             className={styles['signin-btn']}
             type="submit"
@@ -88,13 +92,10 @@ function SigninForm({ handleChange, handleSubmit, validated, inputs }) {
           <div className={styles['info-div']}>
             <p>
               No account yet?{' '}
-              <Link style={{ textDecoration: 'none' }} to={'/signup'}>
+              <Link className={`text-decoration-none`} to={'/signup'}>
                 Sign up
               </Link>
-              <br/>
-              <Link style={{ textDecoration: 'none' }} to={'/forget-password'}>
-                Forgot password?
-              </Link>
+              <br />
             </p>
           </div>
           <div className={styles['or']}> OR </div>
@@ -171,6 +172,9 @@ function Signin() {
       .then((response) => {
         // If successful
         Cookies.set('authToken', response.data.access_token, { expires: 1 })
+        const decodedToken = jwtDecode(response.data.access_token)
+        // localStorage.setItem('username', decodedToken.username)
+        localStorage.setItem('role', decodedToken.role)
         window.location.href = '/'
       })
       .catch((error) => {

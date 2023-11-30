@@ -12,9 +12,11 @@ import Profile from './account/Profile.jsx'
 import ChangePassword from './account/ChangePassword.jsx'
 import RequestResetPassword from './account/RequestResetPassword.jsx'
 import SetNewPassword from './account/SetNewPassword.jsx'
-import HomePage from './common/HomePage.jsx'
-import LandingPage from './common/LandingPage.jsx'
-import Cookies from 'js-cookie'
+import ProtectedRoute from './auth/ProtectedRoute.jsx'
+import SigninRoute from './auth/SigninRoute.jsx'
+import StudentHome from './student/StudentHome.jsx'
+import TeacherHome from './teacher/TeacherHome.jsx'
+import AdminHome from './admin/AdminHome.jsx'
 
 const router = createBrowserRouter([
   {
@@ -54,14 +56,30 @@ const router = createBrowserRouter([
       },
       {
         path: '',
+        element: <SigninRoute />,
+      },
+      {
+        path: '/student',
         element: (
-          <>
-            {Cookies.get('authToken') ? (
-              <HomePage></HomePage>
-            ) : (
-              <LandingPage></LandingPage>
-            )}
-          </>
+          <ProtectedRoute requiredRole={'student'}>
+            <StudentHome />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/teacher',
+        element: (
+          <ProtectedRoute requiredRole={'teacher'}>
+            <TeacherHome />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/admin',
+        element: (
+          <ProtectedRoute requiredRole={'admin'}>
+            <AdminHome />
+          </ProtectedRoute>
         ),
       },
     ],

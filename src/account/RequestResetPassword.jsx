@@ -40,7 +40,7 @@ function ResetPasswordForm({ handleChange, handleSubmit, validated, inputs }) {
         <div className={styles['form-div']}>
           <div className={styles['header-text']}>
             <h1>Reset Password</h1>
-            <p>We need your email which linked to your account to recover your account.</p>
+            <p className='mx-3'>We need your email which linked to your account to recover your account.</p>
           </div>
           <BootstrapForm.Group
             controlId="email"

@@ -1,0 +1,35 @@
+.truncate-text-one-line {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.truncate-text-multi-line {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 5; /* number of lines to show */
+            line-clamp: 5;
+    -webkit-box-orient: vertical;
+ }
+
+.class-card {
+    border: 2px solid #afd3d2;
+    width: 100%;
+}
+
+.class-card:hover {
+    cursor: pointer;
+    box-shadow:
+        0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.class-card-header {
+    border-bottom: 2px solid #afd3d2;
+    background-color: #afd3d2;
+}
+
+.class-card-body {
+    height: 10rem;
+}
