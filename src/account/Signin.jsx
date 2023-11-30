@@ -7,8 +7,8 @@ import { Form as BootstrapForm } from 'react-bootstrap'
 import Container from 'react-bootstrap/Container'
 import axios from 'axios'
 import Cookies from 'js-cookie'
-import Google from '../img/google.png'
-import Facebook from '../img/facebook.png'
+import Google from '../assets/google.png'
+import Facebook from '../assets/facebook.png'
 
 function SuccessfulAlert({ showAlert, setShowAlert }) {
   if (showAlert == 201) {
