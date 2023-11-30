@@ -80,6 +80,9 @@ function SigninForm({ handleChange, handleSubmit, validated, inputs }) {
               onChange={handleChange}
             />
           </BootstrapForm.Group>
+          <Link className={`text-decoration-none w-75 text-end`} to={'/forget-password'}>
+            Forgot password?
+          </Link>
           <button
             className={styles['signin-btn']}
             type="submit"
@@ -89,13 +92,10 @@ function SigninForm({ handleChange, handleSubmit, validated, inputs }) {
           <div className={styles['info-div']}>
             <p>
               No account yet?{' '}
-              <Link style={{ textDecoration: 'none' }} to={'/signup'}>
+              <Link className={`text-decoration-none`} to={'/signup'}>
                 Sign up
               </Link>
-              <br/>
-              <Link style={{ textDecoration: 'none' }} to={'/forget-password'}>
-                Forgot password?
-              </Link>
+              <br />
             </p>
           </div>
           <div className={styles['or']}> OR </div>
