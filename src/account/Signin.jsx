@@ -7,8 +7,8 @@ import { Form as BootstrapForm } from 'react-bootstrap'
 import Container from 'react-bootstrap/Container'
 import axios from 'axios'
 import Cookies from 'js-cookie'
-import Google from '../img/google.png';
-import Facebook from '../img/facebook.png';
+import Google from '../img/google.png'
+import Facebook from '../img/facebook.png'
 
 function SuccessfulAlert({ showAlert, setShowAlert }) {
   if (showAlert == 201) {
@@ -34,12 +34,12 @@ function SuccessfulAlert({ showAlert, setShowAlert }) {
 }
 
 function google() {
-  window.open(`${import.meta.env.VITE_SERVER_HOST}/auth/google`, "_self");
-};
+  window.open(`${import.meta.env.VITE_SERVER_HOST}/auth/google`, '_self')
+}
 
 function facebook() {
-  window.open(`${import.meta.env.VITE_SERVER_HOST}/auth/facebook`, "_self");
-};
+  window.open(`${import.meta.env.VITE_SERVER_HOST}/auth/facebook`, '_self')
+}
 
 function SigninForm({ handleChange, handleSubmit, validated, inputs }) {
   return (
@@ -99,13 +99,15 @@ function SigninForm({ handleChange, handleSubmit, validated, inputs }) {
           </div>
           <div className={styles['or']}> OR </div>
           <div className={styles['social-login']}>
-            <div className={styles['social-google-login-button']} onClick={google}>
+            <div
+              className={styles['social-google-login-button']}
+              onClick={google}>
               <img src={Google} alt="" className={styles['icon']} />
-              Google
             </div>
-            <div className={styles['social-facebook-login-button']} onClick={facebook}>
+            <div
+              className={styles['social-facebook-login-button']}
+              onClick={facebook}>
               <img src={Facebook} alt="" className={styles['icon']} />
-              Facebook
             </div>
           </div>
         </div>
@@ -118,31 +120,34 @@ function Signin() {
   const [showAlert, setShowAlert] = useState(0)
   const [inputs, setInputs] = useState({})
   const [validated, setValidated] = useState(false)
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null)
 
   useEffect(() => {
     const socialToken = Cookies.get('socialToken')
     if (socialToken) {
       const getUser = () => {
-        axios.get(
-          `${import.meta.env.VITE_SERVER_HOST}/auth/signin/success/${socialToken}`,
-        )
+        axios
+          .get(
+            `${
+              import.meta.env.VITE_SERVER_HOST
+            }/auth/signin/success/${socialToken}`
+          )
           .then((response) => {
             // If successful
             if (response.data.access_token) {
-              Cookies.set('authToken', response.data.access_token, { expires: 1 })
+              Cookies.set('authToken', response.data.access_token, {
+                expires: 1,
+              })
               window.location.href = '/'
             } else {
               setShowAlert(401)
             }
-
           })
-          .catch((error) => {
-          })
-      };
-      getUser();
+          .catch((error) => {})
+      }
+      getUser()
     }
-  }, []);
+  }, [])
 
   function handleChange(event) {
     const name = event.target.name
@@ -159,13 +164,10 @@ function Signin() {
     }
 
     axios
-      .post(
-        `${import.meta.env.VITE_SERVER_HOST}/auth/signin`,
-        {
-          username: inputs.username,
-          password: inputs.password,
-        }
-      )
+      .post(`${import.meta.env.VITE_SERVER_HOST}/auth/signin`, {
+        username: inputs.username,
+        password: inputs.password,
+      })
       .then((response) => {
         // If successful
         Cookies.set('authToken', response.data.access_token, { expires: 1 })
