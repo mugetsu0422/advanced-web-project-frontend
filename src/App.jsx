@@ -8,9 +8,10 @@ import Dropdown from 'react-bootstrap/Dropdown'
 import PropTypes from 'prop-types'
 
 function AccountSection({ isSignin, setIsSignin }) {
-  function showDropdown() {}
+  function showDropdown() { }
   function signOut() {
     Cookies.remove('authToken')
+    Cookies.remove('socialToken')
     setIsSignin(false)
     window.location.href = '/'
   }
