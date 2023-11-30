@@ -7,8 +7,11 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import ErrorPage from './error-page'
 import Signup from './account/Signup.jsx'
 import Signin from './account/Signin.jsx'
+import ProfilePage from './account/ProfilePage.jsx'
 import Profile from './account/Profile.jsx'
 import ChangePassword from './account/ChangePassword.jsx'
+import RequestResetPassword from './account/RequestResetPassword.jsx'
+import SetNewPassword from './account/SetNewPassword.jsx'
 import HomePage from './common/HomePage.jsx'
 import LandingPage from './common/LandingPage.jsx'
 import Cookies from 'js-cookie'
@@ -29,11 +32,25 @@ const router = createBrowserRouter([
       },
       {
         path: 'profile',
-        element: <Profile />,
+        element: <ProfilePage />,
+        children: [
+          {
+            path: 'detail',
+            element: <Profile />,
+          },
+          {
+            path: 'changepassword',
+            element: <ChangePassword />,
+          },
+        ]
       },
       {
-        path: 'profile/changePassword',
-        element: <ChangePassword />,
+        path: 'forget-password',
+        element: <RequestResetPassword />,
+      },
+      {
+        path: 'forget-password/:token',
+        element: <SetNewPassword />,
       },
       {
         path: '',

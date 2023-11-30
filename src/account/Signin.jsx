@@ -75,6 +75,10 @@ function SigninForm({ handleChange, handleSubmit, validated, inputs }) {
               <Link style={{ textDecoration: 'none' }} to={'/signup'}>
                 Sign up
               </Link>
+              <br/>
+              <Link style={{ textDecoration: 'none' }} to={'/forget-password'}>
+                Forgot password?
+              </Link>
             </p>
           </div>
         </div>

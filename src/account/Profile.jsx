@@ -96,114 +96,96 @@ const Profile = ({ username, email, msg }) => {
   }
 
   return (
-    <div className={styles.profile}>
-      <div className={`row`}>
-        <div className="col-sm-3">
-          <Card>
-            <ul className="list-group list-group-flush">
-              <Link
-                to="/profile"
-                className={`${styles['profile-item']} ${styles['active-menu']}`}>
-                Profile
-              </Link>
-              <Link to="changePassword" className={`${styles['profile-item']}`}>
-                Change password
-              </Link>
-            </ul>
-          </Card>
-        </div>
-        <div className={`col-sm-9 pb-4 ${styles['col-sm-9']}`}>
-          <p className={`title text-center ${styles.title}`}>Profile</p>
-          <div className={styles['alert-container']}>
-            <SuccessfulAlert
-              showAlert={showAlert}
-              setShowAlert={setShowAlert}
-            />
-          </div>
-          <form
-            className={`profile-form ${styles['profile-form']}`}
-            onSubmit={handleSubmit}>
-            {msg && (
-              <Alert
-                variant="success"
-                className={`text-center pr-0 ${styles.alert}`}
-                dismissible>
-                {msg}
-              </Alert>
-            )}
-            <div className="row">
-              <div className="col-md-6">
-                <Form.Group>
-                  <Form.Label htmlFor="txtName">Username</Form.Label>
-                  <Form.Control
-                    type="text"
-                    id="txtName"
-                    placeholder={username}
-                    value={formData.username}
-                    onChange={(e) =>
-                      setFormData({ ...formData, username: e.target.value })
-                    }
-                    className={`${styles['form-control']} ${submitted && !formData.username.trim()
-                        ? styles['invalid']
-                        : ''
-                      }`}
-                    isInvalid={submitted && !formData.username.trim()}
-                  />
-                </Form.Group>
-              </div>
-              <div className="col-md-6">
-                <Form.Group>
-                  <Form.Label htmlFor="txtEmail">Email</Form.Label>
-                  <Form.Control
-                    type="email"
-                    id="txtEmail"
-                    placeholder={email}
-                    value={formData.email}
-                    onChange={(e) =>
-                      setFormData({ ...formData, email: e.target.value })
-                    }
-                    className={styles['form-control']}
-                  />
-                </Form.Group>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-md-6">
-                <Form.Group>
-                  <Form.Label htmlFor="txtPhone">Telephone</Form.Label>
-                  <Form.Control
-                    type="text"
-                    id="txtPhone"
-                    value={formData.phone}
-                    onChange={(e) => {
-                      const input = e.target.value.replace(/\D/g, '')
-                      setFormData({ ...formData, phone: input })
-                    }}
-                    className={styles['form-control']}
-                  />
-                </Form.Group>
-              </div>
-              <div className="col-md-6">
-                <Form.Group>
-                  <Form.Label htmlFor="txtAddress">Address</Form.Label>
-                  <Form.Control
-                    type="text"
-                    id="txtAddress"
-                    value={formData.address}
-                    onChange={(e) =>
-                      setFormData({ ...formData, address: e.target.value })
-                    }
-                    className={styles['form-control']}
-                  />
-                </Form.Group>
-              </div>
-            </div>
-            <button type="submit" className={styles['submit-btn']}>
-              SAVE
-            </button>
-          </form>
-        </div>
+    <div className={`col-sm-9 pb-4 ${styles['col-sm-9']}`}>
+      <p className={`title text-center ${styles.title}`}>Profile</p>
+      <div className={styles['alert-container']}>
+        <SuccessfulAlert
+          showAlert={showAlert}
+          setShowAlert={setShowAlert}
+        />
       </div>
+      <form
+        className={`profile-form ${styles['profile-form']}`}
+        onSubmit={handleSubmit}>
+        {msg && (
+          <Alert
+            variant="success"
+            className={`text-center pr-0 ${styles.alert}`}
+            dismissible>
+            {msg}
+          </Alert>
+        )}
+        <div className="row">
+          <div className="col-md-6">
+            <Form.Group>
+              <Form.Label htmlFor="txtName">Username</Form.Label>
+              <Form.Control
+                type="text"
+                id="txtName"
+                placeholder={username}
+                value={formData.username}
+                onChange={(e) =>
+                  setFormData({ ...formData, username: e.target.value })
+                }
+                className={`${styles['form-control']} ${submitted && !formData.username.trim()
+                    ? styles['invalid']
+                    : ''
+                  }`}
+                isInvalid={submitted && !formData.username.trim()}
+              />
+            </Form.Group>
+          </div>
+          <div className="col-md-6">
+            <Form.Group>
+              <Form.Label htmlFor="txtEmail">Email</Form.Label>
+              <Form.Control
+                type="email"
+                id="txtEmail"
+                placeholder={email}
+                value={formData.email}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
+                className={styles['form-control']}
+              />
+            </Form.Group>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-6">
+            <Form.Group>
+              <Form.Label htmlFor="txtPhone">Telephone</Form.Label>
+              <Form.Control
+                type="text"
+                id="txtPhone"
+                value={formData.phone}
+                onChange={(e) => {
+                  const input = e.target.value.replace(/\D/g, '')
+                  setFormData({ ...formData, phone: input })
+                }}
+                className={styles['form-control']}
+              />
+            </Form.Group>
+          </div>
+          <div className="col-md-6">
+            <Form.Group>
+              <Form.Label htmlFor="txtAddress">Address</Form.Label>
+              <Form.Control
+                type="text"
+                id="txtAddress"
+                value={formData.address}
+                onChange={(e) =>
+                  setFormData({ ...formData, address: e.target.value })
+                }
+                className={styles['form-control']}
+              />
+            </Form.Group>
+          </div>
+        </div>
+        <button type="submit" className={styles['submit-btn']}>
+          SAVE
+        </button>
+      </form>
     </div>
   )
 }
