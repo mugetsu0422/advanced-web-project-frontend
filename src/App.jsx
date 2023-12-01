@@ -6,6 +6,7 @@ import Cookies from 'js-cookie'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import NavDropdown from 'react-bootstrap/NavDropdown'
+import { jwtDecode } from 'jwt-decode'
 
 const NavbarContext = createContext()
 
@@ -40,6 +41,7 @@ function AccountSection() {
 
   function signOut() {
     Cookies.remove('authToken')
+    Cookies.remove('socialToken')
     setIsSignin(false)
     window.location.href = '/'
   }
@@ -54,7 +56,7 @@ function AccountSection() {
           className={`${styles['dropdown']}`}>
           <Link
             className={`${styles['dropdown-item']} dropdown-item`}
-            to={'/profile'}>
+            to={'/profile/detail'}>
             Profile
           </Link>
           <NavDropdown.Item
@@ -104,7 +106,16 @@ function App() {
   const [isSignin, setIsSignin] = useState(false)
 
   useEffect(() => {
-    if (Cookies.get('authToken')) {
+    const token = Cookies.get('authToken')
+    if (token) {
+      const decodedToken = jwtDecode(token)
+      console.log(Date.now(), decodedToken.exp)
+      if (Date.now() >= decodedToken.exp * 1000) {
+        Cookies.remove('authToken')
+        window.location.href = '/'
+        setIsSignin(false)
+        return
+      }
       setIsSignin(true)
     } else {
       setIsSignin(false)

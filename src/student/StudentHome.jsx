@@ -10,7 +10,8 @@ function LoadClassList() {
     {
       className: 'Nhập môn lập trình',
       classShortName: '1',
-      classDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dignissim velit ac lacus laoreet venenatis. Donec auctor tempus semper. Suspendisse posuere vitae justo sed vehicula. Fusce ultrices suscipit cursus. Vivamus bibendum, nisl non sodales lobortis, tellus est blandit dui, eu vehicula metus mi non lorem. Suspendisse commodo neque et ultricies vehicula. Sed et fringilla lorem.',
+      classDescription:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dignissim velit ac lacus laoreet venenatis. Donec auctor tempus semper. Suspendisse posuere vitae justo sed vehicula. Fusce ultrices suscipit cursus. Vivamus bibendum, nisl non sodales lobortis, tellus est blandit dui, eu vehicula metus mi non lorem. Suspendisse commodo neque et ultricies vehicula. Sed et fringilla lorem.',
       creator: 'Trương Toàn Thịnh',
     },
     {
@@ -45,13 +46,11 @@ function CreateClassList() {
 
   return (
     <>
-      {classList.map((ele) => {
+      {classList.map((ele, idx) => {
         return (
-          <>
-            <Col className="mb-4 d-flex">
-              <ClassCard classElement={ele} />
-            </Col>
-          </>
+          <Col className="mb-4 d-flex" key={idx}>
+            <ClassCard classElement={ele} />
+          </Col>
         )
       })}
     </>

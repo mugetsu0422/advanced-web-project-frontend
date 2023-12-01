@@ -1,7 +1,7 @@
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
     .form-div {
-        height: 400px;
+        height: 500px;
         width: 300px;
         display: flex;
         justify-content: center;
@@ -25,12 +25,60 @@
         font-weight: bold;
         margin: 20px;
     }
+
+    .social-login {
+        width: 80%;
+        height: 2.5rem;
+        display: flex;
+    }
+
+    .social-google-login-button {
+        padding: 10px 20px;
+        color: white;
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        cursor: pointer;
+        background-color: #df4930;
+        border-radius: 2.5rem;
+        width: 45%;
+        height: 2.5rem;
+        font-size: 0.75rem;
+        font-weight: bold;
+    }
+
+    .social-google-login-button::after {
+        display: none;
+    }
+    
+    .social-facebook-login-button {
+        padding: 10px 20px;
+        color: white;
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        cursor: pointer;
+        background-color: #507cc0;
+        border-radius: 2.5rem;
+        width: 45%;
+        height: 2.5rem;
+        font-size: 0.75rem;
+        font-weight: bold;
+    }
+
+    .social-facebook-login-button::after {
+        display: none;
+    }
+
+    .icon {
+        margin: 0 !important;
+    }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
     .form-div {
-        height: 400px;
+        height: 500px;
         width: 70vw;
         display: flex;
         justify-content: center;
@@ -54,13 +102,48 @@
         font-weight: bold;
         margin: 20px;
     }
+
+    .social-login {
+        height: 2.5rem;
+        display: flex;
+    }
+
+    .social-google-login-button {
+        padding: 10px 20px;
+        color: white;
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        cursor: pointer;
+        background-color: #df4930;
+        border-radius: 2.5rem;
+        width: 45%;
+        height: 2.5rem;
+        font-size: 0.75rem;
+        font-weight: bold;
+    }
+    
+    .social-facebook-login-button {
+        padding: 10px 20px;
+        color: white;
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        cursor: pointer;
+        background-color: #507cc0;
+        border-radius: 2.5rem;
+        width: 45%;
+        height: 2.5rem;
+        font-size: 0.75rem;
+        font-weight: bold;
+    }
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
     .form-div {
-        height: 450px;
-        width: 50vw;
+        height: 500px;
+        width: 600px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -69,7 +152,7 @@
         border-radius: 2.5rem;
         box-shadow:
             0 4px 8px 0 rgba(0, 0, 0, 0.2),
-            0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            0 6px 20px 0;
     }
 }
 
@@ -128,4 +211,61 @@
 
 .info-div {
     font-size: 1.2rem;
+}
+
+.social-google-login-button {
+    padding: 15px 25px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    cursor: pointer;
+    background-color: #df4930;
+    border-radius: 2.5rem;
+    width: 45%;
+    height: 2.5rem;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.social-google-login-button::after {
+    content: 'Google';
+}
+
+.social-facebook-login-button {
+    padding: 15px 25px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    cursor: pointer;
+    background-color: #507cc0;
+    border-radius: 2.5rem;
+    width: 45%;
+    height: 2.5rem;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.social-facebook-login-button::after {
+    content: 'Facebook';
+}
+
+.icon {
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+}
+
+.or {
+    margin-bottom: 10px;
+}
+
+.social-login {
+    width: 80%;
+    height: 2.5rem;
+    display: flex;
+    justify-content: space-between;
 }
