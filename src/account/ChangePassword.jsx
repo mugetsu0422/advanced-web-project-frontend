@@ -30,7 +30,6 @@ function SuccessfulAlert({ showAlert, setShowAlert }) {
 function ChangePasswordForm({ handleChange, handleSubmit, validated, inputs }) {
   return (
     <div>
-      <p className={`title text-center ${styles.title}`}>Change Password</p>
       <BootstrapForm
         className={`profile-form ${styles['profile-form']}`}
         onSubmit={handleSubmit}>
@@ -142,6 +141,7 @@ function ChangePassword() {
 
   return (
     <Container fluid className={`col-sm-9 pb-4 ${styles['col-sm-9']}`}>
+      <p className={`title text-center ${styles.title}`}>Change Password</p>
       <SuccessfulAlert 
       showAlert={showAlert} 
       setShowAlert={setShowAlert} />
