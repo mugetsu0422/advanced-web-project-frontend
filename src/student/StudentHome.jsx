@@ -81,7 +81,7 @@ function ClassCard({ classElement }) {
 
 function StudentHome() {
   return (
-    <Container fluid className={`${styles['container-fluid']} pt-4 px-5`}>
+    <Container fluid className={`pt-4 px-5`}>
       <Row xs="1" sm="2" md="3" lg="4">
         {CreateClassList()}
       </Row>

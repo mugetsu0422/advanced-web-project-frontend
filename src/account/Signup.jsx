@@ -16,17 +16,17 @@ import {
 
 const FormContext = createContext()
 
-function SuccessfulAlert({ showAlert, setShowAlert }) {
-  if (showAlert == 201) {
+function MyAlert({ showAlert, setShowAlert }) {
+  if (showAlert.code == 201) {
     return (
       <Alert variant="success" onClose={() => setShowAlert(0)} dismissible>
-        <strong>Your account has been successfully created</strong>
+        <strong>{showAlert.msg}</strong>
       </Alert>
     )
-  } else if (showAlert == 400) {
+  } else if (showAlert.code == 400) {
     return (
       <Alert variant="danger" onClose={() => setShowAlert(0)} dismissible>
-        <strong>Your username has been existed!</strong>
+        <strong>{showAlert.msg}</strong>
       </Alert>
     )
   }
@@ -320,7 +320,7 @@ function SignupForm() {
 }
 
 function Signup() {
-  const [showAlert, setShowAlert] = useState(0)
+  const [showAlert, setShowAlert] = useState({code: 0, msg: ''})
   const [inputs, setInputs] = useState({})
   const [validated, setValidated] = useState(false)
   const [formState, setFormState] = useState(0)
@@ -374,20 +374,20 @@ function Signup() {
       .post(`${import.meta.env.VITE_SERVER_HOST}/users`, user)
       .then(() => {
         // If successful
-        setShowAlert(201)
+        setShowAlert({code: 201, msg: 'Your account has been successfully created'})
       })
-      .catch(() => {
+      .catch((err) => {
         // If not successful (duplicate username)
-        setShowAlert(400)
+        setShowAlert({code: 400, msg: err.response.data.message})
       })
   }
 
   return (
     <>
       <Container fluid className={`${styles['container-fluid']}`}>
-        <SuccessfulAlert
+        <MyAlert
           showAlert={showAlert}
-          setShowAlert={setShowAlert}></SuccessfulAlert>
+          setShowAlert={setShowAlert}></MyAlert>
         <FormContext.Provider
           value={{
             handleChange: handleChange,
@@ -409,7 +409,7 @@ function Signup() {
 
 export default Signup
 
-SuccessfulAlert.propTypes = {
+MyAlert.propTypes = {
   showAlert: PropTypes.number.isRequired,
   setShowAlert: PropTypes.func.isRequired,
 }

@@ -6,9 +6,17 @@ import Cookies from 'js-cookie'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import NavDropdown from 'react-bootstrap/NavDropdown'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  faChalkboardUser,
+  faGraduationCap,
+  faBell,
+  faPlus,
+} from '@fortawesome/free-solid-svg-icons'
 import { jwtDecode } from 'jwt-decode'
 
 const NavbarContext = createContext()
+const role = localStorage.getItem('role')
 
 function AddClass() {
   const { isSignin } = useContext(NavbarContext)
@@ -17,9 +25,9 @@ function AddClass() {
     return null
   }
   return (
-    <>
-      <Nav.Link className={`${styles['dropdown']}`}>Add</Nav.Link>
-    </>
+    <Nav.Link className={`${styles['dropdown']}`}>
+      <FontAwesomeIcon icon={faPlus} />
+    </Nav.Link>
   )
 }
 
@@ -31,13 +39,31 @@ function Notification() {
   }
   return (
     <>
-      <Nav.Link className={`${styles['dropdown']}`}>Notification</Nav.Link>
+      <Nav.Link className={`${styles['dropdown']}`}>
+        <FontAwesomeIcon icon={faBell} />
+      </Nav.Link>
     </>
   )
 }
 
 function AccountSection() {
   const { isSignin, setIsSignin } = useContext(NavbarContext)
+
+  let accountIcon
+  if (role === 'student') {
+    accountIcon = (
+      <FontAwesomeIcon className={styles['role-icon']} icon={faGraduationCap} />
+    )
+  } else if (role === 'teacher') {
+    accountIcon = (
+      <FontAwesomeIcon
+        className={styles['role-icon']}
+        icon={faChalkboardUser}
+      />
+    )
+  } else {
+    null
+  }
 
   function signOut() {
     Cookies.remove('authToken')
@@ -50,8 +76,7 @@ function AccountSection() {
     return (
       <>
         <NavDropdown
-          title="User"
-          id={`${styles['basic-nav-dropdown']}`}
+          title={accountIcon}
           align={'end'}
           className={`${styles['dropdown']}`}>
           <Link
@@ -72,6 +97,9 @@ function AccountSection() {
       <>
         <Link className={`${styles['dropdown']} nav-link`} to={'/signin'}>
           Sign In
+        </Link>
+        <Link className={`${styles['dropdown']} nav-link`} to={'/signup'}>
+          Sign Up
         </Link>
       </>
     )
