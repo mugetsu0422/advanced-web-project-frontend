@@ -29,6 +29,12 @@ const ProfilePage = () => {
               >
                 Change password
               </Link>
+              <Link to="emailActivation"
+                className={`${styles['profile-item']} ${activeMenu === 'emailActivation' ? styles['active-menu'] : ''}`}
+                onClick={() => handleMenuClick('emailActivation')}
+              >
+                Email activation
+              </Link>
             </ul>
           </Card>
         </div>
