@@ -65,12 +65,10 @@ function EmailActivation() {
   const [showAlert, setShowAlert] = useState('');
   const [activationCode, setActivationCode] = useState('');
   const [isActivated, setIsActivated] = useState(false);
-  const [emailAvailable, setEmailAvailable] = useState(true);
 
   useEffect(() => {
     const token = Cookies.get('authToken')
     const decodedToken = jwtDecode(token)
-
     if (token) {
       axios.get(`${import.meta.env.VITE_SERVER_HOST}/users/${decodedToken.sub}`,
       {
@@ -82,10 +80,6 @@ function EmailActivation() {
       .then((response) => {
         const userData = response.data
         setIsActivated(userData.isActivated);
-        const userEmail = userData.email; 
-        if (!userEmail) {
-          setEmailAvailable(false);
-        }
       })
       .catch((error) => {
         console.error('Error fetching user data:', error)
@@ -107,11 +101,6 @@ function EmailActivation() {
   };
 
   const handleResendActivation = () => {
-    if (!emailAvailable) {
-      showAlertFunction('Please save your email in the Profile tab before proceeding.', 'warning');
-      return;
-    }
-
     const token = Cookies.get('authToken');
     const decodedToken = jwtDecode(token);
 
@@ -128,7 +117,6 @@ function EmailActivation() {
   const handleActivateAccount = () => {
     event.preventDefault();
     if (!activationCode) {
-      showAlertFunction('Please enter the activation code.', 'warning');
       return;
     }
 
@@ -139,12 +127,17 @@ function EmailActivation() {
       activationCode: activationCode,
       userId: decodedToken.sub,
     })
-      .then(() => {
-        setIsActivated(true);
-        showAlertFunction('Account activated successfully!');
+      .then((response) => {
+        const { isActivated } = response.data;
+        if (isActivated) {
+          setIsActivated(true);
+          showAlertFunction('Account activated successfully!','success');
+        } else {
+          showAlertFunction('Wrong activation code', 'danger');
+        }
       })
       .catch(() => {
-        showAlertFunction('Error activating account', 'danger');
+        showAlertFunction('Internal server error', 'danger');
       });
     };
 
@@ -157,15 +150,8 @@ function EmailActivation() {
       )}
       <p className={`title text-center ${styles.title}`}>Email Activation</p>
       <ActivationStatus isActivated={isActivated} setIsActivated={setIsActivated} />
-      {!emailAvailable && (
-        <Alert variant="warning" className={styles['successful-alert']}>
-          Please save your email in the Profile tab before proceeding.
-        </Alert>
-      )}
       <p className={styles['instruction']}>
-        {!emailAvailable
-          ? 'You need to save your email in the Profile tab and then come back to this tab to proceed.'
-          : 'We will send the activation code to your email once you click on the Send Activation Code on the bottom of this tab. Please check your email for the 6-digit code and enter it here. Click on the Send Activation Code again if you do not see the email.'
+        {'We will send the activation code to your email once you click on the Send Activation Code on the bottom of this tab. Please check your email for the 6-digit code and enter it here. Click on the Send Activation Code button again if you do not see the email.'
         }
       </p>
       <EmailActivationForm

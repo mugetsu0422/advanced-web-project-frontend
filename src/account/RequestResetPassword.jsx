@@ -22,7 +22,7 @@ function SuccessfulAlert({ showAlert, setShowAlert }) {
   } else if (showAlert == 404) {
     return (
       <Alert variant="danger" onClose={() => setShowAlert(0)} dismissible>
-        <strong>Server Can't Find Email</strong>
+        <strong>User not found or account not activated</strong>
       </Alert>
     )
   }
