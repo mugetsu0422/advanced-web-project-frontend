@@ -7,6 +7,10 @@ const ProtectedRoute = ({ children, requiredRole }) => {
   if (!Cookies.get('authToken')) {
     return <Navigate to={`/signin`} />
   }
+  // For all roles
+  if (!requiredRole) {
+    return children
+  }
 
   const userRole = localStorage.getItem('role')
   if (!userRole || ROLES[userRole] != requiredRole) {
@@ -20,5 +24,5 @@ export default ProtectedRoute
 
 ProtectedRoute.propTypes = {
   children: PropTypes.object.isRequired,
-  requiredRole: PropTypes.string.isRequired,
+  requiredRole: PropTypes.string,
 }
