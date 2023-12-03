@@ -136,14 +136,6 @@ function App() {
   useEffect(() => {
     const token = Cookies.get('authToken')
     if (token) {
-      const decodedToken = jwtDecode(token)
-      console.log(Date.now(), decodedToken.exp)
-      if (Date.now() >= decodedToken.exp * 1000) {
-        Cookies.remove('authToken')
-        window.location.href = '/'
-        setIsSignin(false)
-        return
-      }
       setIsSignin(true)
     } else {
       setIsSignin(false)
