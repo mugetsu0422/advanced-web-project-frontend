@@ -151,7 +151,7 @@ function Signin() {
                   socialToken: socialToken
                 };
                 var queryString = Object.keys(data).map(key => key + '=' + data[key]).join('&');
-                var newUrl = '/updateroleaftersociallogin?' + queryString;
+                var newUrl = '/update-role-after-social-login?' + queryString;
                 window.location.href = newUrl;
               }
             } else {

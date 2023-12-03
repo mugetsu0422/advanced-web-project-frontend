@@ -35,7 +35,7 @@ const router = createBrowserRouter([
         element: <Signin />,
       },
       {
-        path: 'updateroleaftersociallogin',
+        path: 'update-role-after-social-login',
         element: <UpdateRoleAfterSocialLogin />,
       },
       {
