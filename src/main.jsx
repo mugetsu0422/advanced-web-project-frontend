@@ -34,7 +34,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'profile',
-        element: <ProfilePage />,
+        element: (
+          <ProtectedRoute>
+            <ProfilePage />
+          </ProtectedRoute>
+        ),
         children: [
           {
             path: 'detail',
@@ -44,7 +48,7 @@ const router = createBrowserRouter([
             path: 'changepassword',
             element: <ChangePassword />,
           },
-        ]
+        ],
       },
       {
         path: 'forget-password',
