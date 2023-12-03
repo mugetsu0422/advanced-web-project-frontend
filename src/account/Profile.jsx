@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { Form, Alert, Card } from 'react-bootstrap'
+import { Form, Alert } from 'react-bootstrap'
 import styles from './Profile.module.css'
 import Cookies from 'js-cookie'
 import axios from 'axios'
@@ -61,7 +60,7 @@ const Profile = ({ username, email, msg }) => {
     e.preventDefault()
     setSubmitted(true)
 
-    const { username, email, phone, address } = formData
+    const { username, phone, address } = formData
 
     if (!username.trim()) return
 
@@ -74,7 +73,6 @@ const Profile = ({ username, email, msg }) => {
           `${import.meta.env.VITE_SERVER_HOST}/users/${decodedToken.sub}`,
           {
             username: username,
-            email: email,
             phone: phone,
             address: address,
           },
@@ -146,6 +144,7 @@ const Profile = ({ username, email, msg }) => {
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
                 }
+                disabled
                 className={styles['form-control']}
               />
             </Form.Group>

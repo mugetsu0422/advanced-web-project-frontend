@@ -10,6 +10,7 @@ import Signin from './account/Signin.jsx'
 import ProfilePage from './account/ProfilePage.jsx'
 import Profile from './account/Profile.jsx'
 import ChangePassword from './account/ChangePassword.jsx'
+import EmailActivation from './account/EmailActivation.jsx'
 import RequestResetPassword from './account/RequestResetPassword.jsx'
 import SetNewPassword from './account/SetNewPassword.jsx'
 import ProtectedRoute from './auth/ProtectedRoute.jsx'
@@ -48,7 +49,11 @@ const router = createBrowserRouter([
             path: 'changepassword',
             element: <ChangePassword />,
           },
-        ],
+          {
+            path: 'emailActivation',
+            element: <EmailActivation />,
+          },
+        ]
       },
       {
         path: 'forget-password',

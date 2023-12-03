@@ -86,5 +86,10 @@
 
 .successful-alert {
     width: 80%;
-    margin: 2rem auto 0;
+    margin: 1rem auto 1rem;
+}
+
+.instruction {
+    width: 80%;
+    margin: 1rem auto 1rem;
 }
