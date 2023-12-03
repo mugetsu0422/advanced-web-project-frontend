@@ -18,6 +18,7 @@ import SigninRoute from './auth/SigninRoute.jsx'
 import StudentHome from './student/StudentHome.jsx'
 import TeacherHome from './teacher/TeacherHome.jsx'
 import AdminHome from './admin/AdminHome.jsx'
+import UpdateRoleAfterSocialLogin from './account/UpdateRoleAfterSocialLogin.jsx'
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: 'signin',
         element: <Signin />,
+      },
+      {
+        path: 'updateroleaftersociallogin',
+        element: <UpdateRoleAfterSocialLogin />,
       },
       {
         path: 'profile',
