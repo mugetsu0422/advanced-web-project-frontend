@@ -5,13 +5,20 @@ import App from './App.jsx'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import ErrorPage from './error-page'
-import Signup from './account/signup'
-import Signin from './account/signin.jsx'
-import Profile from './account/profile'
-import ChangePassword from './account/changepassword'
-import HomePage from './common/HomePage.jsx'
-import LandingPage from './common/LandingPage.jsx'
-import Cookies from 'js-cookie'
+import Signup from './account/Signup.jsx'
+import Signin from './account/Signin.jsx'
+import ProfilePage from './account/ProfilePage.jsx'
+import Profile from './account/Profile.jsx'
+import ChangePassword from './account/ChangePassword.jsx'
+import EmailActivation from './account/EmailActivation.jsx'
+import RequestResetPassword from './account/RequestResetPassword.jsx'
+import SetNewPassword from './account/SetNewPassword.jsx'
+import ProtectedRoute from './auth/ProtectedRoute.jsx'
+import SigninRoute from './auth/SigninRoute.jsx'
+import StudentHome from './student/StudentHome.jsx'
+import TeacherHome from './teacher/TeacherHome.jsx'
+import AdminHome from './admin/AdminHome.jsx'
+import UpdateRoleAfterSocialLogin from './account/UpdateRoleAfterSocialLogin.jsx'
 
 const router = createBrowserRouter([
   {
@@ -28,23 +35,65 @@ const router = createBrowserRouter([
         element: <Signin />,
       },
       {
-        path: 'profile',
-        element: <Profile />,
+        path: 'update-role-after-social-login',
+        element: <UpdateRoleAfterSocialLogin />,
       },
       {
-        path: 'profile/changePassword',
-        element: <ChangePassword />,
+        path: 'profile',
+        element: (
+          <ProtectedRoute>
+            <ProfilePage />
+          </ProtectedRoute>
+        ),
+        children: [
+          {
+            path: 'detail',
+            element: <Profile />,
+          },
+          {
+            path: 'changepassword',
+            element: <ChangePassword />,
+          },
+          {
+            path: 'emailActivation',
+            element: <EmailActivation />,
+          },
+        ],
+      },
+      {
+        path: 'forget-password',
+        element: <RequestResetPassword />,
+      },
+      {
+        path: 'forget-password/:token',
+        element: <SetNewPassword />,
       },
       {
         path: '',
+        element: <SigninRoute />,
+      },
+      {
+        path: '/student',
         element: (
-          <>
-            {Cookies.get('authToken') ? (
-              <HomePage></HomePage>
-            ) : (
-              <LandingPage></LandingPage>
-            )}
-          </>
+          <ProtectedRoute requiredRole={'student'}>
+            <StudentHome />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/teacher',
+        element: (
+          <ProtectedRoute requiredRole={'teacher'}>
+            <TeacherHome />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/admin',
+        element: (
+          <ProtectedRoute requiredRole={'admin'}>
+            <AdminHome />
+          </ProtectedRoute>
         ),
       },
     ],

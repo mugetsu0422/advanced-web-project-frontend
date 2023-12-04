@@ -1,66 +1,53 @@
-import styles from './signup.module.css'
+import styles from './ResetPassword.module.css'
+import Alert from 'react-bootstrap/Alert'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { Form as BootstrapForm } from 'react-bootstrap'
-import Alert from 'react-bootstrap/Alert'
 import Container from 'react-bootstrap/Container'
 import axios from 'axios'
-import bcrypt from 'bcryptjs'
-import { SALT_ROUNDS } from '../constants/constants'
 
 function SuccessfulAlert({ showAlert, setShowAlert }) {
-  if (showAlert == 201) {
+  if (showAlert === 200) {
     return (
       <Alert variant="success" onClose={() => setShowAlert(0)} dismissible>
-        <strong>Your account has been successfully created</strong>
+        <strong>Change password successfully</strong>
       </Alert>
     )
-  } else if (showAlert == 400) {
+  } else if (showAlert === 400) {
     return (
       <Alert variant="danger" onClose={() => setShowAlert(0)} dismissible>
-        <strong>Your username has been existed!</strong>
+        <strong>Internal server error</strong>
       </Alert>
     )
   }
   return null
 }
 
-function SignupForm({ handleChange, handleSubmit, validated, inputs }) {
+function SetNewPasswordForm({ handleChange, handleSubmit, validated, inputs }) {
   return (
     <>
       <BootstrapForm
-        id="register-form"
+        id="set-new-password-form"
         noValidate
         validated={validated}
         onSubmit={handleSubmit}>
         <div className={styles['form-div']}>
+          <div className={styles['header-text']}>
+            <h1>Set New Password</h1>
+            <p>Enter your new password</p>
+          </div>
           <BootstrapForm.Group
-            controlId="username"
-            className={styles['my-input-group']}>
-            <BootstrapForm.Label></BootstrapForm.Label>
-            <BootstrapForm.Control
-              className={styles['my-input']}
-              required
-              type="text"
-              name="username"
-              placeholder="Username"
-              defaultValue={inputs.username || ''}
-              onChange={handleChange}
-            />
-          </BootstrapForm.Group>
-          <BootstrapForm.Group
-            controlId="password"
+            controlId="newPassword"
             className={styles['my-input-group']}>
             <BootstrapForm.Label></BootstrapForm.Label>
             <BootstrapForm.Control
               className={styles['my-input']}
               required
               type="password"
-              name="password"
-              placeholder="Password"
-              autoComplete="on"
-              defaultValue={inputs.password || ''}
+              name="newPassword"
+              placeholder="New Password"
+              value={inputs.newPassword || ''}
               onChange={handleChange}
             />
           </BootstrapForm.Group>
@@ -71,30 +58,28 @@ function SignupForm({ handleChange, handleSubmit, validated, inputs }) {
             <BootstrapForm.Control
               className={styles['my-input']}
               required
-              pattern={inputs.password}
               type="password"
               name="confirmPassword"
-              placeholder="Confirm password"
-              autoComplete="on"
-              defaultValue={inputs.confirmPassword || ''}
+              placeholder="Confirm Password"
+              value={inputs.confirmPassword || ''}
               onChange={handleChange}
-              isInvalid={inputs.confirmPassword != inputs.password}
+              isInvalid={inputs.confirmPassword !== inputs.newPassword}
             />
             <BootstrapForm.Control.Feedback
               type="invalid"
               className={styles['invalid-feedback']}>
-              Confirm password does not match!
+              Passwords do not match.
             </BootstrapForm.Control.Feedback>
           </BootstrapForm.Group>
           <button
-            className={styles['register-btn']}
+            className={styles['reset-password-btn']}
             type="submit"
-            form="register-form">
-            SIGN UP
+            form="set-new-password-form">
+            SAVE
           </button>
           <div className={styles['info-div']}>
             <p>
-              Already have an account?{' '}
+              Go back to{' '}
               <Link style={{ textDecoration: 'none' }} to={'/signin'}>
                 Sign in
               </Link>
@@ -106,71 +91,67 @@ function SignupForm({ handleChange, handleSubmit, validated, inputs }) {
   )
 }
 
-function Signup() {
+function SetNewPassword() {
   const [showAlert, setShowAlert] = useState(0)
   const [inputs, setInputs] = useState({})
   const [validated, setValidated] = useState(false)
 
-  function handleChange(event) {
+  function handleInputChange(event) {
     const name = event.target.name
     const value = event.target.value
     setInputs((values) => ({ ...values, [name]: value }))
   }
 
-  function handleSubmit(event) {
+  function handleFormSubmit(event) {
     event.preventDefault()
     setValidated(true)
     const form = event.currentTarget
     if (
       form.checkValidity() === false ||
-      inputs.confirmPassword != inputs.password
+      inputs.newPassword !== inputs.confirmPassword
     ) {
       return
     }
 
-    // Send HTTP Request
+    const currentUrl = window.location.href
+    const urlParts = currentUrl.split('/')
+    const token = urlParts[urlParts.length - 1]
+
     axios
-      .post(
-        `${import.meta.env.VITE_SERVER_HOST}/users`,
-        {
-          username: inputs.username,
-          password: bcrypt.hashSync(inputs.password, SALT_ROUNDS),
-        }
-      )
-      .then(() => {
-        // If successful
-        setShowAlert(201)
+      .post(`${import.meta.env.VITE_SERVER_HOST}/users/set-new-password`, {
+        token: token,
+        newPassword: inputs.newPassword,
       })
-      .catch(() => {
-        // If not successful (duplicate username)
+      .then(() => {
+        setShowAlert(200)
+      })
+      .catch((error) => {
         setShowAlert(400)
+        console.error('Error from server:', error)
       })
   }
 
   return (
-    <>
-      <Container fluid className={`${styles['container-fluid']}`}>
-        <SuccessfulAlert
-          showAlert={showAlert}
-          setShowAlert={setShowAlert}></SuccessfulAlert>
-        <SignupForm
-          handleChange={handleChange}
-          handleSubmit={handleSubmit}
-          validated={validated}
-          inputs={inputs}></SignupForm>
-      </Container>
-    </>
+    <Container fluid className={`${styles['container-fluid']}`}>
+      <SuccessfulAlert showAlert={showAlert} setShowAlert={setShowAlert} />
+      <SetNewPasswordForm
+        handleChange={handleInputChange}
+        handleSubmit={handleFormSubmit}
+        validated={validated}
+        inputs={inputs}
+      />
+    </Container>
   )
 }
 
-export default Signup
+export default SetNewPassword
 
 SuccessfulAlert.propTypes = {
   showAlert: PropTypes.number.isRequired,
   setShowAlert: PropTypes.func.isRequired,
 }
 
-SignupForm.propTypes = {
+SetNewPasswordForm.propTypes = {
   handleChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   validated: PropTypes.bool.isRequired,

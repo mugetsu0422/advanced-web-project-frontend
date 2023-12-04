@@ -1,12 +1,15 @@
-import styles from './signin.module.css'
+import styles from './Signin.module.css'
 import Alert from 'react-bootstrap/Alert'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { Form as BootstrapForm } from 'react-bootstrap'
 import Container from 'react-bootstrap/Container'
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import Google from '../assets/google.png'
+import Facebook from '../assets/facebook.png'
+import { jwtDecode } from 'jwt-decode'
 
 function SuccessfulAlert({ showAlert, setShowAlert }) {
   if (showAlert == 201) {
@@ -21,8 +24,22 @@ function SuccessfulAlert({ showAlert, setShowAlert }) {
         <strong>Your username or password is incorrect!</strong>
       </Alert>
     )
+  } else if (showAlert == 401) {
+    return (
+      <Alert variant="danger" onClose={() => setShowAlert(0)} dismissible>
+        <strong>Social login not success!</strong>
+      </Alert>
+    )
   }
   return null
+}
+
+function google() {
+  window.open(`${import.meta.env.VITE_SERVER_HOST}/auth/google`, '_self')
+}
+
+function facebook() {
+  window.open(`${import.meta.env.VITE_SERVER_HOST}/auth/facebook`, '_self')
 }
 
 function SigninForm({ handleChange, handleSubmit, validated, inputs }) {
@@ -63,6 +80,11 @@ function SigninForm({ handleChange, handleSubmit, validated, inputs }) {
               onChange={handleChange}
             />
           </BootstrapForm.Group>
+          <Link
+            className={`text-decoration-none w-75 text-end`}
+            to={'/forget-password'}>
+            Forgot password?
+          </Link>
           <button
             className={styles['signin-btn']}
             type="submit"
@@ -72,10 +94,24 @@ function SigninForm({ handleChange, handleSubmit, validated, inputs }) {
           <div className={styles['info-div']}>
             <p>
               No account yet?{' '}
-              <Link style={{ textDecoration: 'none' }} to={'/signup'}>
+              <Link className={`text-decoration-none`} to={'/signup'}>
                 Sign up
               </Link>
+              <br />
             </p>
+          </div>
+          <div className={styles['or']}> OR </div>
+          <div className={styles['social-login']}>
+            <div
+              className={styles['social-google-login-button']}
+              onClick={google}>
+              <img src={Google} alt="" className={styles['icon']} />
+            </div>
+            <div
+              className={styles['social-facebook-login-button']}
+              onClick={facebook}>
+              <img src={Facebook} alt="" className={styles['icon']} />
+            </div>
           </div>
         </div>
       </BootstrapForm>
@@ -87,6 +123,49 @@ function Signin() {
   const [showAlert, setShowAlert] = useState(0)
   const [inputs, setInputs] = useState({})
   const [validated, setValidated] = useState(false)
+  const [user, setUser] = useState(null)
+
+  useEffect(() => {
+    const socialToken = Cookies.get('socialToken')
+    if (socialToken) {
+      const getUser = () => {
+        axios
+          .get(
+            `${
+              import.meta.env.VITE_SERVER_HOST
+            }/auth/signin/success/${socialToken}`
+          )
+          .then((response) => {
+            // If successful
+            if (response.data.access_token) {
+              Cookies.set('authToken', response.data.access_token, {
+                expires: 1,
+              })
+              const decodedToken = jwtDecode(response.data.access_token)
+              // localStorage.setItem('username', decodedToken.username)
+
+              if (decodedToken.role != '') {
+                localStorage.setItem('role', decodedToken.role)
+                window.location.href = '/'
+              } else {
+                var data = {
+                  socialToken: socialToken,
+                }
+                var queryString = Object.keys(data)
+                  .map((key) => key + '=' + data[key])
+                  .join('&')
+                var newUrl = '/update-role-after-social-login?' + queryString
+                window.location.href = newUrl
+              }
+            } else {
+              setShowAlert(401)
+            }
+          })
+          .catch((error) => {})
+      }
+      getUser()
+    }
+  }, [])
 
   function handleChange(event) {
     const name = event.target.name
@@ -103,16 +182,16 @@ function Signin() {
     }
 
     axios
-      .post(
-        `${import.meta.env.VITE_SERVER_HOST}/signin`,
-        {
-          username: inputs.username,
-          password: inputs.password,
-        }
-      )
+      .post(`${import.meta.env.VITE_SERVER_HOST}/auth/signin`, {
+        username: inputs.username,
+        password: inputs.password,
+      })
       .then((response) => {
         // If successful
         Cookies.set('authToken', response.data.access_token, { expires: 1 })
+        const decodedToken = jwtDecode(response.data.access_token)
+        // localStorage.setItem('username', decodedToken.username)
+        localStorage.setItem('role', decodedToken.role)
         window.location.href = '/'
       })
       .catch((error) => {

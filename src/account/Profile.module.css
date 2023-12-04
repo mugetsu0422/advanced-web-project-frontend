@@ -83,3 +83,13 @@
     margin: auto;
     margin-top: 20px;
 }
+
+.successful-alert {
+    width: 80%;
+    margin: 1rem auto 1rem;
+}
+
+.instruction {
+    width: 80%;
+    margin: 1rem auto 1rem;
+}
