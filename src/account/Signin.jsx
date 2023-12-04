@@ -80,7 +80,9 @@ function SigninForm({ handleChange, handleSubmit, validated, inputs }) {
               onChange={handleChange}
             />
           </BootstrapForm.Group>
-          <Link className={`text-decoration-none w-75 text-end`} to={'/forget-password'}>
+          <Link
+            className={`text-decoration-none w-75 text-end`}
+            to={'/forget-password'}>
             Forgot password?
           </Link>
           <button
@@ -141,18 +143,19 @@ function Signin() {
               })
               const decodedToken = jwtDecode(response.data.access_token)
               // localStorage.setItem('username', decodedToken.username)
-              
-              if (decodedToken.role != '')
-              {
+
+              if (decodedToken.role != '') {
                 localStorage.setItem('role', decodedToken.role)
                 window.location.href = '/'
               } else {
                 var data = {
-                  socialToken: socialToken
-                };
-                var queryString = Object.keys(data).map(key => key + '=' + data[key]).join('&');
-                var newUrl = '/update-role-after-social-login?' + queryString;
-                window.location.href = newUrl;
+                  socialToken: socialToken,
+                }
+                var queryString = Object.keys(data)
+                  .map((key) => key + '=' + data[key])
+                  .join('&')
+                var newUrl = '/update-role-after-social-login?' + queryString
+                window.location.href = newUrl
               }
             } else {
               setShowAlert(401)

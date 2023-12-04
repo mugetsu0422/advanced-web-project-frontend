@@ -38,14 +38,11 @@ const Profile = ({ username, email, msg }) => {
 
     if (token) {
       axios
-        .get(
-          `${import.meta.env.VITE_SERVER_HOST}/users/${decodedToken.sub}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          }
-        )
+        .get(`${import.meta.env.VITE_SERVER_HOST}/users/${decodedToken.sub}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
         .then((response) => {
           const userData = response.data
           setFormData(userData)
@@ -97,10 +94,7 @@ const Profile = ({ username, email, msg }) => {
     <div className={`col-sm-9 pb-4 ${styles['col-sm-9']}`}>
       <p className={`title text-center ${styles.title}`}>Profile</p>
       <div className={styles['alert-container']}>
-        <SuccessfulAlert
-          showAlert={showAlert}
-          setShowAlert={setShowAlert}
-        />
+        <SuccessfulAlert showAlert={showAlert} setShowAlert={setShowAlert} />
       </div>
       <form
         className={`profile-form ${styles['profile-form']}`}
@@ -125,10 +119,11 @@ const Profile = ({ username, email, msg }) => {
                 onChange={(e) =>
                   setFormData({ ...formData, username: e.target.value })
                 }
-                className={`${styles['form-control']} ${submitted && !formData.username.trim()
+                className={`${styles['form-control']} ${
+                  submitted && !formData.username.trim()
                     ? styles['invalid']
                     : ''
-                  }`}
+                }`}
                 isInvalid={submitted && !formData.username.trim()}
               />
             </Form.Group>

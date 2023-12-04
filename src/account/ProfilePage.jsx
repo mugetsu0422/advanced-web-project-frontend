@@ -1,15 +1,15 @@
-import { Outlet, useNavigate } from 'react-router-dom';
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Card } from 'react-bootstrap';
-import styles from './Profile.module.css';
+import { Outlet, useNavigate } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { Card } from 'react-bootstrap'
+import styles from './Profile.module.css'
 
 const ProfilePage = () => {
-  const [activeMenu, setActiveMenu] = useState('detail');
+  const [activeMenu, setActiveMenu] = useState('detail')
 
   const handleMenuClick = (menu) => {
-    setActiveMenu(menu);
-  };
+    setActiveMenu(menu)
+  }
 
   return (
     <div className={styles.profile}>
@@ -17,22 +17,28 @@ const ProfilePage = () => {
         <div className="col-sm-3">
           <Card>
             <ul className="list-group list-group-flush">
-              <Link to="detail"
-                className={`${styles['profile-item']} ${activeMenu === 'detail' ? styles['active-menu'] : ''}`}
-                onClick={() => handleMenuClick('detail')}
-              >
+              <Link
+                to="detail"
+                className={`${styles['profile-item']} ${
+                  activeMenu === 'detail' ? styles['active-menu'] : ''
+                }`}
+                onClick={() => handleMenuClick('detail')}>
                 Profile
               </Link>
-              <Link to="changePassword"
-                className={`${styles['profile-item']} ${activeMenu === 'changePassword' ? styles['active-menu'] : ''}`}
-                onClick={() => handleMenuClick('changePassword')}
-              >
+              <Link
+                to="changePassword"
+                className={`${styles['profile-item']} ${
+                  activeMenu === 'changePassword' ? styles['active-menu'] : ''
+                }`}
+                onClick={() => handleMenuClick('changePassword')}>
                 Change password
               </Link>
-              <Link to="emailActivation"
-                className={`${styles['profile-item']} ${activeMenu === 'emailActivation' ? styles['active-menu'] : ''}`}
-                onClick={() => handleMenuClick('emailActivation')}
-              >
+              <Link
+                to="emailActivation"
+                className={`${styles['profile-item']} ${
+                  activeMenu === 'emailActivation' ? styles['active-menu'] : ''
+                }`}
+                onClick={() => handleMenuClick('emailActivation')}>
                 Email activation
               </Link>
             </ul>
@@ -41,7 +47,7 @@ const ProfilePage = () => {
         <Outlet />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ProfilePage;
+export default ProfilePage

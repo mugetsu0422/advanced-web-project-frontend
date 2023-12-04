@@ -50,7 +50,7 @@
     .social-google-login-button::after {
         display: none;
     }
-    
+
     .social-facebook-login-button {
         padding: 10px 20px;
         color: white;
@@ -122,7 +122,7 @@
         font-size: 0.75rem;
         font-weight: bold;
     }
-    
+
     .social-facebook-login-button {
         padding: 10px 20px;
         color: white;

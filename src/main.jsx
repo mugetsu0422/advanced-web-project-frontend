@@ -58,7 +58,7 @@ const router = createBrowserRouter([
             path: 'emailActivation',
             element: <EmailActivation />,
           },
-        ]
+        ],
       },
       {
         path: 'forget-password',

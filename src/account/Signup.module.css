@@ -41,13 +41,13 @@
 }
 
 .role-card-chosen {
-    color:#5aa3a1;
+    color: #5aa3a1;
     border-color: #5aa3a1;
     background-color: #71aca940;
 }
 
 .role-card-chosen > .role-icon {
-    color:#5aa3a1;
+    color: #5aa3a1;
 }
 
 .role-card:hover {
@@ -57,7 +57,7 @@
 .role-icon {
     font-size: 5rem;
     margin-bottom: 1rem;
-    color: #bfbfbf
+    color: #bfbfbf;
 }
 
 .my-input-group {
@@ -220,6 +220,5 @@
 
     .info-div {
         font-size: 1.2rem;
-    }    
+    }
 }
-

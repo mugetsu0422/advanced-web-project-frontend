@@ -320,7 +320,7 @@ function SignupForm() {
 }
 
 function Signup() {
-  const [showAlert, setShowAlert] = useState({code: 0, msg: ''})
+  const [showAlert, setShowAlert] = useState({ code: 0, msg: '' })
   const [inputs, setInputs] = useState({})
   const [validated, setValidated] = useState(false)
   const [formState, setFormState] = useState(0)
@@ -374,20 +374,21 @@ function Signup() {
       .post(`${import.meta.env.VITE_SERVER_HOST}/users`, user)
       .then(() => {
         // If successful
-        setShowAlert({code: 201, msg: 'Your account has been successfully created'})
+        setShowAlert({
+          code: 201,
+          msg: 'Your account has been successfully created',
+        })
       })
       .catch((err) => {
         // If not successful (duplicate username)
-        setShowAlert({code: 400, msg: err.response.data.message})
+        setShowAlert({ code: 400, msg: err.response.data.message })
       })
   }
 
   return (
     <>
       <Container fluid className={`${styles['container-fluid']}`}>
-        <MyAlert
-          showAlert={showAlert}
-          setShowAlert={setShowAlert}></MyAlert>
+        <MyAlert showAlert={showAlert} setShowAlert={setShowAlert}></MyAlert>
         <FormContext.Provider
           value={{
             handleChange: handleChange,
