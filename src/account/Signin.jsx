@@ -128,7 +128,7 @@ function Signin() {
     var url = new URL(url_string);
     var socialToken = url.searchParams.get("socialToken");
 
-    if (socialToken) {
+    if (socialToken != "") {
       const getUser = () => {
         axios
           .get(
@@ -164,6 +164,8 @@ function Signin() {
           .catch((error) => {})
       }
       getUser()
+    } else {
+      setShowAlert(401)
     }
   }, [])
 
