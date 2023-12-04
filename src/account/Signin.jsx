@@ -139,7 +139,21 @@ function Signin() {
               Cookies.set('authToken', response.data.access_token, {
                 expires: 1,
               })
-              window.location.href = '/'
+              const decodedToken = jwtDecode(response.data.access_token)
+              // localStorage.setItem('username', decodedToken.username)
+              
+              if (decodedToken.role != '')
+              {
+                localStorage.setItem('role', decodedToken.role)
+                window.location.href = '/'
+              } else {
+                var data = {
+                  socialToken: socialToken
+                };
+                var queryString = Object.keys(data).map(key => key + '=' + data[key]).join('&');
+                var newUrl = '/update-role-after-social-login?' + queryString;
+                window.location.href = newUrl;
+              }
             } else {
               setShowAlert(401)
             }
