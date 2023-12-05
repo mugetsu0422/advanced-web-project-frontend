@@ -126,8 +126,11 @@ function Signin() {
   const [user, setUser] = useState(null)
 
   useEffect(() => {
-    const socialToken = Cookies.get('socialToken')
-    if (socialToken) {
+    var url_string = window.location.href; 
+    var url = new URL(url_string);
+    var socialToken = url.searchParams.get("socialToken");
+
+    if (socialToken != "") {
       const getUser = () => {
         axios
           .get(
@@ -164,6 +167,8 @@ function Signin() {
           .catch((error) => {})
       }
       getUser()
+    } else {
+      setShowAlert(401)
     }
   }, [])
 
