@@ -80,7 +80,9 @@ function SigninForm({ handleChange, handleSubmit, validated, inputs }) {
               onChange={handleChange}
             />
           </BootstrapForm.Group>
-          <Link className={`text-decoration-none w-75 text-end`} to={'/forget-password'}>
+          <Link
+            className={`text-decoration-none w-75 text-end`}
+            to={'/forget-password'}>
             Forgot password?
           </Link>
           <button

@@ -9,9 +9,9 @@
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 5; /* number of lines to show */
-            line-clamp: 5;
+    line-clamp: 5;
     -webkit-box-orient: vertical;
- }
+}
 
 .class-card {
     border: 2px solid #afd3d2;

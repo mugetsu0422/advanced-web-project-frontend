@@ -40,7 +40,10 @@ function ResetPasswordForm({ handleChange, handleSubmit, validated, inputs }) {
         <div className={styles['form-div']}>
           <div className={styles['header-text']}>
             <h1>Reset Password</h1>
-            <p className='mx-3'>We need your email which linked to your account to recover your account.</p>
+            <p className="mx-3">
+              We need your email which linked to your account to recover your
+              account.
+            </p>
           </div>
           <BootstrapForm.Group
             controlId="email"
@@ -102,9 +105,12 @@ function RequestResetPassword() {
     }
 
     axios
-      .post(`${import.meta.env.VITE_SERVER_HOST}/users/request-reset-password`, {
-        email: inputs.email,
-      })
+      .post(
+        `${import.meta.env.VITE_SERVER_HOST}/users/request-reset-password`,
+        {
+          email: inputs.email,
+        }
+      )
       .then(() => {
         setShowAlert(200)
       })
@@ -118,8 +124,7 @@ function RequestResetPassword() {
     <Container fluid className={`${styles['container-fluid']}`}>
       <SuccessfulAlert
         showAlert={showAlert}
-        setShowAlert={setShowAlert}>
-      </SuccessfulAlert>
+        setShowAlert={setShowAlert}></SuccessfulAlert>
       <ResetPasswordForm
         handleChange={handleInputChange}
         handleSubmit={handleFormSubmit}
@@ -130,5 +135,4 @@ function RequestResetPassword() {
   )
 }
 
-export default RequestResetPassword;
-
+export default RequestResetPassword
