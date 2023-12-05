@@ -127,45 +127,49 @@ function Signin() {
     var url_string = window.location.href; 
     var url = new URL(url_string);
     var socialToken = url.searchParams.get("socialToken");
-
-    if (socialToken != "") {
-      const getUser = () => {
-        axios
-          .get(
-            `${
-              import.meta.env.VITE_SERVER_HOST
-            }/auth/signin/success/${socialToken}`
-          )
-          .then((response) => {
-            // If successful
-            if (response.data.access_token) {
-              Cookies.set('authToken', response.data.access_token, {
-                expires: 1,
-              })
-              const decodedToken = jwtDecode(response.data.access_token)
-              // localStorage.setItem('username', decodedToken.username)
-              
-              if (decodedToken.role != '')
-              {
-                localStorage.setItem('role', decodedToken.role)
-                window.location.href = '/'
+    console.log(socialToken)
+    if (socialToken !== null) {
+      if (socialToken != "")
+      {
+        const getUser = () => {
+          axios
+            .get(
+              `${
+                import.meta.env.VITE_SERVER_HOST
+              }/auth/signin/success/${socialToken}`
+            )
+            .then((response) => {
+              // If successful
+              if (response.data.access_token) {
+                Cookies.set('authToken', response.data.access_token, {
+                  expires: 1,
+                })
+                const decodedToken = jwtDecode(response.data.access_token)
+                // localStorage.setItem('username', decodedToken.username)
+                
+                if (decodedToken.role != '')
+                {
+                  localStorage.setItem('role', decodedToken.role)
+                  window.location.href = '/'
+                } else {
+                  var data = {
+                    socialToken: socialToken
+                  };
+                  var queryString = Object.keys(data).map(key => key + '=' + data[key]).join('&');
+                  var newUrl = '/update-role-after-social-login?' + queryString;
+                  window.location.href = newUrl;
+                }
               } else {
-                var data = {
-                  socialToken: socialToken
-                };
-                var queryString = Object.keys(data).map(key => key + '=' + data[key]).join('&');
-                var newUrl = '/update-role-after-social-login?' + queryString;
-                window.location.href = newUrl;
+                setShowAlert(401)
               }
-            } else {
-              setShowAlert(401)
-            }
-          })
-          .catch((error) => {})
+            })
+            .catch((error) => {})
+        }
+        getUser()
       }
-      getUser()
-    } else {
-      setShowAlert(401)
+      else {
+        setShowAlert(401)
+      }
     }
   }, [])
 
