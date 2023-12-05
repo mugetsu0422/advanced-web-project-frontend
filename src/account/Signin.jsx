@@ -127,7 +127,6 @@ function Signin() {
     var url_string = window.location.href; 
     var url = new URL(url_string);
     var socialToken = url.searchParams.get("socialToken");
-    console.log(socialToken)
     if (socialToken !== null) {
       if (socialToken != "")
       {
