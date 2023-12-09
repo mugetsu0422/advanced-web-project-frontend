@@ -4,51 +4,56 @@ import Container from 'react-bootstrap/Container'
 import Card from 'react-bootstrap/Card'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import Pagination from 'react-bootstrap/Pagination'
+import a from '../assets/class-card/class-card-1.png'
+import { getVisiblePage } from '../utils/helper'
+import { CLASS_GET_LIMIT, VISIBLE_PAGES } from '../constants/constants'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
+import Cookies from 'js-cookie'
 
-function LoadClassList() {
-  return [
-    {
-      className: 'Nhập môn lập trình',
-      classShortName: '1',
-      classDescription:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dignissim velit ac lacus laoreet venenatis. Donec auctor tempus semper. Suspendisse posuere vitae justo sed vehicula. Fusce ultrices suscipit cursus. Vivamus bibendum, nisl non sodales lobortis, tellus est blandit dui, eu vehicula metus mi non lorem. Suspendisse commodo neque et ultricies vehicula. Sed et fringilla lorem.',
-      creator: 'Trương Toàn Thịnh',
-    },
-    {
-      className: 'Kỹ thuật lập trình',
-      classShortName: '2',
-      classDescription: '2',
-    },
-    {
-      className: 'Cấu trúc dữ liệu và giải thuật',
-      classShortName: '3',
-      classDescription: '3',
-    },
-    {
-      className: 'Phương pháp lập trình hướng đối tượng',
-      classShortName: '4',
-      classDescription: '4',
-    },
-    {
-      className: 'Nhập môn công nghệ phần mềm',
-      classShortName: '5',
-      classDescription: '5',
-    },
-  ]
+const token = Cookies.get('authToken')
+
+const loadClassNum = async () => {
+  const { data } = await axios
+    .get(`${import.meta.env.VITE_SERVER_HOST}/teachers/class/count`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .catch((err) => {
+      console.error(err)
+    })
+  return data
 }
 
-function CreateClassList() {
-  const classList = LoadClassList()
+const loadClasses = async (offset = 0, limit = CLASS_GET_LIMIT) => {
+  const { data } = await axios
+  .get(
+    `${
+      import.meta.env.VITE_SERVER_HOST
+    }/teachers/class?limit=${limit}&offset=${offset}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  )
+  .catch((err) => {
+    console.error(err)
+  })
+  return data
+}
 
+function ClassList({ list }) {
+  // const { list } = useLoaderData()
   return (
     <>
-      {classList.map((ele) => {
+      {list.map((ele, idx) => {
         return (
-          <>
-            <Col className="mb-4 d-flex">
-              <ClassCard classElement={ele} />
-            </Col>
-          </>
+          <Col className="mb-4 d-flex" key={idx}>
+            <ClassCard classElement={ele} />
+          </Col>
         )
       })}
     </>
@@ -60,13 +65,18 @@ function ClassCard({ classElement }) {
     <>
       <Card className={`${styles['class-card']}`}>
         <Card.Header className={`${styles['class-card-header']}`}>
+          {/* <Card.Img
+            className={`${styles['class-card-img']}`}
+            variant="top"
+            src={a}
+          /> */}
           <Card.Title className={`${styles['truncate-text-one-line']}`}>
-            {classElement.className}
+            {classElement.name}
           </Card.Title>
         </Card.Header>
         <Card.Body className={`${styles['class-card-body']}`}>
           <Card.Text className={`${styles['truncate-text-multi-line']}`}>
-            {classElement.classDescription}
+            {classElement.description}
           </Card.Text>
         </Card.Body>
       </Card>
@@ -74,18 +84,112 @@ function ClassCard({ classElement }) {
   )
 }
 
+const PaginationComponent = ({ count, curPage, setCurPage }) => {
+  const totalPages = Math.ceil(count / CLASS_GET_LIMIT)
+  const pages = getVisiblePage(totalPages, VISIBLE_PAGES, curPage)
+
+  const handlePagination = async (destPage) => {
+    if (destPage == 0 || destPage == totalPages + 1) {
+      return
+    }
+    setCurPage(destPage)
+  }
+
+  const items = pages.map((ele, idx) => {
+    if (ele.value === curPage) {
+      return (
+        <Pagination.Item
+          key={idx}
+          linkClassName={`${styles['page-btn']} ${styles['selected']}`}
+          active={true}>
+          {ele.value}
+        </Pagination.Item>
+      )
+    }
+    return (
+      <Pagination.Item
+        key={idx}
+        onClick={() => setCurPage(ele.value)}
+        linkClassName={`${styles['page-btn']}`}>
+        {ele.value}
+      </Pagination.Item>
+    )
+  })
+
+  return (
+    <Pagination
+      className={`${styles['pagination']} d-flex justify-content-center align-items-center`}>
+      <Pagination.First
+        disabled={curPage === 1}
+        onClick={() => setCurPage(1)}
+        linkClassName={`${styles['page-btn']}`}
+      />
+      <Pagination.Prev
+        disabled={curPage === 1}
+        onClick={() => handlePagination(curPage - 1)}
+        linkClassName={`${styles['page-btn']}`}
+      />
+      {items}
+      <Pagination.Next
+        disabled={curPage === totalPages}
+        onClick={() => handlePagination(curPage + 1)}
+        linkClassName={`${styles['page-btn']}`}
+      />
+      <Pagination.Last
+        disabled={curPage === totalPages}
+        onClick={() => setCurPage(totalPages)}
+        linkClassName={`${styles['page-btn']}`}
+      />
+    </Pagination>
+  )
+}
+
 function TeacherHome() {
+  const [curPage, setCurPage] = useState(1)
+  const [count, setCount] = useState(0)
+  const [classes, setClasses] = useState([])
+
+  useEffect(() => {
+    loadClassNum().then((res) => {
+      setCount(res)
+    })
+  }, [])
+
+  useEffect(() => {
+    const offset = (curPage - 1) * CLASS_GET_LIMIT
+    loadClasses(offset, CLASS_GET_LIMIT).then((res) => {
+      setClasses(res)
+    })
+  }, [curPage])
+
   return (
     <Container fluid className={`${styles['container-fluid']} pt-4 px-5`}>
       <Row xs="1" sm="2" md="3" lg="4">
-        {CreateClassList()}
+        <ClassList list={classes} />
       </Row>
+
+      <PaginationComponent
+        count={count}
+        curPage={curPage}
+        setCurPage={setCurPage}
+        setClasses={setClasses}
+      />
     </Container>
   )
 }
 
 export default TeacherHome
 
+ClassList.propTypes = {
+  list: PropTypes.array.isRequired,
+}
+
 ClassCard.propTypes = {
   classElement: PropTypes.object.isRequired,
+}
+
+PaginationComponent.propTypes = {
+  count: PropTypes.number.isRequired,
+  curPage: PropTypes.number.isRequired,
+  setCurPage: PropTypes.func.isRequired,
 }
