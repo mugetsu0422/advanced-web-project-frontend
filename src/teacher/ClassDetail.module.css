@@ -63,10 +63,6 @@
     color: white;
 }
 
-.invitation-modal {
-    /* border: 5px solid #afd3d2; */
-}
-
 @media screen and (max-width: 576px) {
     .banner-text {
         font-size: 0.8rem;

@@ -21,11 +21,6 @@ const bannerImgShow = css`
   border-radius: 1rem 1rem 0 0;
 `
 
-const invitationModal = css`
-  border: 5px solid #afd3d2;
-  border-radius: 1.5rem;
-`
-
 const invitationCodeContainer = css`
   display: flex;
   justify-content: space-between;
@@ -65,7 +60,6 @@ const invitationCodeIcon = css`
 
 const invitationClose = css`
   color: white;
-  border-radius: 1rem;
   font-size: 1.25rem;
   font-weight: bold;
 `
@@ -82,23 +76,6 @@ const copyMsg = css`
   display: none;
   transition: display 0.5s ease-in-out;
 `
-
-const loadClassDetails = async (id) => {
-  const { data = null } = await axios
-    .get(`${import.meta.env.VITE_SERVER_HOST}/teachers/class/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .catch((err) => {
-      // Dont have access to this class
-      if (err.response.status == 404) {
-        window.location.href = '/teacher'
-        return {}
-      }
-    })
-  return data
-}
 
 function MoreToggle({
   children,
@@ -244,6 +221,23 @@ function ClassDetail() {
 }
 
 export default ClassDetail
+
+const loadClassDetails = async (id) => {
+  const { data = null } = await axios
+    .get(`${import.meta.env.VITE_SERVER_HOST}/teachers/class/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .catch((err) => {
+      // Dont have access to this class
+      if (err.response.status == 404) {
+        window.location.href = '/teacher'
+        return {}
+      }
+    })
+  return data
+}
 
 MoreToggle.propTypes = {
   children: PropTypes.any.isRequired,

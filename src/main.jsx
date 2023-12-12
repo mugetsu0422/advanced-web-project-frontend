@@ -21,6 +21,7 @@ import AdminHome from './admin/AdminHome.jsx'
 import UpdateRoleAfterSocialLogin from './account/UpdateRoleAfterSocialLogin.jsx'
 import ClassDetail from './teacher/ClassDetail.jsx'
 import ClassNavBar from './teacher/ClassNavBar.jsx'
+import ClassPeople from './teacher/ClassPeople.jsx'
 
 const router = createBrowserRouter([
   {
@@ -97,6 +98,10 @@ const router = createBrowserRouter([
           {
             path: '',
             element: <ClassDetail />,
+          },
+          {
+            path: 'people',
+            element: <ClassPeople />,
           },
         ],
       },
