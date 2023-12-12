@@ -1,6 +1,5 @@
 .modal {
-    border: 5px solid #afd3d2;
-    border-radius: 1.5rem;
+    /* border: 5px solid #afd3d2; */
 }
 
 .form-img {
@@ -17,7 +16,6 @@
 .my-input {
     border-radius: 1rem;
     border: 2px solid #afd3d2;
-    /* height: 3rem; */
     margin: 5px 0 5px 0;
     padding: 10px;
 }

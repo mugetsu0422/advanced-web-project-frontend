@@ -5,12 +5,12 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { Form as BootstrapForm } from 'react-bootstrap'
 import formImg from '../assets/Professor-rafiki.png'
-import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import PropTypes from 'prop-types'
 import Cookies from 'js-cookie'
 import { jwtDecode } from 'jwt-decode'
 import axios from 'axios'
+import { makeCode } from '../utils/helper'
 
 function CreateClassForm({ inputs, handleChange, handleSubmit, validated }) {
   return (
@@ -77,15 +77,16 @@ function CreateClassModal({ show, handleClose }) {
 
     const token = Cookies.get('authToken')
     const decodedToken = jwtDecode(token)
-    const _class = { ...inputs, creator: decodedToken.sub }
+    const code = makeCode(10)
+    const _class = { ...inputs, creator: decodedToken.sub, code: code }
     axios
       .post(`${import.meta.env.VITE_SERVER_HOST}/teachers/class`, _class, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then(() => {
-        console.log(1)
+      .then((res) => {
+        window.location.href = `/teacher/class/${res.data.id}`
       })
       .catch((err) => {
         console.error(err)

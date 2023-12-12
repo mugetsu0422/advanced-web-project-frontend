@@ -11,6 +11,7 @@ import { CLASS_GET_LIMIT, VISIBLE_PAGES } from '../constants/constants'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import noDataImg from '../assets/No data-rafiki.png'
 
 const token = Cookies.get('authToken')
 
@@ -29,19 +30,19 @@ const loadClassNum = async () => {
 
 const loadClasses = async (offset = 0, limit = CLASS_GET_LIMIT) => {
   const { data } = await axios
-  .get(
-    `${
-      import.meta.env.VITE_SERVER_HOST
-    }/teachers/class?limit=${limit}&offset=${offset}`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  )
-  .catch((err) => {
-    console.error(err)
-  })
+    .get(
+      `${
+        import.meta.env.VITE_SERVER_HOST
+      }/teachers/class?limit=${limit}&offset=${offset}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+    .catch((err) => {
+      console.error(err)
+    })
   return data
 }
 
@@ -63,7 +64,11 @@ function ClassList({ list }) {
 function ClassCard({ classElement }) {
   return (
     <>
-      <Card className={`${styles['class-card']}`}>
+      <Card
+        className={`${styles['class-card']}`}
+        onClick={() => {
+          window.location.href = `/teacher/class/${classElement.id}`
+        }}>
         <Card.Header className={`${styles['class-card-header']}`}>
           {/* <Card.Img
             className={`${styles['class-card-img']}`}
@@ -163,10 +168,19 @@ function TeacherHome() {
   }, [curPage])
 
   return (
-    <Container fluid className={`${styles['container-fluid']} pt-4 px-5`}>
-      <Row xs="1" sm="2" md="3" lg="4">
-        <ClassList list={classes} />
-      </Row>
+    <Container fluid className={`pt-4 px-5`}>
+      {classes.length === 0 ? (
+        <div className={`${styles['no-data-img']}`}>
+          <img
+            src={noDataImg}
+            alt="No data"
+          />
+        </div>
+      ) : (
+        <Row xs="1" sm="2" md="3" lg="4">
+          <ClassList list={classes} />
+        </Row>
+      )}
 
       <PaginationComponent
         count={count}

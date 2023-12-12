@@ -4,5 +4,5 @@ export const ROLES = {
   teacher: 'teacher',
   admin: 'admin',
 }
-export const CLASS_GET_LIMIT = 1
+export const CLASS_GET_LIMIT = 8
 export const VISIBLE_PAGES = 5
