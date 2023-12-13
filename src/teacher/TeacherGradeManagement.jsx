@@ -546,6 +546,8 @@ const TeacherGradeManagement = () => {
   }
 
   const handleUpload = ({ gradeComposition, file }) => {
+    const pathSegments = window.location.pathname.split('/')
+    const tempClassID = pathSegments[pathSegments.length - 2]
     let columnDelimiter
     if (navigator.platform.toUpperCase().includes('MAC')) {
       columnDelimiter = ';'
