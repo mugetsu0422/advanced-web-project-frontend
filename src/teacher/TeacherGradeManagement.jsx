@@ -212,9 +212,8 @@ const TeacherGradeManagement = () => {
         .post(
           `${
             import.meta.env.VITE_SERVER_HOST
-          }/teachers/grade-compositions-by-class`,
+          }/teachers/class/${tempClassID}/grade-compositions`,
           {
-            classID: tempClassID,
           },
           {
             headers: {
@@ -238,11 +237,8 @@ const TeacherGradeManagement = () => {
         .catch((error) => {})
 
       await axios
-        .post(
-          `${import.meta.env.VITE_SERVER_HOST}/teachers/get-class-student-list`,
-          {
-            classID: tempClassID,
-          },
+        .get(
+          `${import.meta.env.VITE_SERVER_HOST}/teachers/class/${tempClassID}/student-list`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -259,13 +255,10 @@ const TeacherGradeManagement = () => {
         .catch((error) => {})
 
       await axios
-        .post(
+        .get(
           `${
             import.meta.env.VITE_SERVER_HOST
-          }/teachers/get-class-student-account-list`,
-          {
-            classID: tempClassID,
-          },
+          }/teachers/class/${tempClassID}/student-account-list`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -290,11 +283,8 @@ const TeacherGradeManagement = () => {
         .catch((error) => {})
 
       await axios
-        .post(
-          `${import.meta.env.VITE_SERVER_HOST}/teachers/get-grade`,
-          {
-            classID: tempClassID,
-          },
+        .get(
+          `${import.meta.env.VITE_SERVER_HOST}/teachers/class/${tempClassID}/all-grade`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -322,11 +312,8 @@ const TeacherGradeManagement = () => {
         .catch((error) => {})
 
       await await axios
-        .post(
-          `${import.meta.env.VITE_SERVER_HOST}/teachers/get-overall-grade`,
-          {
-            classID: tempClassID,
-          },
+        .get(
+          `${import.meta.env.VITE_SERVER_HOST}/teachers/class/${tempClassID}/overall-grade`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -380,7 +367,7 @@ const TeacherGradeManagement = () => {
           const response = await axios.post(
             `${
               import.meta.env.VITE_SERVER_HOST
-            }/teachers/update-grade-specific-assignment`,
+            }/teachers/class/specific-grade`,
             {
               gradeList: simplifiedData,
             },
@@ -433,7 +420,7 @@ const TeacherGradeManagement = () => {
 
       axios
         .post(
-          `${import.meta.env.VITE_SERVER_HOST}/teachers/update-overall-grade`,
+          `${import.meta.env.VITE_SERVER_HOST}/teachers/class/overall-grade`,
           {
             overallGradeList: simplifiedData1,
           },
@@ -622,7 +609,7 @@ const TeacherGradeManagement = () => {
           .post(
             `${
               import.meta.env.VITE_SERVER_HOST
-            }/teachers/upload-class-student-list`,
+            }/teachers/class/student-list`,
             {
               classStudentList: simplifiedData,
             },
@@ -635,6 +622,9 @@ const TeacherGradeManagement = () => {
           .then((response) => {
             if (response.data === 'Upload completed') {
               message.success('File uploaded successfully!')
+            }
+            else {
+              message.error('File uploaded failed!')
             }
           })
           .catch((error) => {})
