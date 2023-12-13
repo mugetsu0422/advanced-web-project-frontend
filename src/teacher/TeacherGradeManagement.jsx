@@ -344,6 +344,8 @@ const TeacherGradeManagement = () => {
   }, [])
 
   const SaveAll = async () => {
+    const pathSegments = window.location.pathname.split('/')
+    const tempClassID = pathSegments[pathSegments.length - 2]
     try {
       const requests = gradeCompositionNames.map(
         async (gradeCompositionName) => {
@@ -367,7 +369,7 @@ const TeacherGradeManagement = () => {
           const response = await axios.post(
             `${
               import.meta.env.VITE_SERVER_HOST
-            }/teachers/class/specific-grade`,
+            }/teachers/class/${tempClassID}/specific-grade`,
             {
               gradeList: simplifiedData,
             },
@@ -420,7 +422,7 @@ const TeacherGradeManagement = () => {
 
       axios
         .post(
-          `${import.meta.env.VITE_SERVER_HOST}/teachers/class/overall-grade`,
+          `${import.meta.env.VITE_SERVER_HOST}/teachers/class/${tempClassID}/overall-grade`,
           {
             overallGradeList: simplifiedData1,
           },
@@ -438,6 +440,7 @@ const TeacherGradeManagement = () => {
 
       message.success('Save successful')
     } catch (error) {
+      console.log(error)
       message.error('Save failed')
     }
   }
@@ -609,7 +612,7 @@ const TeacherGradeManagement = () => {
           .post(
             `${
               import.meta.env.VITE_SERVER_HOST
-            }/teachers/class/student-list`,
+            }/teachers/class/${tempClassID}/student-list`,
             {
               classStudentList: simplifiedData,
             },
