@@ -1,0 +1,31 @@
+.editable-row .ant-form-item-explain {
+    position: absolute;
+    top: 100%;
+    font-size: 12px;
+}
+
+.button-download {
+    margin: 10px;
+}
+
+.button-upload {
+    margin: 10px;
+}
+
+.button-container {
+    text-align: right;
+}
+
+.table-score {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.button-dropdown {
+    margin-left: 20px;
+    background-color: #71aca9;
+}
+
+.button-dropdown:hover {
+    background-color: #71aca9 !important;
+}

@@ -19,6 +19,7 @@ import StudentHome from './student/StudentHome.jsx'
 import TeacherHome from './teacher/TeacherHome.jsx'
 import AdminHome from './admin/AdminHome.jsx'
 import UpdateRoleAfterSocialLogin from './account/UpdateRoleAfterSocialLogin.jsx'
+import TeacherGradeManagement from './teacher/TeacherGradeManagement.jsx'
 
 const router = createBrowserRouter([
   {
@@ -71,6 +72,10 @@ const router = createBrowserRouter([
       {
         path: '',
         element: <SigninRoute />,
+      },
+      {
+        path: '/:classID/grade-management/',
+        element: <TeacherGradeManagement />,
       },
       {
         path: '/student',
