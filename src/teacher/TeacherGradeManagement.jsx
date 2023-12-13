@@ -575,6 +575,9 @@ const TeacherGradeManagement = () => {
 
         for (let i = 1; i < lines.length; i++) {
           const values = lines[i].split(columnDelimiter)
+          if (values.length === 1 && values[0].trim() === '') {
+            continue
+          }
           const entry = { key: i.toString() }
 
           for (let j = 0; j < headers.length; j++) {
@@ -657,6 +660,9 @@ const TeacherGradeManagement = () => {
 
         for (let i = 1; i < lines.length; i++) {
           const values = lines[i].split(columnDelimiter)
+          if (values.length === 1 && values[0].trim() === '') {
+            continue
+          }
           const entry = { key: i.toString() }
 
           for (let j = 0; j < headers.length; j++) {
