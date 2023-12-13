@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useParams } from 'react'
+import { useState, useEffect } from 'react'
 import styles from './TeacherGradeManagement.module.css'
 import {
   DownloadOutlined,

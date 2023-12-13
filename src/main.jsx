@@ -77,10 +77,6 @@ const router = createBrowserRouter([
         element: <SigninRoute />,
       },
       {
-        path: '/:classID/grade-management/',
-        element: <TeacherGradeManagement />,
-      },
-      {
         path: '/student',
         element: (
           <ProtectedRoute requiredRole={'student'}>
@@ -103,6 +99,10 @@ const router = createBrowserRouter([
           {
             path: '',
             element: <ClassDetail />,
+          },
+          {
+            path: 'grade-management/',
+            element: <TeacherGradeManagement />,
           },
           {
             path: 'people',
