@@ -19,6 +19,9 @@ import StudentHome from './student/StudentHome.jsx'
 import TeacherHome from './teacher/TeacherHome.jsx'
 import AdminHome from './admin/AdminHome.jsx'
 import UpdateRoleAfterSocialLogin from './account/UpdateRoleAfterSocialLogin.jsx'
+import ClassDetail from './teacher/ClassDetail.jsx'
+import ClassNavBar from './teacher/ClassNavBar.jsx'
+import ClassPeople from './teacher/ClassPeople.jsx'
 import TeacherGradeManagement from './teacher/TeacherGradeManagement.jsx'
 
 const router = createBrowserRouter([
@@ -92,6 +95,20 @@ const router = createBrowserRouter([
             <TeacherHome />
           </ProtectedRoute>
         ),
+      },
+      {
+        path: '/teacher/class/:id',
+        element: <ClassNavBar />,
+        children: [
+          {
+            path: '',
+            element: <ClassDetail />,
+          },
+          {
+            path: 'people',
+            element: <ClassPeople />,
+          },
+        ],
       },
       {
         path: '/admin',

@@ -1,0 +1,120 @@
+.accordion {
+    border-radius: 2rem !important;
+    box-shadow:
+        2px 2px 2px 2px rgba(60, 64, 67, 0.3),
+        2px 2px 2px 2px rgba(60, 64, 67, 0.15);
+}
+
+.accordion-item {
+    border-radius: 1rem !important;
+}
+
+.banner {
+    position: relative;
+    width: 100%;
+}
+
+.banner-img {
+    border-radius: 1rem;
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.banner-text {
+    width: 90%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 10px 10px 1rem 2rem;
+    color: white;
+    font-weight: bold;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.banner-text h2 {
+    display: block;
+}
+
+.more {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 1rem;
+    color: white;
+}
+
+.more::after {
+    display: none !important;
+}
+
+.info-icon:hover,
+.invitation-icon:hover {
+    cursor: pointer;
+}
+
+.invitation {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 1rem;
+    color: white;
+}
+
+@media screen and (max-width: 576px) {
+    .banner-text {
+        font-size: 0.8rem;
+        padding-left: 1rem;
+        padding-bottom: 0.5rem;
+    }
+    .invitation {
+        padding: 0.5rem 1rem 0rem;
+    }
+    .more {
+        padding: 0rem 1rem 0.5rem 0rem;
+    }
+    .info-icon,
+    .invitation-icon {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (min-width: 576px) {
+    .banner-text {
+        font-size: 1rem;
+        padding-left: 1rem;
+        padding-bottom: 0.5rem;
+    }
+    .info-icon,
+    .invitation-icon {
+        font-size: 1.25rem;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .banner-text {
+        font-size: 1.5rem;
+        padding-left: 1rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .info-icon,
+    .invitation-icon {
+        font-size: 1.5rem;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .banner-text {
+        font-size: 2rem;
+        padding-left: 1rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .info-icon,
+    .invitation-icon {
+        font-size: 2rem;
+    }
+}
