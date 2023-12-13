@@ -13,22 +13,41 @@ import {
   faBell,
   faPlus,
 } from '@fortawesome/free-solid-svg-icons'
-import { jwtDecode } from 'jwt-decode'
+import CreateClassModal from './teacher/CreateClassModal'
 
 const NavbarContext = createContext()
 const role = localStorage.getItem('role')
 
 function AddClass() {
   const { isSignin } = useContext(NavbarContext)
+  const [show, setShow] = useState(false)
+
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
+  const modalBasedOnRole = () => {
+    if (role === 'teacher') {
+      return <CreateClassModal show={show} handleClose={handleClose} />
+    } else if (role === 'student') {
+      console.log('student')
+    }
+    return null
+  }
 
   if (!isSignin) {
     return null
   }
-  return (
-    <Nav.Link className={`${styles['dropdown']}`}>
-      <FontAwesomeIcon icon={faPlus} />
-    </Nav.Link>
-  )
+  if (role === 'teacher' || role === 'student') {
+    return (
+      <>
+        <Nav.Link className={`${styles['dropdown']}`}>
+          <FontAwesomeIcon icon={faPlus} onClick={handleShow} />
+        </Nav.Link>
+        {modalBasedOnRole()}
+      </>
+    )
+  } else {
+    return null
+  }
 }
 
 function Notification() {
@@ -37,13 +56,17 @@ function Notification() {
   if (!isSignin) {
     return null
   }
-  return (
-    <>
-      <Nav.Link className={`${styles['dropdown']}`}>
-        <FontAwesomeIcon icon={faBell} />
-      </Nav.Link>
-    </>
-  )
+  if (role === 'teacher' || role === 'student') {
+    return (
+      <>
+        <Nav.Link className={`${styles['dropdown']}`}>
+          <FontAwesomeIcon icon={faBell} />
+        </Nav.Link>
+      </>
+    )
+  } else {
+    return null
+  }
 }
 
 function AccountSection() {

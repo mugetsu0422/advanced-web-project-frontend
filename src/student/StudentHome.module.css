@@ -1,3 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Noto+Color+Emoji&family=Azeret+Mono&display=swap');
+
+.no-data-img {
+    width: 50%;
+    margin: auto;
+}
+
+.no-data-img img {
+    width: 100%;
+}
+
 .truncate-text-one-line {
     text-overflow: ellipsis;
     overflow: hidden;
@@ -30,6 +41,57 @@
     background-color: #afd3d2;
 }
 
+.class-card-img {
+    width: 100%;
+}
+
 .class-card-body {
     height: 10rem;
+}
+
+.pagination {
+    font-family: 'Azeret Mono', 'Gochi Hand', 'Noto Color Emoji', cursive,
+        sans-serif;
+}
+
+.page-btn {
+    color: #000000;
+    width: 3rem;
+    height: 3rem;
+    margin-right: 0.25rem;
+    display: inline-flex;
+    flex-shrink: 0;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    background-color: #ffffff;
+    border-radius: 50%;
+    border: 1px solid #71aca9;
+
+    &:hover {
+        color: white !important;
+        background-color: #71aca9;
+        font-weight: bold;
+    }
+    &:focus {
+        color: #71aca9;
+        box-shadow: 0 0 0 0.25rem #afd3d2bd;
+    }
+    &.selected {
+        border: 1px solid #71aca9;
+        background-color: #71aca9;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .page-btn {
+        width: 2rem;
+        height: 2rem;
+        font-size: 1rem;
+    }
+
+    .no-data-img {
+        width: 100%;
+        margin: auto;
+    }
 }
