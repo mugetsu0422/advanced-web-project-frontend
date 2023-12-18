@@ -99,7 +99,6 @@ const TeacherGradeStructure = () => {
   };
 
   const handleCancelEdit = (id) => {
-    console.log(id)
     const index = originalGradeCompositions.findIndex((composition) => composition.id === id);
     if (index !== -1) {
       const updatedCompositions = [...gradeCompositions];
