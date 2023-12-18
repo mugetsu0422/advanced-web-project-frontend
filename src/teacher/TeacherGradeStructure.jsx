@@ -71,7 +71,9 @@ const TeacherGradeStructure = () => {
   };
 
   const handleEdit = (index) => {
-    setEditingIndex(index);
+    if (editingIndex === -1) {
+      setEditingIndex(index);
+    }
   };
 
   const handleSave = () => {
@@ -96,13 +98,22 @@ const TeacherGradeStructure = () => {
     });
   };
 
-  const handleCancelEdit = () => {
-    setEditingIndex(-1);
+  const handleCancelEdit = (id) => {
+    console.log(id)
+    const index = originalGradeCompositions.findIndex((composition) => composition.id === id);
+    if (index !== -1) {
+      const updatedCompositions = [...gradeCompositions];
+      updatedCompositions[editingIndex] = { ...originalGradeCompositions[index] };
+      setGradeCompositions(updatedCompositions);
+      setEditingIndex(-1);
+    }
   };
 
   const handleDelete = (index) => {
-    const updatedCompositions = gradeCompositions.filter((_, i) => i !== index);
-    setGradeCompositions(updatedCompositions);
+    if (editingIndex === -1) {
+      const updatedCompositions = gradeCompositions.filter((_, i) => i !== index);
+      setGradeCompositions(updatedCompositions);
+    }
   };
 
   const handleNameChange = (e, index) => {
@@ -172,9 +183,6 @@ const TeacherGradeStructure = () => {
         </Alert>
       )}
       <div className={styles.buttonContainer}>
-        <div style={{ flex: '1' }}>
-          <h5>GRADE STRUCTURE</h5>
-        </div>
         <div className={styles['button-container']}>
           <Button className={styles['add-save-button']} onClick={handleResetChanges}>
             <UndoOutlined />
@@ -229,7 +237,7 @@ const TeacherGradeStructure = () => {
                       <SaveOutlined />
                       Save
                     </Button>
-                    <Button className={styles['cancel-button']} onClick={() => handleCancelEdit()}>
+                    <Button className={styles['cancel-button']} onClick={() => handleCancelEdit(composition.id)}>
                       <CloseOutlined />
                       Cancel
                     </Button>

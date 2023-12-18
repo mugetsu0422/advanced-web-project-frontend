@@ -214,8 +214,6 @@ const TeacherGradeManagement = () => {
             import.meta.env.VITE_SERVER_HOST
           }/teachers/class/${tempClassID}/grade-compositions`,
           {
-          },
-          {
             headers: {
               Authorization: `Bearer ${token}`,
             },
