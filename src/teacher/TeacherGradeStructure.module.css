@@ -72,9 +72,10 @@ table {
     cursor: move;
 }
 
-.nonDraggable {
+.non-draggable {
     background-color: #f9f9f9 !important;
     cursor: default !important;
+    font-size: 20px;
 }
 
 .gradeTable td:last-child {
@@ -126,10 +127,16 @@ table {
 }
 
 .cancel-button {
-    background-color: #5a6268 !important;
+    background-color: #6c757d !important;
 }
   
 .cancel-button:hover {
     background-color: #545b62 !important;
 }
+
+.total-row {
+    color: #71aca9;
+    font-weight: bold;
+}
+  
   

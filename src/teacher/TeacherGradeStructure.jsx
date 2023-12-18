@@ -60,6 +60,14 @@ const TeacherGradeStructure = () => {
     }
   }
 
+  const calculateTotalPercentage = () => {
+    let totalPercentage = 0;
+    gradeCompositions.forEach((composition) => {
+      totalPercentage += parseFloat(composition.scale) || 0;
+    });
+    return totalPercentage;
+  };
+
   const handleResetChanges = () => {
     const copyOfOridinalGradeCompositions = JSON.parse(JSON.stringify(originalGradeCompositions));
     setGradeCompositions(copyOfOridinalGradeCompositions);
@@ -199,7 +207,7 @@ const TeacherGradeStructure = () => {
       </div>
       <table className={styles.gradeTable}>
         <thead>
-          <tr className={styles.nonDraggable}>
+          <tr className={styles['non-draggable']}>
             <th>Name</th>
             <th>Grade Scale (%)</th>
             <th>Operation</th>
@@ -210,7 +218,7 @@ const TeacherGradeStructure = () => {
             <tr
               key={composition.id}
               draggable={index !== gradeCompositions.length}
-              className={editingIndex !== -1 ? styles.nonDraggable : ''}
+              className={editingIndex !== -1 ? `${styles['non-draggable']}` : ''}
               onDragStart={(e) => handleDragStart(e, index)}
               onDragOver={handleDragOver}
               onDrop={(e) => handleDrop(e, index)}
@@ -256,9 +264,10 @@ const TeacherGradeStructure = () => {
               </td>
             </tr>
           ))}
-          {/* Total row */}
-          <tr className={styles.nonDraggable}>
-            <td colSpan="3"></td>
+          <tr className={`${styles['non-draggable']} ${styles['total-row']}`}>
+            <td>Total</td>
+            <td>{calculateTotalPercentage()}%</td>
+            <td></td>
           </tr>
         </tbody>
       </table>
