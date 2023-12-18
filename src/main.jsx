@@ -22,6 +22,7 @@ import UpdateRoleAfterSocialLogin from './account/UpdateRoleAfterSocialLogin.jsx
 import ClassDetail from './teacher/ClassDetail.jsx'
 import ClassNavBar from './teacher/ClassNavBar.jsx'
 import ClassPeople from './teacher/ClassPeople.jsx'
+import TeacherGradeStructure from './teacher/TeacherGradeStructure.jsx'
 import TeacherGradeManagement from './teacher/TeacherGradeManagement.jsx'
 
 const router = createBrowserRouter([
@@ -99,6 +100,10 @@ const router = createBrowserRouter([
           {
             path: '',
             element: <ClassDetail />,
+          },
+          {
+            path: 'grade-structure/',
+            element: <TeacherGradeStructure />,
           },
           {
             path: 'grade-management/',
