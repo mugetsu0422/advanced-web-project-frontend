@@ -209,12 +209,10 @@ const TeacherGradeManagement = () => {
 
     const fetchData = async () => {
       await axios
-        .post(
+        .get(
           `${
             import.meta.env.VITE_SERVER_HOST
           }/teachers/class/${tempClassID}/grade-compositions`,
-          {
-          },
           {
             headers: {
               Authorization: `Bearer ${token}`,
