@@ -27,6 +27,7 @@ import TeacherGradeManagement from './teacher/TeacherGradeManagement.jsx'
 import StudentClassNavBar from './student/StudentClassNavBar.jsx'
 import StudentClassDetail from './student/StudentClassDetail.jsx'
 import StudentClassPeople from './student/StudentClassPeople.jsx'
+import StudentGradeStructure from './student/StudentGradeStructure.jsx'
 
 const router = createBrowserRouter([
   {
@@ -99,6 +100,10 @@ const router = createBrowserRouter([
           {
             path: '',
             element: <StudentClassDetail />,
+          },
+          {
+            path: 'grade-structure',
+            element: <StudentGradeStructure />,
           },
           {
             path: 'people',
