@@ -19,11 +19,14 @@ import StudentHome from './student/StudentHome.jsx'
 import TeacherHome from './teacher/TeacherHome.jsx'
 import AdminHome from './admin/AdminHome.jsx'
 import UpdateRoleAfterSocialLogin from './account/UpdateRoleAfterSocialLogin.jsx'
-import ClassDetail from './teacher/ClassDetail.jsx'
-import ClassNavBar from './teacher/ClassNavBar.jsx'
-import ClassPeople from './teacher/ClassPeople.jsx'
+import TeacherClassDetail from './teacher/TeacherClassDetail.jsx'
+import TeacherClassNavBar from './teacher/TeacherClassNavBar.jsx'
+import TeacherClassPeople from './teacher/TeacherClassPeople.jsx'
 import TeacherGradeStructure from './teacher/TeacherGradeStructure.jsx'
 import TeacherGradeManagement from './teacher/TeacherGradeManagement.jsx'
+import StudentClassNavBar from './student/StudentClassNavBar.jsx'
+import StudentClassDetail from './student/StudentClassDetail.jsx'
+import StudentClassPeople from './student/StudentClassPeople.jsx'
 
 const router = createBrowserRouter([
   {
@@ -86,6 +89,24 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: '/student/class/:id',
+        element: (
+          <ProtectedRoute requiredRole={'student'}>
+            <StudentClassNavBar />
+          </ProtectedRoute>
+        ),
+        children: [
+          {
+            path: '',
+            element: <StudentClassDetail />,
+          },
+          {
+            path: 'people',
+            element: <StudentClassPeople />,
+          },
+        ],
+      },
+      {
         path: '/teacher',
         element: (
           <ProtectedRoute requiredRole={'teacher'}>
@@ -95,11 +116,15 @@ const router = createBrowserRouter([
       },
       {
         path: '/teacher/class/:id',
-        element: <ClassNavBar />,
+        element: (
+          <ProtectedRoute requiredRole={'teacher'}>
+            <TeacherClassNavBar />
+          </ProtectedRoute>
+        ),
         children: [
           {
             path: '',
-            element: <ClassDetail />,
+            element: <TeacherClassDetail />,
           },
           {
             path: 'grade-structure/',
@@ -111,7 +136,7 @@ const router = createBrowserRouter([
           },
           {
             path: 'people',
-            element: <ClassPeople />,
+            element: <TeacherClassPeople />,
           },
         ],
       },

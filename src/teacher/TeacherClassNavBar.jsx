@@ -1,4 +1,4 @@
-import styles from './ClassNavBar.module.css'
+import styles from './TeacherClassNavBar.module.css'
 import { Outlet, Link, useParams, useLocation } from 'react-router-dom'
 import Nav from 'react-bootstrap/Nav'
 import Container from 'react-bootstrap/Container'
@@ -13,7 +13,7 @@ const myNavLink = css`
   }
 `
 
-function ClassNavBar() {
+function TeacherClassNavBar() {
   const { id = null } = useParams()
   let { pathname } = useLocation()
 
@@ -73,18 +73,6 @@ function ClassNavBar() {
                 css={myNavLink}
                 className={`px-3 ${styles['nav-link']}`}
                 as={'div'}
-                eventKey="finalize">
-                Finalize
-              </Nav.Link>
-            </Link>
-          </Nav.Item>
-          <Nav.Item className={`${styles['nav-item']}`}>
-            <Link
-              className={`text-decoration-none`}>
-              <Nav.Link
-                css={myNavLink}
-                className={`px-3 ${styles['nav-link']}`}
-                as={'div'}
                 eventKey="requests">
                 Requests
               </Nav.Link>
@@ -110,4 +98,4 @@ function ClassNavBar() {
   )
 }
 
-export default ClassNavBar
+export default TeacherClassNavBar
