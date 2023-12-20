@@ -74,7 +74,6 @@ function JoinClassForm({ inputs, handleChange, handleSubmit }) {
       <form
         css={joinClassForm}
         id="join-class-form"
-        noValidate
         onSubmit={handleSubmit}>
         <div>
           <input

@@ -75,6 +75,7 @@ const copyMsg = css`
   border-radius: 1.5rem;
   display: none;
   transition: display 0.5s ease-in-out;
+  font-size: 1.25rem;
 `
 
 function MoreToggle({
@@ -95,8 +96,9 @@ function MoreToggle({
 }
 
 const InvitationModal = ({ details, showInvitation, setShowInvitation }) => {
-  const dismissingPopupMsg = () => {
+  const dismissingPopupMsg = (text) => {
     const copy = document.getElementById('copyMsg')
+    copy.innerHTML = text
     copy.style.display = 'block'
     setTimeout(function () {
       copy.style.display = 'none'
@@ -105,12 +107,12 @@ const InvitationModal = ({ details, showInvitation, setShowInvitation }) => {
 
   const copyCode = () => {
     navigator.clipboard.writeText(details.code)
-    dismissingPopupMsg()
+    dismissingPopupMsg('Code copied')
   }
 
   const copyLink = () => {
     navigator.clipboard.writeText(window.location.host + details.link)
-    dismissingPopupMsg()
+    dismissingPopupMsg('Link copied')
   }
 
   return (
@@ -138,9 +140,7 @@ const InvitationModal = ({ details, showInvitation, setShowInvitation }) => {
               onClick={copyCode}
             />
           </div>
-          <div id="copyMsg" css={copyMsg}>
-            Copied
-          </div>
+          <div id="copyMsg" css={copyMsg}></div>
         </Modal.Body>
         <Modal.Footer>
           <Button
