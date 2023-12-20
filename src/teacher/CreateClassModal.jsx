@@ -11,6 +11,7 @@ import Cookies from 'js-cookie'
 import { jwtDecode } from 'jwt-decode'
 import axios from 'axios'
 import { makeCode } from '../utils/helper'
+import { CLASS_CODE_LENGTH } from '../constants/constants'
 
 function CreateClassForm({ inputs, handleChange, handleSubmit, validated }) {
   return (
@@ -77,7 +78,7 @@ function CreateClassModal({ show, handleClose }) {
 
     const token = Cookies.get('authToken')
     const decodedToken = jwtDecode(token)
-    const code = makeCode(10)
+    const code = makeCode(CLASS_CODE_LENGTH)
     const _class = { ...inputs, creator: decodedToken.sub, code: code }
     axios
       .post(`${import.meta.env.VITE_SERVER_HOST}/teachers/class`, _class, {

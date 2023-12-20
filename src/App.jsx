@@ -14,6 +14,7 @@ import {
   faPlus,
 } from '@fortawesome/free-solid-svg-icons'
 import CreateClassModal from './teacher/CreateClassModal'
+import JoinClassModal from './student/JoinClassModal'
 
 const NavbarContext = createContext()
 const role = localStorage.getItem('role')
@@ -28,6 +29,7 @@ function AddClass() {
     if (role === 'teacher') {
       return <CreateClassModal show={show} handleClose={handleClose} />
     } else if (role === 'student') {
+      return <JoinClassModal show={show} handleClose={handleClose}/>
     }
     return null
   }
