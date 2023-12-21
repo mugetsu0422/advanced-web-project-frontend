@@ -56,6 +56,10 @@ const invitationCodeIcon = css`
   &:hover {
     background-color: #aacdaf4c;
   }
+
+  @media (max-width: 576px) {
+    padding: 0.5rem
+  }
 `
 
 const invitationClose = css`

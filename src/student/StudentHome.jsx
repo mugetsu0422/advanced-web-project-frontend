@@ -163,7 +163,7 @@ function StudentHome() {
   }, [curPage])
 
   return (
-    <Container fluid className={`pt-4 px-5`}>
+    <Container fluid className={`pt-4 px-sm-5`}>
       {classes.length === 0 ? (
         <div className={`${styles['no-data-img']}`}>
           <img src={noDataImg} alt="No data" />
