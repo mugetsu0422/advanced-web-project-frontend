@@ -800,16 +800,7 @@ const TeacherGradeManagement = () => {
 
   return (
     <>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          margin: '20px',
-        }}>
-        <div style={{ flex: '1' }}><h5>GRADE MANAGEMENT</h5></div>
-
-        <div className={styles['button-container']}>
+      <div className={styles['button-container']}>
           <Dropdown
             overlay={menu('studentList')}
             className={styles['button-dropdown']}>
@@ -849,7 +840,6 @@ const TeacherGradeManagement = () => {
             Save
           </Button>
         </div>
-      </div>
 
       <TeacherGradeManagementPopupUpload
         visible={uploadModalVisible}
