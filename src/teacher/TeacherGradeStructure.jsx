@@ -89,9 +89,10 @@ const TeacherGradeStructure = () => {
       id: composition.id || '', 
       name: composition.name,
       scale: composition.scale,
+      isFinalized: composition.isFinalized,
       order: index + 1,
     }));
-  
+
     axios.post(`${import.meta.env.VITE_SERVER_HOST}/teachers/class/${id}/grade-compositions`, compositionsToSend, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -134,6 +135,12 @@ const TeacherGradeStructure = () => {
     editedCompositions[index].scale = e.target.value;
     setGradeCompositions(editedCompositions);
   };
+
+  const handleFinalizeChange = (e, index) => {
+    const editedCompositions = [...gradeCompositions];
+    editedCompositions[index].isFinalized = true;
+    setGradeCompositions(editedCompositions);
+  }
 
   const handleSaveTemporaryChanges = (index) => {
     const editedCompositions = [...gradeCompositions];
@@ -210,6 +217,7 @@ const TeacherGradeStructure = () => {
           <tr className={styles['non-draggable']}>
             <th>Name</th>
             <th>Grade Scale (%)</th>
+            <th>Finalize</th>
             <th>Operation</th>
           </tr>
         </thead>
@@ -236,6 +244,15 @@ const TeacherGradeStructure = () => {
                 ) : (
                   composition.scale
                 )}
+              </td>
+              <td className={styles['checkbox-cell']}>
+              <input
+                  type="checkbox"
+                  className={styles['checkbox']}
+                  checked={composition.isFinalized}
+                  onChange={(e) => handleFinalizeChange(e, index)}
+                  disabled={editingIndex !== index}
+                />
               </td>
               <td className={styles['operation-cell']}>
                 {editingIndex === index ? (
@@ -267,6 +284,7 @@ const TeacherGradeStructure = () => {
           <tr className={`${styles['non-draggable']} ${styles['total-row']}`}>
             <td>Total</td>
             <td>{calculateTotalPercentage()}%</td>
+            <td></td>
             <td></td>
           </tr>
         </tbody>

@@ -107,6 +107,7 @@ table {
     background-color: #71aca9;
     color: white; 
     border: none;
+    margin-left: 10px;
 }
   
 .edit-button:hover,
@@ -139,4 +140,7 @@ table {
     font-weight: bold;
 }
   
-  
+.checkbox {
+    width: 20px;
+    height: 20px;
+}
