@@ -1,9 +1,20 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { css } from '@emotion/react'
 import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
 import { Link } from 'react-router-dom'
-import { USER_AVATAR_IMG } from '../constants/constants'
-import parse from 'html-react-parser';
+import {
+  NOTIFICATION_GET_LIMIT,
+  NOTIFICATION_LIMIT,
+  USER_AVATAR_IMG,
+} from '../constants/constants'
+import parse from 'html-react-parser'
+import { useEffect, useRef, useState } from 'react'
+import axios from 'axios'
+import Cookies from 'js-cookie'
+import Spinner from 'react-bootstrap/Spinner'
+
+const token = Cookies.get('authToken')
 
 const notificationCard = css`
   width: 25rem;
@@ -80,72 +91,105 @@ const notificationItemTime = css`
   color: #a1a1a1;
 `
 
-const Test = () => {
-  const text = `Assignment <strong>X</strong>'s grading in 
-  <strong>Class Name</strong> has been finalized`
-  return parse(text)
+const spinner = css`
+  height: 2.5rem;
+  width: 2.5rem;
+  margin: auto;
+  color: #aacdaf;
+`
+
+const NotificationList = ({ list }) => {
+  return list.map((ele, idx) => {
+    return (
+      <Link key={idx} css={notificationLink} to={'#'}>
+        <ListGroup.Item css={notificationItem}>
+          <img src={USER_AVATAR_IMG[0]} alt="avatar" />
+          <p css={notificationItemContent}>
+            {parse(ele.content)}
+            <br />
+            <span css={notificationItemTime}>1d ago</span>
+          </p>
+        </ListGroup.Item>
+      </Link>
+    )
+  })
 }
 
 function Notification() {
+  const [noti, setNoti] = useState([])
+  const [offset, setOffset] = useState(0)
+  const loading = useRef(true)
+  const offsetCurrent = useRef(0)
+  const notiCount = useRef(0)
+  const notificationCardRef = useRef(null)
+
+  const handleScroll = () => {
+    const container = notificationCardRef.current
+    if (container && !loading.current) {
+      const containerHeight = container.clientHeight
+      const scrollTop = container.scrollTop
+      const scrollHeight = container.scrollHeight
+
+      if (
+        containerHeight + scrollTop >= scrollHeight - 10 &&
+        offsetCurrent.current <= notiCount.current
+      ) {
+        loading.current = true
+        setOffset((prevOffset) => prevOffset + NOTIFICATION_GET_LIMIT)
+      }
+    }
+  }
+
+  useEffect(() => {
+    loadNotificationCount().then((res) => (notiCount.current = res))
+
+    const container = notificationCardRef.current
+    if (container) {
+      container.addEventListener('scroll', handleScroll)
+    }
+
+    return () => {
+      if (container) {
+        container.removeEventListener('scroll', handleScroll)
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+    if (noti.length > NOTIFICATION_LIMIT) {
+      return
+    }
+    // setTimeout(() => {
+    //   loadNotification(offset, NOTIFICATION_GET_LIMIT)
+    //     .then((res) => {
+    //       setNoti(noti.concat(res))
+    //       offsetCurrent.current += NOTIFICATION_GET_LIMIT
+    //     })
+    //     .finally(() => {
+    //       loading.current = false
+    //     })
+    // }, 2000)
+    loadNotification(offset, NOTIFICATION_GET_LIMIT)
+      .then((res) => {
+        setNoti(noti.concat(res))
+        offsetCurrent.current += NOTIFICATION_GET_LIMIT
+      })
+      .finally(() => {
+        loading.current = false
+      })
+  }, [offset])
+
   return (
-    <Card css={notificationCard}>
+    <Card css={notificationCard} ref={notificationCardRef}>
       <Card.Body css={notificationCardBody}>
         <Card.Title css={notificationCardTitle}>Notification</Card.Title>
         <ListGroup variant="flush">
-          <Link css={notificationLink}>
-            <ListGroup.Item css={notificationItem}>
-              <img src={USER_AVATAR_IMG[0]} alt="avatar" />
-              <p css={notificationItemContent}>
-                {Test()}
-                <br />
-                <span css={notificationItemTime}>1d ago</span>
-              </p>
-            </ListGroup.Item>
-          </Link>
-          <Link css={notificationLink}>
-            <ListGroup.Item css={notificationItem}>
-              <img src={USER_AVATAR_IMG[0]} alt="avatar" />
-              <p css={notificationItemContent}>
-                Your teacher in <strong>Class Name</strong> has
-                responded to your grade review.
-                <br />
-                <span css={notificationItemTime}>1d ago</span>
-              </p>
-            </ListGroup.Item>
-          </Link>
-          <Link css={notificationLink}>
-            <ListGroup.Item css={notificationItem}>
-              <img src={USER_AVATAR_IMG[0]} alt="avatar" />
-              <p css={notificationItemContent}>
-                A final decision has been made on your mark review in{' '}
-                <strong>Class Name</strong>.
-                <br />
-                <span css={notificationItemTime}>1d ago</span>
-              </p>
-            </ListGroup.Item>
-          </Link>
-          <Link css={notificationLink}>
-            <ListGroup.Item css={notificationItem}>
-              <img src={USER_AVATAR_IMG[0]} alt="avatar" />
-              <p css={notificationItemContent}>
-                A student has requested a grade review in{' '}
-                <strong>Class Name</strong>.
-                <br />
-                <span css={notificationItemTime}>1d ago</span>
-              </p>
-            </ListGroup.Item>
-          </Link>
-          <Link css={notificationLink}>
-            <ListGroup.Item css={notificationItem}>
-              <img src={USER_AVATAR_IMG[0]} alt="avatar" />
-              <p css={notificationItemContent}>
-                A student in <strong>Class Name</strong> has
-                responded to your grade review.
-                <br />
-                <span css={notificationItemTime}>1d ago</span>
-              </p>
-            </ListGroup.Item>
-          </Link>
+          <NotificationList list={noti} />
+          <Spinner
+            css={spinner}
+            style={{ display: loading.current ? 'block' : 'none' }}
+            animation="border"
+          />
         </ListGroup>
       </Card.Body>
     </Card>
@@ -153,3 +197,34 @@ function Notification() {
 }
 
 export default Notification
+
+const loadNotificationCount = async () => {
+  const { data } = await axios
+    .get(`${import.meta.env.VITE_SERVER_HOST}/teachers/notification/count`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .catch((err) => {
+      console.error(err)
+    })
+  return data
+}
+
+const loadNotification = async (offset, limit) => {
+  const { data } = await axios
+    .get(
+      `${
+        import.meta.env.VITE_SERVER_HOST
+      }/teachers/notification?offset=${offset}&limit=${limit}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+    .catch((err) => {
+      console.error(err)
+    })
+  return data
+}
