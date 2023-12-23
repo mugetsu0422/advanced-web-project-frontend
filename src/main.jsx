@@ -17,7 +17,7 @@ import ProtectedRoute from './auth/ProtectedRoute.jsx'
 import SigninRoute from './auth/SigninRoute.jsx'
 import StudentHome from './student/StudentHome.jsx'
 import TeacherHome from './teacher/TeacherHome.jsx'
-import AdminHome from './admin/AdminHome.jsx'
+import AdminNavBar from './admin/AdminNavBar.jsx'
 import UpdateRoleAfterSocialLogin from './account/UpdateRoleAfterSocialLogin.jsx'
 import TeacherClassDetail from './teacher/TeacherClassDetail.jsx'
 import TeacherClassNavBar from './teacher/TeacherClassNavBar.jsx'
@@ -28,6 +28,9 @@ import StudentClassNavBar from './student/StudentClassNavBar.jsx'
 import StudentClassDetail from './student/StudentClassDetail.jsx'
 import StudentClassPeople from './student/StudentClassPeople.jsx'
 import StudentGradeStructure from './student/StudentGradeStructure.jsx'
+import ManageTeacherAccounts from './admin/ManageTeacherAccounts.jsx'
+import ManageClasses from './admin/ManageClasses.jsx'
+import ManageStudentAccounts from './admin/ManageStudentAccounts.jsx'
 
 const router = createBrowserRouter([
   {
@@ -149,9 +152,23 @@ const router = createBrowserRouter([
         path: '/admin',
         element: (
           <ProtectedRoute requiredRole={'admin'}>
-            <AdminHome />
+            <AdminNavBar />
           </ProtectedRoute>
         ),
+        children: [
+          {
+            path: '',
+            element: <ManageTeacherAccounts />,
+          },
+          {
+            path: 'student-account-management',
+            element: <ManageStudentAccounts />,
+          },
+          {
+            path: 'class-management',
+            element: <ManageClasses />,
+          },
+        ]
       },
     ],
   },
