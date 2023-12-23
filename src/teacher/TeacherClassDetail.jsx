@@ -1,4 +1,4 @@
-import styles from './ClassDetail.module.css'
+import styles from './TeacherClassDetail.module.css'
 import PropTypes from 'prop-types'
 import Container from 'react-bootstrap/Container'
 import Accordion from 'react-bootstrap/Accordion'
@@ -155,7 +155,7 @@ const InvitationModal = ({ details, showInvitation, setShowInvitation }) => {
   )
 }
 
-function ClassDetail() {
+function TeacherClassDetail() {
   const [showDescription, setShowDescription] = useState(false)
   const [showInvitation, setShowInvitation] = useState(false)
   const [details, setDetails] = useState({
@@ -220,7 +220,7 @@ function ClassDetail() {
   )
 }
 
-export default ClassDetail
+export default TeacherClassDetail
 
 const loadClassDetails = async (id) => {
   const { data = null } = await axios

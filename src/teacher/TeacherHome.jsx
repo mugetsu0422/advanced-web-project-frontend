@@ -2,10 +2,7 @@ import styles from '../student/StudentHome.module.css'
 import PropTypes from 'prop-types'
 import Container from 'react-bootstrap/Container'
 import Card from 'react-bootstrap/Card'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
 import Pagination from 'react-bootstrap/Pagination'
-import a from '../assets/class-card/class-card-1.png'
 import { getVisiblePage } from '../utils/helper'
 import { CLASS_GET_LIMIT, VISIBLE_PAGES } from '../constants/constants'
 import { useEffect, useState } from 'react'
@@ -47,14 +44,13 @@ const loadClasses = async (offset = 0, limit = CLASS_GET_LIMIT) => {
 }
 
 function ClassList({ list }) {
-  // const { list } = useLoaderData()
   return (
     <>
       {list.map((ele, idx) => {
         return (
-          <Col className="mb-4 d-flex" key={idx}>
+          <div className="d-flex" key={idx}>
             <ClassCard classElement={ele} />
-          </Col>
+          </div>
         )
       })}
     </>
@@ -70,11 +66,6 @@ function ClassCard({ classElement }) {
           window.location.href = `/teacher/class/${classElement.id}`
         }}>
         <Card.Header className={`${styles['class-card-header']}`}>
-          {/* <Card.Img
-            className={`${styles['class-card-img']}`}
-            variant="top"
-            src={a}
-          /> */}
           <Card.Title className={`${styles['truncate-text-one-line']}`}>
             {classElement.name}
           </Card.Title>
@@ -171,15 +162,12 @@ function TeacherHome() {
     <Container fluid className={`pt-4 px-5`}>
       {classes.length === 0 ? (
         <div className={`${styles['no-data-img']}`}>
-          <img
-            src={noDataImg}
-            alt="No data"
-          />
+          <img src={noDataImg} alt="No data" />
         </div>
       ) : (
-        <Row xs="1" sm="2" md="3" lg="4">
+        <div className={`${styles['class-card-container']}`}>
           <ClassList list={classes} />
-        </Row>
+        </div>
       )}
 
       <PaginationComponent

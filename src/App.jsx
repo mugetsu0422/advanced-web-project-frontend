@@ -28,7 +28,6 @@ function AddClass() {
     if (role === 'teacher') {
       return <CreateClassModal show={show} handleClose={handleClose} />
     } else if (role === 'student') {
-      console.log('student')
     }
     return null
   }
