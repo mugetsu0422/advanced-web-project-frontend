@@ -1,0 +1,17 @@
+.table {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.button-container {
+    text-align: right;
+}
+
+.button-dropdown {
+    margin: 20px;
+    background-color: #71aca9;
+}
+
+.button-dropdown:hover {
+    background-color: #71aca9 !important;
+}
