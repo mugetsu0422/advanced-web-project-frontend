@@ -13,6 +13,7 @@ export const ROLES = {
   teacher: 'teacher',
   admin: 'admin',
 }
+export const CLASS_CODE_LENGTH = 10
 export const CLASS_GET_LIMIT = 8
 export const VISIBLE_PAGES = 5
 export const USER_AVATAR_IMG = [
