@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import styles from './MatchaNavBar.module.css'
 import { createContext, useContext, useEffect, useState } from 'react'
 import Cookies from 'js-cookie'
@@ -11,25 +11,26 @@ import {
   faGraduationCap,
   faBell,
   faPlus,
+  faUserTie,
 } from '@fortawesome/free-solid-svg-icons'
 import CreateClassModal from '../teacher/CreateClassModal'
 import JoinClassModal from '../student/JoinClassModal'
 import Notification from './Notification'
 import { css } from '@emotion/react'
+import { ROLES } from '../constants/constants'
 
 const NavbarContext = createContext()
-const role = localStorage.getItem('role')
 
 function AddClassSection() {
-  const { isSignin } = useContext(NavbarContext)
+  const { role, isSignin } = useContext(NavbarContext)
   const [show, setShow] = useState(false)
 
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
   const modalBasedOnRole = () => {
-    if (role === 'teacher') {
+    if (role === ROLES.teacher) {
       return <CreateClassModal show={show} handleClose={handleClose} />
-    } else if (role === 'student') {
+    } else if (role === ROLES.student) {
       return <JoinClassModal show={show} handleClose={handleClose} />
     }
     return null
@@ -38,7 +39,7 @@ function AddClassSection() {
   if (!isSignin) {
     return null
   }
-  if (role === 'teacher' || role === 'student') {
+  if (role === ROLES.teacher || role === ROLES.student) {
     return (
       <>
         <Nav.Link className={`${styles['dropdown']}`}>
@@ -53,7 +54,7 @@ function AddClassSection() {
 }
 
 function NotificationSection() {
-  const { isSignin } = useContext(NavbarContext)
+  const { role, isSignin } = useContext(NavbarContext)
 
   const notificationDropdown = css`
     & .dropdown-menu {
@@ -68,7 +69,7 @@ function NotificationSection() {
   if (!isSignin) {
     return null
   }
-  if (role === 'teacher' || role === 'student') {
+  if (role === ROLES.teacher || role === ROLES.student) {
     return (
       <>
         <NavDropdown
@@ -86,19 +87,23 @@ function NotificationSection() {
 }
 
 function AccountSection() {
-  const { isSignin, setIsSignin } = useContext(NavbarContext)
+  const { role, isSignin, setIsSignin } = useContext(NavbarContext)
 
   let accountIcon
-  if (role === 'student') {
+  if (role === ROLES.student) {
     accountIcon = (
       <FontAwesomeIcon className={styles['role-icon']} icon={faGraduationCap} />
     )
-  } else if (role === 'teacher') {
+  } else if (role === ROLES.teacher) {
     accountIcon = (
       <FontAwesomeIcon
         className={styles['role-icon']}
         icon={faChalkboardUser}
       />
+    )
+  } else if (role === ROLES.admin) {
+    accountIcon = (
+      <FontAwesomeIcon className={styles['role-icon']} icon={faUserTie} />
     )
   } else {
     null
@@ -118,11 +123,13 @@ function AccountSection() {
           title={accountIcon}
           align={'end'}
           className={`${styles['dropdown']}`}>
-          <Link
-            className={`${styles['dropdown-item']} dropdown-item`}
-            to={'/profile/detail'}>
-            Profile
-          </Link>
+          {role === ROLES.student || role === ROLES.teacher ? (
+            <Link
+              className={`${styles['dropdown-item']} dropdown-item`}
+              to={'/profile/detail'}>
+              Profile
+            </Link>
+          ) : null}
           <NavDropdown.Item
             className={`${styles['dropdown-item']}`}
             onClick={signOut}>
@@ -171,6 +178,8 @@ function MyNavBar() {
 
 function MatchaNavBar() {
   const [isSignin, setIsSignin] = useState(false)
+  const { pathname } = useLocation()
+  const role = pathname.split('/')[1]
 
   useEffect(() => {
     const token = Cookies.get('authToken')
@@ -185,6 +194,7 @@ function MatchaNavBar() {
     <>
       <NavbarContext.Provider
         value={{
+          role: role,
           isSignin: isSignin,
           setIsSignin: setIsSignin,
         }}>
