@@ -81,10 +81,9 @@ function EmailActivation() {
 
   useEffect(() => {
     const token = Cookies.get('authToken')
-    const decodedToken = jwtDecode(token)
     if (token) {
       axios
-        .get(`${import.meta.env.VITE_SERVER_HOST}/users/${decodedToken.sub}`, {
+        .get(`${import.meta.env.VITE_SERVER_HOST}/users`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

@@ -13,6 +13,7 @@ import { useEffect, useRef, useState } from 'react'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import Spinner from 'react-bootstrap/Spinner'
+import moment from 'moment'
 
 const token = Cookies.get('authToken')
 
@@ -107,7 +108,9 @@ const NotificationList = ({ list }) => {
           <p css={notificationItemContent}>
             {parse(ele.content)}
             <br />
-            <span css={notificationItemTime}>1d ago</span>
+            <span css={notificationItemTime}>
+              {moment(ele.createTime).fromNow()}
+            </span>
           </p>
         </ListGroup.Item>
       </Link>
@@ -200,7 +203,7 @@ export default Notification
 
 const loadNotificationCount = async () => {
   const { data } = await axios
-    .get(`${import.meta.env.VITE_SERVER_HOST}/teachers/notification/count`, {
+    .get(`${import.meta.env.VITE_SERVER_HOST}/users/notification/count`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -216,7 +219,7 @@ const loadNotification = async (offset, limit) => {
     .get(
       `${
         import.meta.env.VITE_SERVER_HOST
-      }/teachers/notification?offset=${offset}&limit=${limit}`,
+      }/users/notification?offset=${offset}&limit=${limit}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
