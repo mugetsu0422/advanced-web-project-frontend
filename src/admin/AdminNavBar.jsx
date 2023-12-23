@@ -1,5 +1,5 @@
 import styles from './AdminNavBar.module.css'
-import { Outlet, Link, useParams, useLocation } from 'react-router-dom'
+import { Outlet, Link, useLocation } from 'react-router-dom'
 import Nav from 'react-bootstrap/Nav'
 import Container from 'react-bootstrap/Container'
 import { css } from '@emotion/react'
@@ -14,7 +14,6 @@ const myNavLink = css`
 `
 
 function AdminNavBar() {
-  const { id = null } = useParams()
   let { pathname } = useLocation()
 
   const segments = pathname.split('/')
@@ -27,14 +26,12 @@ function AdminNavBar() {
           defaultActiveKey={segments[segments.length - 1]}
           className={`${styles['nav']}`}>
           <Nav.Item className={`${styles['nav-item']}`}>
-            <Link
-              className={`text-decoration-none`}
-              to={`/admin`}>
+            <Link className={`text-decoration-none`} to={`/admin`}>
               <Nav.Link
                 css={myNavLink}
                 className={`px-3 ${styles['nav-link']}`}
                 as={'div'}
-                eventKey={id}
+                eventKey="admin"
                 href="#">
                 Teacher Account Management
               </Nav.Link>
@@ -48,7 +45,7 @@ function AdminNavBar() {
                 css={myNavLink}
                 className={`px-3 ${styles['nav-link']}`}
                 as={'div'}
-                eventKey="grade-structure">
+                eventKey="student-account-management">
                 Student Account Management
               </Nav.Link>
             </Link>
@@ -61,7 +58,7 @@ function AdminNavBar() {
                 css={myNavLink}
                 className={`px-3 ${styles['nav-link']}`}
                 as={'div'}
-                eventKey="grade-management">
+                eventKey="class-management">
                 Class Management
               </Nav.Link>
             </Link>
