@@ -28,6 +28,7 @@ import StudentClassNavBar from './student/StudentClassNavBar.jsx'
 import StudentClassDetail from './student/StudentClassDetail.jsx'
 import StudentClassPeople from './student/StudentClassPeople.jsx'
 import StudentGradeStructure from './student/StudentGradeStructure.jsx'
+import JoinClassByLink from './student/JoinClassByLink.jsx'
 import ManageTeacherAccounts from './admin/ManageTeacherAccounts.jsx'
 import ManageClasses from './admin/ManageClasses.jsx'
 import ManageStudentAccounts from './admin/ManageStudentAccounts.jsx'
@@ -89,6 +90,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute requiredRole={'student'}>
             <StudentHome />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: 'student/join-class/:id',
+        element: (
+          <ProtectedRoute requiredRole={'student'}>
+            <JoinClassByLink />
           </ProtectedRoute>
         ),
       },
