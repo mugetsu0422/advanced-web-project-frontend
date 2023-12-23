@@ -1,0 +1,25 @@
+.nav {
+    display: flex;
+    overflow: auto;
+    flex-wrap: nowrap;
+}
+
+.nav-item {
+    flex: 0 0 auto;
+}
+
+.nav-link {
+    color: black;
+    font-weight: 500;
+
+    &:hover {
+        color: #71aca9;
+        font-weight: 700;
+        background-color: #aacdaf25;
+    }
+    &.active {
+        color: #71aca9;
+        font-weight: 700;
+        background-color: #aacdaf25;
+    }
+}
