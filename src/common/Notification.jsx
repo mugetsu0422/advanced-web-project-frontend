@@ -162,16 +162,6 @@ function Notification() {
     if (noti.length > NOTIFICATION_LIMIT) {
       return
     }
-    // setTimeout(() => {
-    //   loadNotification(offset, NOTIFICATION_GET_LIMIT)
-    //     .then((res) => {
-    //       setNoti(noti.concat(res))
-    //       offsetCurrent.current += NOTIFICATION_GET_LIMIT
-    //     })
-    //     .finally(() => {
-    //       loading.current = false
-    //     })
-    // }, 2000)
     loadNotification(offset, NOTIFICATION_GET_LIMIT)
       .then((res) => {
         setNoti(noti.concat(res))
