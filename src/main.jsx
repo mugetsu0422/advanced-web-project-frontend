@@ -24,6 +24,8 @@ import TeacherClassNavBar from './teacher/TeacherClassNavBar.jsx'
 import TeacherClassPeople from './teacher/TeacherClassPeople.jsx'
 import TeacherGradeStructure from './teacher/TeacherGradeStructure.jsx'
 import TeacherGradeManagement from './teacher/TeacherGradeManagement.jsx'
+import TeacherGradeReview from './teacher/TeacherGradeReview.jsx'
+import TeacherGradeReviewDetail from './teacher/TeacherGradeReviewDetail.jsx'
 import StudentClassNavBar from './student/StudentClassNavBar.jsx'
 import StudentClassDetail from './student/StudentClassDetail.jsx'
 import StudentClassPeople from './student/StudentClassPeople.jsx'
@@ -154,6 +156,14 @@ const router = createBrowserRouter([
           {
             path: 'people',
             element: <TeacherClassPeople />,
+          },
+          {
+            path: 'grade-review',
+            element: <TeacherGradeReview />,
+          },
+          {
+            path: 'grade-review/detail',
+            element: <TeacherGradeReviewDetail />,
           },
         ],
       },
