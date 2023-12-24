@@ -48,17 +48,18 @@ table {
     background: #fafafa;
     border-top: 1px solid #f0f0f0;
     border-bottom: 1px solid #f0f0f0;
+    font-size: 20px;
 }
 
 .gradeTable th:nth-child(1) {
-    width: 40%;
-}
-
-.gradeTable th:nth-child(2) {
     width: 35%;
 }
 
-.gradeTable th:nth-child(3) {
+.gradeTable th:nth-child(2) {
+    width: 30%;
+}
+
+.gradeTable th:nth-child(4) {
     min-width: 150px;
     width: 25%;
 }
@@ -75,7 +76,6 @@ table {
 .non-draggable {
     background-color: #f9f9f9 !important;
     cursor: default !important;
-    font-size: 20px;
 }
 
 .gradeTable td:last-child {
@@ -138,6 +138,7 @@ table {
 .total-row {
     color: #71aca9;
     font-weight: bold;
+    font-size: 20px;
 }
   
 .checkbox {

@@ -15,6 +15,7 @@ export const ROLES = {
 }
 export const CLASS_CODE_LENGTH = 10
 export const CLASS_GET_LIMIT = 8
+export const GRADE_REVIEW_GET_LIMIT = 8
 export const VISIBLE_PAGES = 5
 export const USER_AVATAR_IMG = [
   avatarImg1,
