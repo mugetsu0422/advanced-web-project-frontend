@@ -13,7 +13,6 @@ import { Input, Button } from 'antd'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import axios from 'axios'
 import Cookies from 'js-cookie'
-import { jwtDecode } from 'jwt-decode'
 import avatar2 from '../assets/user-avatar/2.png'
 
 const TeacherGradeReviewDetail = () => {
@@ -185,7 +184,6 @@ const TeacherGradeReviewDetail = () => {
       return
     }
     const token = Cookies.get('authToken')
-    const decodedToken = jwtDecode(token)
 
     await axios
       .post(
@@ -195,7 +193,6 @@ const TeacherGradeReviewDetail = () => {
         {
           gradeCompositionID: gradeIdFromUrl,
           userID: userIdFromUrl,
-          authorID: decodedToken.sub,
           commentContent: newComment,
         },
         {
