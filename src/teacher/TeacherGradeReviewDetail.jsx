@@ -14,6 +14,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import avatar2 from '../assets/user-avatar/2.png'
+import moment from 'moment'
 
 const TeacherGradeReviewDetail = () => {
   const navigate = useNavigate()
@@ -35,18 +36,7 @@ const TeacherGradeReviewDetail = () => {
     isFinal: '',
   })
   const [updatedGrade, setUpdatedGrade] = useState('')
-  const [comments, setComments] = useState([
-    {
-      name: 'Bulul',
-      time: '9:00 AM', // Add a time property for each comment
-      content: 'This is a sample comment by Bulul.',
-    },
-    {
-      name: 'Archive',
-      time: '10:30 AM', // Add a time property for each comment
-      content: 'Another sample comment by Archive.',
-    },
-  ])
+  const [comments, setComments] = useState([])
   const [newComment, setNewComment] = useState('')
   const [isEditing, setIsEditing] = useState(false)
 
@@ -101,12 +91,7 @@ const TeacherGradeReviewDetail = () => {
         }
       )
       .then((response) => {
-        const sortedComments = response.data.comments.sort((a, b) => {
-          const timeA = new Date(a.createTime).getTime()
-          const timeB = new Date(b.createTime).getTime()
-          return timeA - timeB
-        })
-        setComments(sortedComments)
+        setComments(response.data.comments)
       })
       .catch((error) => {
         showAlertFunction(error.response.data.message, 'danger')
@@ -332,10 +317,8 @@ const TeacherGradeReviewDetail = () => {
 
       <div className={styles['comment-section']}>
         <h4 className={styles['section-title']}>Comment Section</h4>
-        {/* Display list of comments */}
         {comments.map((comment, index) => (
           <div key={index} className={styles['comment']}>
-            {/* Display avatar, name, and comment content */}
             <div className={styles['comment-row']}>
               <img src={avatar2} alt="Avatar" className={styles['avatar']} />
               <div className={styles['comment-info']}>
@@ -344,7 +327,7 @@ const TeacherGradeReviewDetail = () => {
                     {comment.authorName}
                   </div>
                   <div className={styles['comment-time']}>
-                    {formatDateTime(comment.createTime)}
+                    {moment(comment.createTime).fromNow()}
                   </div>
                 </div>
                 <p className={styles['comment-content']}>
@@ -354,7 +337,6 @@ const TeacherGradeReviewDetail = () => {
             </div>
           </div>
         ))}
-        {/* Input for new comment */}
         <div className={styles['new-comment']}>
           <img src={avatar2} alt="Your Avatar" className={styles['avatar']} />
           <Input.TextArea

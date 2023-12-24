@@ -93,12 +93,7 @@ const TeacherGradeReview = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      return response.data.sort((a, b) => {
-        if (a.isFinal !== b.isFinal) {
-          return a.isFinal ? 1 : -1;
-        }
-        return new Date(b.createTime).getTime() - new Date(a.createTime).getTime();
-      });
+      return response.data;
     } catch (err) {
       showAlertFunction(err.response.data.message, 'danger');
       return [];
