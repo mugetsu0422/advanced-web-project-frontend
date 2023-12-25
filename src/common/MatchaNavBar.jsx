@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import styles from './MatchaNavBar.module.css'
 import { createContext, useContext, useEffect, useState } from 'react'
 import Cookies from 'js-cookie'
@@ -157,29 +157,32 @@ function MyNavBar() {
 
   return (
     <>
-      <Navbar className={`${styles['nav']} `}>
-        <Navbar.Brand className={`${styles['left']}`}>
-          <Link to={'/'}>MATCHA</Link>
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav" className={`${styles['right']}`}>
-          <Nav className={`ms-auto`}>
-            <AddClassSection></AddClassSection>
-            <NotificationSection></NotificationSection>
-            <AccountSection
-              isSignin={isSignin}
-              setIsSignin={setIsSignin}></AccountSection>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+      <header>
+        <Navbar className={`${styles['nav']} `}>
+          <Navbar.Brand className={`${styles['left']}`}>
+            <Link to={'/'}>MATCHA</Link>
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse
+            id="basic-navbar-nav"
+            className={`${styles['right']}`}>
+            <Nav className={`ms-auto`}>
+              <AddClassSection></AddClassSection>
+              <NotificationSection></NotificationSection>
+              <AccountSection
+                isSignin={isSignin}
+                setIsSignin={setIsSignin}></AccountSection>
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
+      </header>
     </>
   )
 }
 
 function MatchaNavBar() {
   const [isSignin, setIsSignin] = useState(false)
-  const { pathname } = useLocation()
-  const role = pathname.split('/')[1]
+  const role = localStorage.getItem('role');
 
   useEffect(() => {
     const token = Cookies.get('authToken')
