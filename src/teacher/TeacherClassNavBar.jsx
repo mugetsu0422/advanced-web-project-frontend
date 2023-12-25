@@ -68,12 +68,13 @@ function TeacherClassNavBar() {
           </Nav.Item>
           <Nav.Item className={`${styles['nav-item']}`}>
             <Link
-              className={`text-decoration-none`}>
+              className={`text-decoration-none`}
+              to={`/teacher/class/${id}/grade-review`}>
               <Nav.Link
                 css={myNavLink}
                 className={`px-3 ${styles['nav-link']}`}
                 as={'div'}
-                eventKey="requests">
+                eventKey="grade-review">
                 Requests
               </Nav.Link>
             </Link>
