@@ -103,6 +103,10 @@
     margin-right: 10px;
 }
 
+.comment-time {
+    color: #a1a1a1;
+}
+
 .comment-content {
     margin: 0;
 }
