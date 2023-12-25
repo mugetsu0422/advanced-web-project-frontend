@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom'
 import {
   NOTIFICATION_GET_LIMIT,
   NOTIFICATION_LIMIT,
-  USER_AVATAR_IMG,
 } from '../constants/constants'
 import parse from 'html-react-parser'
 import { useEffect, useRef, useState } from 'react'
@@ -14,6 +13,8 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import Spinner from 'react-bootstrap/Spinner'
 import moment from 'moment'
+import emptyNotification from '../assets/empty-notification.jpg'
+import { randomAvatar } from '../utils/helper'
 
 const token = Cookies.get('authToken')
 
@@ -92,6 +93,17 @@ const notificationItemTime = css`
   color: #a1a1a1;
 `
 
+const noNotificationImg = css`
+  margin: auto;
+  width: 50%;
+`
+
+const noNotificationText = css`
+  margin: auto;
+  font-size: 1.5rem;
+  color: #a1a1a1;
+`
+
 const spinner = css`
   height: 2.5rem;
   width: 2.5rem;
@@ -104,7 +116,7 @@ const NotificationList = ({ list }) => {
     return (
       <Link key={idx} css={notificationLink} to={'#'}>
         <ListGroup.Item css={notificationItem}>
-          <img src={USER_AVATAR_IMG[0]} alt="avatar" />
+          <img src={randomAvatar()} alt="avatar" />
           <p css={notificationItemContent}>
             {parse(ele.content)}
             <br />
@@ -162,16 +174,6 @@ function Notification() {
     if (noti.length > NOTIFICATION_LIMIT) {
       return
     }
-    // setTimeout(() => {
-    //   loadNotification(offset, NOTIFICATION_GET_LIMIT)
-    //     .then((res) => {
-    //       setNoti(noti.concat(res))
-    //       offsetCurrent.current += NOTIFICATION_GET_LIMIT
-    //     })
-    //     .finally(() => {
-    //       loading.current = false
-    //     })
-    // }, 2000)
     loadNotification(offset, NOTIFICATION_GET_LIMIT)
       .then((res) => {
         setNoti(noti.concat(res))
@@ -187,7 +189,19 @@ function Notification() {
       <Card.Body css={notificationCardBody}>
         <Card.Title css={notificationCardTitle}>Notification</Card.Title>
         <ListGroup variant="flush">
-          <NotificationList list={noti} />
+          {noti.length === 0 ? (
+            <>
+              {' '}
+              <img
+                css={noNotificationImg}
+                src={emptyNotification}
+                alt="emptyNotification"
+              />
+              <p css={noNotificationText}>No notification</p>
+            </>
+          ) : (
+            <NotificationList list={noti} />
+          )}
           <Spinner
             css={spinner}
             style={{ display: loading.current ? 'block' : 'none' }}
