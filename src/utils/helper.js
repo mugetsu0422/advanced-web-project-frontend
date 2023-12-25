@@ -1,3 +1,5 @@
+import { USER_AVATAR_IMG } from '../constants/constants'
+
 export const getVisiblePage = (totalPages, visiblePages, curPage) => {
   // Limit the visible page
   if (visiblePages > totalPages) {
@@ -38,4 +40,8 @@ export const makeCode = (length) => {
     counter += 1
   }
   return result
+}
+
+export const randomAvatar = () => {
+  return USER_AVATAR_IMG[Math.floor(Math.random() * USER_AVATAR_IMG.length)]
 }
