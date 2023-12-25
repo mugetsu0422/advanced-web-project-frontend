@@ -94,7 +94,17 @@
     }
 }
 
+@media screen and (max-width: 576px) {
+    .class-card {
+        width: 13rem;
+    }
+}
+
 @media screen and (max-width: 768px) {
+    .class-card-container {
+        padding: 0;
+    }
+
     .page-btn {
         width: 2rem;
         height: 2rem;

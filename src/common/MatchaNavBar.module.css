@@ -1,0 +1,89 @@
+.nav {
+    background-color: #aacdaf;
+    font-size: 25px;
+}
+
+.nav a {
+    color: black;
+    text-decoration: none;
+    /* transition:
+        font-weight 0.2s ease-in-out,
+        color 0.2s ease-in-out; */
+}
+
+.nav a:hover,
+.nav a:active {
+    font-weight: bold;
+    color: white;
+}
+
+.left {
+    padding-left: 35px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    font-size: 25px;
+}
+
+.right {
+    padding-right: 35px;
+}
+
+.navbar {
+    padding: 0;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: black;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 0;
+    margin-bottom: 0;
+    height: 100%;
+}
+
+.navbar a.active,
+.navbar a:hover {
+    background-color: #71aca9;
+    border-radius: 5px;
+    color: white;
+}
+
+.dropdown {
+    padding-right: 0px;
+    text-align: center;
+}
+
+.dropdown a::after {
+    display: none;
+}
+
+.dropdown-item {
+    width: 100%;
+    text-align: center;
+    font-weight: 500;
+    padding: 0.25rem 1.5rem;
+}
+
+.dropdown-menu {
+    top: 3rem !important;
+    right: 1rem !important;
+    /* left: 0 !important */
+}
+
+a.dropdown-item.active,
+a.dropdown-item:hover {
+    background-color: #f2f2f2;
+    color: black;
+}
+
+/* When the screen is less than 660 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */
+@media screen and (max-width: 768px) {
+    .left {
+        margin: auto;
+    }
+
+    .right {
+        padding: 0px;
+    }
+}
