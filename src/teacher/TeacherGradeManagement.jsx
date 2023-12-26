@@ -464,13 +464,19 @@ const TeacherGradeManagement = () => {
     },
   ]
 
-  const dynamicColumns = gradeCompositionNames.map((item, index) => ({
-    title: item,
-    dataIndex: item,
-    width: 50,
-    editable: true,
-    render: (text, record) => record[item] || 0.0,
-  }))
+  const dynamicColumns = gradeCompositionNames.map((item, index) => {
+    const isFinalized = gradeCompositionList.find(
+      (composition) => composition.name === item
+    )?.isFinalized || false;
+  
+    return {
+      title: item,
+      dataIndex: item,
+      width: 50,
+      editable: !isFinalized,
+      render: (text, record) => record[item] || 0.0,
+    };
+  });
 
   const overallColumn = {
     title: 'Overall',
@@ -637,6 +643,15 @@ const TeacherGradeManagement = () => {
       }
       reader.readAsText(file.originFileObj)
     } else {
+      const gradeCompositionFind = gradeCompositionList.find(item => item.name === gradeComposition)
+      if (gradeCompositionFind) {
+        if (gradeCompositionFind.isFinalized) {
+          message.error(
+            'Grade composition has been finalized. Cannot edit anymore.'
+          )
+          return
+        }
+      }
       const reader = new FileReader()
       reader.onload = function (e) {
         const text = e.target.result
@@ -724,7 +739,7 @@ const TeacherGradeManagement = () => {
           .post(
             `${
               import.meta.env.VITE_SERVER_HOST
-            }/teachers/update-grade-specific-assignment`,
+            }/teachers/class/${tempClassID}/specific-grade`,
             {
               gradeList: simplifiedData,
             },
@@ -755,7 +770,7 @@ const TeacherGradeManagement = () => {
 
         axios
           .post(
-            `${import.meta.env.VITE_SERVER_HOST}/teachers/update-overall-grade`,
+            `${import.meta.env.VITE_SERVER_HOST}/teachers/class/${tempClassID}/overall-grade`,
             {
               overallGradeList: simplifiedData1,
             },
