@@ -6,29 +6,6 @@ import { Form as BootstrapForm } from 'react-bootstrap'
 import Container from 'react-bootstrap/Container'
 import axios from 'axios'
 
-function SuccessfulAlert({ showAlert, setShowAlert }) {
-  if (showAlert == 200) {
-    return (
-      <Alert variant="success" onClose={() => setShowAlert(0)} dismissible>
-        <strong>Request Success. Please check your email</strong>
-      </Alert>
-    )
-  } else if (showAlert == 400) {
-    return (
-      <Alert variant="danger" onClose={() => setShowAlert(0)} dismissible>
-        <strong>Email Is Not in Email Format</strong>
-      </Alert>
-    )
-  } else if (showAlert == 404) {
-    return (
-      <Alert variant="danger" onClose={() => setShowAlert(0)} dismissible>
-        <strong>User not found or account not activated</strong>
-      </Alert>
-    )
-  }
-  return null
-}
-
 function ResetPasswordForm({ handleChange, handleSubmit, validated, inputs }) {
   return (
     <>
@@ -80,9 +57,18 @@ function ResetPasswordForm({ handleChange, handleSubmit, validated, inputs }) {
 }
 
 function RequestResetPassword() {
-  const [showAlert, setShowAlert] = useState(0)
+  const [showAlert, setShowAlert] = useState('')
   const [inputs, setInputs] = useState({})
   const [validated, setValidated] = useState(false)
+
+  const showAlertFunction = (message, type = 'info', dismissible = true) => {
+    setShowAlert({ message, type })
+    if (dismissible) {
+      setTimeout(() => {
+        setShowAlert('')
+      }, 5000)
+    }
+  }
 
   function handleInputChange(event) {
     const name = event.target.name
@@ -100,7 +86,7 @@ function RequestResetPassword() {
 
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailPattern.test(inputs.email)) {
-      setShowAlert(400)
+      showAlertFunction('Email Is Not in Email Format', 'danger')
       return
     }
 
@@ -111,20 +97,27 @@ function RequestResetPassword() {
           email: inputs.email,
         }
       )
-      .then(() => {
-        setShowAlert(200)
+      .then((response) => {
+        if (response.data.success == true)
+        showAlertFunction(response.data.message, 'success')
+        else
+        showAlertFunction(response.data.message, 'danger')
       })
       .catch((error) => {
-        setShowAlert(404)
-        console.error('Error from server:', error)
+        showAlertFunction(error.message, 'danger')
       })
   }
 
   return (
     <Container fluid className={`${styles['container-fluid']}`}>
-      <SuccessfulAlert
-        showAlert={showAlert}
-        setShowAlert={setShowAlert}></SuccessfulAlert>
+        {showAlert && (
+          <Alert
+            variant={showAlert.type}
+            className={styles['alert']}
+            dismissible>
+            {showAlert.message}
+          </Alert>
+        )}
       <ResetPasswordForm
         handleChange={handleInputChange}
         handleSubmit={handleFormSubmit}

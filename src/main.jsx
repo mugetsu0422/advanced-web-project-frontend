@@ -32,6 +32,7 @@ import StudentClassPeople from './student/StudentClassPeople.jsx'
 import StudentClassScoreboard from './student/StudentClassScoreboard.jsx'
 import StudentMapStudentID from './student/StudentMapStudentID.jsx'
 import StudentGradeStructure from './student/StudentGradeStructure.jsx'
+import StudentGradeReviewDetail from './student/StudentGradeReviewDetail.jsx'
 import JoinClassByLink from './student/JoinClassByLink.jsx'
 import ManageTeacherAccounts from './admin/ManageTeacherAccounts.jsx'
 import ManageClasses from './admin/ManageClasses.jsx'
@@ -136,6 +137,10 @@ const router = createBrowserRouter([
           {
             path: 'people',
             element: <StudentClassPeople />,
+          },
+          {
+            path: 'scoreboard/grade-review/detail',
+            element: <StudentGradeReviewDetail />,
           },
         ],
       },
