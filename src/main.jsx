@@ -29,6 +29,8 @@ import TeacherGradeReviewDetail from './teacher/TeacherGradeReviewDetail.jsx'
 import StudentClassNavBar from './student/StudentClassNavBar.jsx'
 import StudentClassDetail from './student/StudentClassDetail.jsx'
 import StudentClassPeople from './student/StudentClassPeople.jsx'
+import StudentClassScoreboard from './student/StudentClassScoreboard.jsx'
+import StudentMapStudentID from './student/StudentMapStudentID.jsx'
 import StudentGradeStructure from './student/StudentGradeStructure.jsx'
 import JoinClassByLink from './student/JoinClassByLink.jsx'
 import ManageTeacherAccounts from './admin/ManageTeacherAccounts.jsx'
@@ -66,12 +68,20 @@ const router = createBrowserRouter([
             element: <Profile />,
           },
           {
-            path: 'changepassword',
+            path: 'change-password',
             element: <ChangePassword />,
           },
           {
-            path: 'emailActivation',
+            path: 'email-activation',
             element: <EmailActivation />,
+          },
+          {
+            path: 'map-studentid',
+            element: (
+              <ProtectedRoute requiredRole={'student'}>
+                <StudentMapStudentID />
+              </ProtectedRoute>
+            ),
           },
         ],
       },
@@ -118,6 +128,10 @@ const router = createBrowserRouter([
           {
             path: 'grade-structure',
             element: <StudentGradeStructure />,
+          },
+          {
+            path: 'scoreboard',
+            element: <StudentClassScoreboard />,
           },
           {
             path: 'people',
