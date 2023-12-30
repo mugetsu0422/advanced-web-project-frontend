@@ -37,7 +37,7 @@ const cardTitle = css`
   justify-content: space-between;
 
   @media (max-width: 576px) {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
   }
 `
 
@@ -73,7 +73,7 @@ const gradeCompositionBody = css`
 
 const gradeCompositionTitle = css`
   font-size: 1.2rem;
-  border-bottom: 1px solid;
+  border-bottom: 1px solid #a1a1a1;
   display: flex;
   justify-content: space-between;
 
