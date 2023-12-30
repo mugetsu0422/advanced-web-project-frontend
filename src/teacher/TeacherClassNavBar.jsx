@@ -18,13 +18,14 @@ function TeacherClassNavBar() {
   let { pathname } = useLocation()
 
   const segments = pathname.split('/')
+  const sectionPosition = 4
 
   return (
     <>
       <Container fluid className="d-flex mx-0 ps-md-5 my-3">
         <Nav
           variant="underline"
-          defaultActiveKey={segments[segments.length - 1]}
+          defaultActiveKey={segments[sectionPosition]}
           className={`${styles['nav']}`}>
           <Nav.Item className={`${styles['nav-item']}`}>
             <Link
