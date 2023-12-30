@@ -64,7 +64,7 @@ table {
     border: none;
 }
 
-.total-row {
+.overall-row {
     color: #71aca9;
     font-weight: bold;
     font-size: 20px;
@@ -83,7 +83,7 @@ table {
     border-color: #afd3d2;
 }
 
-.add-modal-btn {
+.modal-btn {
     background-color: #71aca9;
     border: 2px solid #71aca9;
     color: white !important;
@@ -98,7 +98,7 @@ table {
     padding-right: 10px;
 }
 
-.add-modal-btn:hover {
+.modal-btn:hover {
     background-color: #5aa3a1 !important;
     border: 2px solid #5aa3a1 !important;
 }

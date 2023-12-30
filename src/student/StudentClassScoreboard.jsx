@@ -12,7 +12,7 @@ const AddReviewModal = ({ show, handleClose, handleSubmit, alertMessage }) => {
   return (
     <Modal show={show} onHide={handleClose} centered>
       <Modal.Header className={`border-0 `} closeButton>
-        <Modal.Title className={`ms-2`}>Add Review</Modal.Title>
+        <Modal.Title className={`ms-2`}>Request review</Modal.Title>
       </Modal.Header>
       <Modal.Body className={`pb-0 pt-0`}>
         {alertMessage && (
@@ -39,12 +39,16 @@ const AddReviewModal = ({ show, handleClose, handleSubmit, alertMessage }) => {
               className={styles['input']}
             />
           </Form.Group>
-          <button
-            type="submit"
-            className={styles['add-modal-btn']}
-            onClick={() => handleSubmit}>
-            Submit
-          </button>
+          <div className="row justify-content-end">
+            <div className="col-auto">
+              <button
+                type="submit"
+                className={styles['modal-btn']}
+                onClick={() => handleSubmit}>
+                Submit
+              </button>
+            </div>
+          </div>
         </Form>
       </Modal.Body>
     </Modal>
@@ -85,7 +89,6 @@ const StudentClassScoreboard = () => {
       })
       .catch((err) => {
         showAlertFunction(err.response.data.message, 'danger')
-        //console.log(err)
       })
   }
 
@@ -131,7 +134,7 @@ const StudentClassScoreboard = () => {
         'warning'
       )
     } else if (!isFinalized) {
-      showAlertFunction("Can't add review for non-finalized grade", 'danger')
+      showAlertFunction("Can't request review for non-finalized grade", 'danger')
     } else {
       handleShowModal(gradeCompositionID, currentGrade)
     }
@@ -184,9 +187,8 @@ const StudentClassScoreboard = () => {
         showAlertFunction('Review added', 'success')
         fetchData()
       })
-      .catch((error) => {
-        console.log(error)
-        showAlertFunction('Error adding review', 'danger')
+      .catch(() => {
+        showAlertFunction('Error requesting review', 'danger')
       })
     handleCloseModal()
   }
@@ -256,14 +258,14 @@ const StudentClassScoreboard = () => {
                           )
                         }>
                         <FormOutlined />
-                        Add review
+                        Request review
                       </Button>
                     </>
                   )}
                 </td>
               </tr>
             ))}
-            <tr className={`${styles['non-draggable']} ${styles['total-row']}`}>
+            <tr className={`${styles['non-draggable']} ${styles['overall-row']}`}>
               <td>Overall</td>
               <td></td>
               <td>{overallGrade}</td>
