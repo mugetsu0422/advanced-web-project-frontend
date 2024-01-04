@@ -114,7 +114,7 @@ const spinner = css`
 const NotificationList = ({ list }) => {
   return list.map((ele, idx) => {
     return (
-      <Link key={idx} css={notificationLink} to={'#'}>
+      <Link key={idx} css={notificationLink} to={ele.link}>
         <ListGroup.Item css={notificationItem}>
           <img src={randomAvatar()} alt="avatar" />
           <p css={notificationItemContent}>
