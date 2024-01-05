@@ -182,7 +182,7 @@ function MyNavBar() {
 
 function MatchaNavBar() {
   const [isSignin, setIsSignin] = useState(false)
-  const role = localStorage.getItem('role');
+  const role = localStorage.getItem('role')
 
   useEffect(() => {
     const token = Cookies.get('authToken')

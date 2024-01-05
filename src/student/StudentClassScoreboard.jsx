@@ -134,7 +134,10 @@ const StudentClassScoreboard = () => {
         'warning'
       )
     } else if (!isFinalized) {
-      showAlertFunction("Can't request review for non-finalized grade", 'danger')
+      showAlertFunction(
+        "Can't request review for non-finalized grade",
+        'danger'
+      )
     } else {
       handleShowModal(gradeCompositionID, currentGrade)
     }
@@ -265,7 +268,8 @@ const StudentClassScoreboard = () => {
                 </td>
               </tr>
             ))}
-            <tr className={`${styles['non-draggable']} ${styles['overall-row']}`}>
+            <tr
+              className={`${styles['non-draggable']} ${styles['overall-row']}`}>
               <td>Overall</td>
               <td></td>
               <td>{overallGrade}</td>

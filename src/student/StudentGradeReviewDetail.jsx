@@ -1,10 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, useLocation, useNavigate } from 'react-router-dom'
 import styles from './StudentGradeReviewDetail.module.css'
-import {
-  LeftOutlined,
-  SendOutlined,
-} from '@ant-design/icons'
+import { LeftOutlined, SendOutlined } from '@ant-design/icons'
 import { Alert } from 'react-bootstrap'
 import { Input, Button } from 'antd'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -111,7 +108,7 @@ const StudentGradeReviewDetail = () => {
     const currentPath = location.pathname
     const newPath = currentPath.replace(/\/[^/]+\/[^/]+$/, '')
     navigate(newPath)
-  }  
+  }
 
   const handleComment = async () => {
     if (gradeReviewDetails.isFinal === true) {

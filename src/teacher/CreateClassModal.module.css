@@ -35,7 +35,8 @@
     font-weight: bold;
 }
 
-.create-btn:hover, .create-btn:active {
+.create-btn:hover,
+.create-btn:active {
     background-color: #5aa3a1 !important;
     border: 2px solid #5aa3a1 !important;
 }

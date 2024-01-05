@@ -236,7 +236,9 @@ const TeacherGradeManagement = () => {
 
       await axios
         .get(
-          `${import.meta.env.VITE_SERVER_HOST}/teachers/class/${tempClassID}/student-list`,
+          `${
+            import.meta.env.VITE_SERVER_HOST
+          }/teachers/class/${tempClassID}/student-list`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -282,7 +284,9 @@ const TeacherGradeManagement = () => {
 
       await axios
         .get(
-          `${import.meta.env.VITE_SERVER_HOST}/teachers/class/${tempClassID}/all-grade`,
+          `${
+            import.meta.env.VITE_SERVER_HOST
+          }/teachers/class/${tempClassID}/all-grade`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -311,7 +315,9 @@ const TeacherGradeManagement = () => {
 
       await await axios
         .get(
-          `${import.meta.env.VITE_SERVER_HOST}/teachers/class/${tempClassID}/overall-grade`,
+          `${
+            import.meta.env.VITE_SERVER_HOST
+          }/teachers/class/${tempClassID}/overall-grade`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -420,7 +426,9 @@ const TeacherGradeManagement = () => {
 
       axios
         .post(
-          `${import.meta.env.VITE_SERVER_HOST}/teachers/class/${tempClassID}/overall-grade`,
+          `${
+            import.meta.env.VITE_SERVER_HOST
+          }/teachers/class/${tempClassID}/overall-grade`,
           {
             overallGradeList: simplifiedData1,
           },
@@ -465,18 +473,18 @@ const TeacherGradeManagement = () => {
   ]
 
   const dynamicColumns = gradeCompositionNames.map((item, index) => {
-    const isFinalized = gradeCompositionList.find(
-      (composition) => composition.name === item
-    )?.isFinalized || false;
-  
+    const isFinalized =
+      gradeCompositionList.find((composition) => composition.name === item)
+        ?.isFinalized || false
+
     return {
       title: item,
       dataIndex: item,
       width: 50,
       editable: !isFinalized,
       render: (text, record) => record[item] || 0.0,
-    };
-  });
+    }
+  })
 
   const overallColumn = {
     title: 'Overall',
@@ -634,8 +642,7 @@ const TeacherGradeManagement = () => {
           .then((response) => {
             if (response.data === 'Upload completed') {
               message.success('File uploaded successfully!')
-            }
-            else {
+            } else {
               message.error('File uploaded failed!')
             }
           })
@@ -643,7 +650,9 @@ const TeacherGradeManagement = () => {
       }
       reader.readAsText(file.originFileObj)
     } else {
-      const gradeCompositionFind = gradeCompositionList.find(item => item.name === gradeComposition)
+      const gradeCompositionFind = gradeCompositionList.find(
+        (item) => item.name === gradeComposition
+      )
       if (gradeCompositionFind) {
         if (gradeCompositionFind.isFinalized) {
           message.error(
@@ -770,7 +779,9 @@ const TeacherGradeManagement = () => {
 
         axios
           .post(
-            `${import.meta.env.VITE_SERVER_HOST}/teachers/class/${tempClassID}/overall-grade`,
+            `${
+              import.meta.env.VITE_SERVER_HOST
+            }/teachers/class/${tempClassID}/overall-grade`,
             {
               overallGradeList: simplifiedData1,
             },
@@ -816,45 +827,43 @@ const TeacherGradeManagement = () => {
   return (
     <>
       <div className={styles['button-container']}>
-          <Dropdown
-            overlay={menu('studentList')}
-            className={styles['button-dropdown']}>
-            <Button type="primary">
-              Student List <DownOutlined />
-            </Button>
-          </Dropdown>
-
-          <Dropdown
-            overlay={menu('grade')}
-            className={styles['button-dropdown']}>
-            <Button type="primary">
-              Grade <DownOutlined />
-            </Button>
-          </Dropdown>
-
-          <Button
-            type="primary"
-            icon={<DownloadOutlined />}
-            className={styles['button-dropdown']}
-            onClick={() =>
-              downloadCSV({
-                filename: 'data.csv',
-                type: 'all',
-                data,
-                gradeCompositionNames,
-              })
-            }>
-            Export
+        <Dropdown
+          overlay={menu('studentList')}
+          className={styles['button-dropdown']}>
+          <Button type="primary">
+            Student List <DownOutlined />
           </Button>
+        </Dropdown>
 
-          <Button
-            type="primary"
-            icon={<SaveOutlined />}
-            className={styles['button-dropdown']}
-            onClick={() => SaveAll()}>
-            Save
+        <Dropdown overlay={menu('grade')} className={styles['button-dropdown']}>
+          <Button type="primary">
+            Grade <DownOutlined />
           </Button>
-        </div>
+        </Dropdown>
+
+        <Button
+          type="primary"
+          icon={<DownloadOutlined />}
+          className={styles['button-dropdown']}
+          onClick={() =>
+            downloadCSV({
+              filename: 'data.csv',
+              type: 'all',
+              data,
+              gradeCompositionNames,
+            })
+          }>
+          Export
+        </Button>
+
+        <Button
+          type="primary"
+          icon={<SaveOutlined />}
+          className={styles['button-dropdown']}
+          onClick={() => SaveAll()}>
+          Save
+        </Button>
+      </div>
 
       <TeacherGradeManagementPopupUpload
         visible={uploadModalVisible}

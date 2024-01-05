@@ -65,7 +65,7 @@ const downloadCSV = (args) => {
   let tempData = args.data.map(({ username, studentID }) => ({
     username,
     studentID: studentID || '',
-  }));
+  }))
   let csv = convertArrayOfObjectsToCSV({
     data: tempData,
   })
@@ -252,36 +252,33 @@ const ManageStudentAccounts = () => {
           return
         })
 
-        let sendData = data.map(({ UserID, studentID }) => ({
-          id: UserID,
-          studentID: studentID || '',
-        }));
-  
-        await axios
-          .post(
-            `${
-              import.meta.env.VITE_SERVER_HOST
-            }/admins/map-student`,
-            {
-              studentList: sendData,
+      let sendData = data.map(({ UserID, studentID }) => ({
+        id: UserID,
+        studentID: studentID || '',
+      }))
+
+      await axios
+        .post(
+          `${import.meta.env.VITE_SERVER_HOST}/admins/map-student`,
+          {
+            studentList: sendData,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
             },
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          )
-          .then((response) => {
-            if (response.data === 'Upload completed') {
-              message.success('File uploaded successfully!')
-            }
-            else {
-              message.error('File uploaded failed!')
-            }
-          })
-          .catch((error) => {
-            message.error('Save failed')
-          })
+          }
+        )
+        .then((response) => {
+          if (response.data === 'Upload completed') {
+            message.success('File uploaded successfully!')
+          } else {
+            message.error('File uploaded failed!')
+          }
+        })
+        .catch((error) => {
+          message.error('Save failed')
+        })
     } catch (error) {
       message.error('Save failed')
     }
@@ -608,13 +605,11 @@ const ManageStudentAccounts = () => {
       let sendData = simplifiedData.map(({ UserID, studentID }) => ({
         id: UserID,
         studentID: studentID || '',
-      }));
+      }))
 
       await axios
         .post(
-          `${
-            import.meta.env.VITE_SERVER_HOST
-          }/admins/map-student`,
+          `${import.meta.env.VITE_SERVER_HOST}/admins/map-student`,
           {
             studentList: sendData,
           },
@@ -627,8 +622,7 @@ const ManageStudentAccounts = () => {
         .then((response) => {
           if (response.data === 'Upload completed') {
             message.success('File uploaded successfully!')
-          }
-          else {
+          } else {
             message.error('File uploaded failed!')
           }
         })

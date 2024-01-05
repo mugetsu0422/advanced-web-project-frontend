@@ -70,7 +70,8 @@ function ClassCard({ classElement }) {
           <Card.Title className={`${styles['truncate-text-one-line']}`}>
             {classElement.name}
           </Card.Title>
-          <Card.Title className={`${styles['truncate-text-one-line']} ${styles['class-creator']}`}>
+          <Card.Title
+            className={`${styles['truncate-text-one-line']} ${styles['class-creator']}`}>
             {classElement.creator}
           </Card.Title>
         </Card.Header>

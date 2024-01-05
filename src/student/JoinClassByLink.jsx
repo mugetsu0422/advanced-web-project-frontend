@@ -153,7 +153,7 @@ function JoinClassByLink() {
   }
   return (
     <div css={invitationContainer}>
-      <MyAlert showAlert={showAlert} setShowAlert={setShowAlert}/>
+      <MyAlert showAlert={showAlert} setShowAlert={setShowAlert} />
       <form id="join-class-form" onSubmit={handleSubmit}></form>
       <div css={invitationCard}>
         <h1 css={invitationCardTitleText}>Classroom Invitation</h1>

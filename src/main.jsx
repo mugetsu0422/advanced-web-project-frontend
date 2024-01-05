@@ -206,7 +206,7 @@ const router = createBrowserRouter([
             path: 'class-management',
             element: <ManageClasses />,
           },
-        ]
+        ],
       },
     ],
   },

@@ -171,12 +171,14 @@ function Signin() {
               }
             })
             .catch((error) => {
-              if (error.response.data.message === 'Your account has been locked.') {
-                setShowAlert(402);
-            
+              if (
+                error.response.data.message === 'Your account has been locked.'
+              ) {
+                setShowAlert(402)
+
                 setTimeout(() => {
-                  window.location.href = '/signin';
-                }, 2000);
+                  window.location.href = '/signin'
+                }, 2000)
               }
             })
         }
