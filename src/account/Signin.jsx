@@ -15,7 +15,7 @@ function SuccessfulAlert({ showAlert, setShowAlert }) {
   if (showAlert == 201) {
     return (
       <Alert variant="success" onClose={() => setShowAlert(0)} dismissible>
-        <strong>Your account has been successfully login</strong>
+        <strong>Your account has been successfully login!</strong>
       </Alert>
     )
   } else if (showAlert == 400) {
@@ -28,6 +28,12 @@ function SuccessfulAlert({ showAlert, setShowAlert }) {
     return (
       <Alert variant="danger" onClose={() => setShowAlert(0)} dismissible>
         <strong>Social login not success!</strong>
+      </Alert>
+    )
+  } else if (showAlert == 402) {
+    return (
+      <Alert variant="danger" onClose={() => setShowAlert(0)} dismissible>
+        <strong>Your account has been locked!</strong>
       </Alert>
     )
   }
@@ -126,12 +132,11 @@ function Signin() {
   const [user, setUser] = useState(null)
 
   useEffect(() => {
-    var url_string = window.location.href; 
-    var url = new URL(url_string);
-    var socialToken = url.searchParams.get("socialToken");
+    var url_string = window.location.href
+    var url = new URL(url_string)
+    var socialToken = url.searchParams.get('socialToken')
     if (socialToken !== null) {
-      if (socialToken != "")
-      {
+      if (socialToken != '') {
         const getUser = () => {
           axios
             .get(
@@ -146,29 +151,37 @@ function Signin() {
                   expires: 1,
                 })
                 const decodedToken = jwtDecode(response.data.access_token)
-                // localStorage.setItem('username', decodedToken.username)
-                
-                if (decodedToken.role != '')
-                {
+                setShowAlert(201)
+
+                if (decodedToken.role != '') {
                   localStorage.setItem('role', decodedToken.role)
                   window.location.href = '/'
                 } else {
                   var data = {
-                    socialToken: socialToken
-                  };
-                  var queryString = Object.keys(data).map(key => key + '=' + data[key]).join('&');
-                  var newUrl = '/update-role-after-social-login?' + queryString;
-                  window.location.href = newUrl;
+                    socialToken: socialToken,
+                  }
+                  var queryString = Object.keys(data)
+                    .map((key) => key + '=' + data[key])
+                    .join('&')
+                  var newUrl = '/update-role-after-social-login?' + queryString
+                  window.location.href = newUrl
                 }
               } else {
                 setShowAlert(401)
               }
             })
-            .catch((error) => {})
+            .catch((error) => {
+              if (error.response.data.message === 'Your account has been locked.') {
+                setShowAlert(402);
+            
+                setTimeout(() => {
+                  window.location.href = '/signin';
+                }, 2000);
+              }
+            })
         }
         getUser()
-      }
-      else {
+      } else {
         setShowAlert(401)
       }
     }
@@ -195,6 +208,7 @@ function Signin() {
       })
       .then((response) => {
         // If successful
+        setShowAlert(201)
         Cookies.set('authToken', response.data.access_token, { expires: 1 })
         const decodedToken = jwtDecode(response.data.access_token)
         // localStorage.setItem('username', decodedToken.username)
@@ -203,8 +217,12 @@ function Signin() {
       })
       .catch((error) => {
         // If not successful (duplicate username or other error)
-        setShowAlert(400)
-        console.error('Error from server:', error)
+        if (error.response.data.message === 'Your account has been locked.') {
+          setShowAlert(402)
+        } else {
+          setShowAlert(400)
+          console.error('Error from server:', error)
+        }
       })
   }
 

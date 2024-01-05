@@ -10,6 +10,7 @@ import Container from 'react-bootstrap/Container'
 import Cookies from 'js-cookie'
 import Alert from 'react-bootstrap/Alert'
 import PropTypes from 'prop-types'
+import { jwtDecode } from 'jwt-decode'
 
 function SuccessfulAlert({ showAlert, setShowAlert }) {
   if (showAlert == 201) {
@@ -63,12 +64,10 @@ function UpdateRoleAfterSocialLogin() {
       )
       .then((response) => {
         // If successful
-        if (response.data.success) {
-          localStorage.setItem('role', role)
-          window.location.href = '/'
-        } else {
-          setShowAlert(201)
-        }
+        Cookies.set('authToken', response.data.access_token, { expires: 1 })
+        const decodedToken = jwtDecode(response.data.access_token)
+        localStorage.setItem('role', decodedToken.role)
+        window.location.href = '/'
       })
       .catch((error) => {})
   }

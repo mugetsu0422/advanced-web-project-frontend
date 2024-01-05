@@ -81,10 +81,9 @@ function EmailActivation() {
 
   useEffect(() => {
     const token = Cookies.get('authToken')
-    const decodedToken = jwtDecode(token)
     if (token) {
       axios
-        .get(`${import.meta.env.VITE_SERVER_HOST}/users/${decodedToken.sub}`, {
+        .get(`${import.meta.env.VITE_SERVER_HOST}/users`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -120,7 +119,13 @@ function EmailActivation() {
       .post(
         `${import.meta.env.VITE_SERVER_HOST}/users/send-activation-code/${
           decodedToken.sub
-        }`
+          }`,
+          {},
+          {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       )
       .then(() => {
         showAlertFunction(
@@ -148,6 +153,11 @@ function EmailActivation() {
         {
           activationCode: activationCode,
           userId: decodedToken.sub,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       )
       .then((response) => {

@@ -3,7 +3,6 @@ import { Form, Alert } from 'react-bootstrap'
 import styles from './Profile.module.css'
 import Cookies from 'js-cookie'
 import axios from 'axios'
-import { jwtDecode } from 'jwt-decode'
 
 function SuccessfulAlert({ showAlert, setShowAlert }) {
   if (showAlert == 201) {
@@ -26,6 +25,7 @@ const Profile = ({ username, email, msg }) => {
   const [showAlert, setShowAlert] = useState(0)
   const [formData, setFormData] = useState({
     username: '',
+    fullname: '',
     email: '',
     phone: '',
     address: '',
@@ -34,11 +34,10 @@ const Profile = ({ username, email, msg }) => {
 
   useEffect(() => {
     const token = Cookies.get('authToken')
-    const decodedToken = jwtDecode(token)
 
     if (token) {
       axios
-        .get(`${import.meta.env.VITE_SERVER_HOST}/users/${decodedToken.sub}`, {
+        .get(`${import.meta.env.VITE_SERVER_HOST}/users`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -57,19 +56,18 @@ const Profile = ({ username, email, msg }) => {
     e.preventDefault()
     setSubmitted(true)
 
-    const { username, phone, address } = formData
+    const { username, fullname, phone, address } = formData
 
     if (!username.trim()) return
 
     const token = Cookies.get('authToken')
-    const decodedToken = jwtDecode(token)
-
     if (token) {
       axios
         .put(
-          `${import.meta.env.VITE_SERVER_HOST}/users/${decodedToken.sub}`,
+          `${import.meta.env.VITE_SERVER_HOST}/users`,
           {
             username: username,
+            fullname: fullname,
             phone: phone,
             address: address,
           },
@@ -108,6 +106,24 @@ const Profile = ({ username, email, msg }) => {
           </Alert>
         )}
         <div className="row">
+          <div className="col-md-12">
+            <Form.Group>
+              <Form.Label htmlFor="txtEmail">Email</Form.Label>
+              <Form.Control
+                type="email"
+                id="txtEmail"
+                placeholder={email}
+                value={formData.email}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
+                disabled
+                className={styles['form-control']}
+              />
+            </Form.Group>
+          </div>
+        </div>
+        <div className="row">
           <div className="col-md-6">
             <Form.Group>
               <Form.Label htmlFor="txtName">Username</Form.Label>
@@ -130,16 +146,14 @@ const Profile = ({ username, email, msg }) => {
           </div>
           <div className="col-md-6">
             <Form.Group>
-              <Form.Label htmlFor="txtEmail">Email</Form.Label>
+              <Form.Label htmlFor="txtFullName">Full name</Form.Label>
               <Form.Control
-                type="email"
-                id="txtEmail"
-                placeholder={email}
-                value={formData.email}
+                type="text"
+                id="txtFullName"
+                value={formData.fullname}
                 onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
+                  setFormData({ ...formData, fullname: e.target.value })
                 }
-                disabled
                 className={styles['form-control']}
               />
             </Form.Group>
