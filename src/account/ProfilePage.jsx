@@ -7,8 +7,8 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 
 const ProfilePage = () => {
-  const [activeMenu, setActiveMenu] = useState('');
-  const location = useLocation();
+  const [activeMenu, setActiveMenu] = useState('')
+  const location = useLocation()
   const [role, setRole] = useState('')
 
   useEffect(() => {
@@ -31,27 +31,27 @@ const ProfilePage = () => {
   }, [])
 
   useEffect(() => {
-    const pathname = location.pathname;
-    const lastSegment = pathname.substring(pathname.lastIndexOf('/') + 1);
-    
+    const pathname = location.pathname
+    const lastSegment = pathname.substring(pathname.lastIndexOf('/') + 1)
+
     switch (lastSegment) {
       case 'detail':
-        setActiveMenu('detail');
-        break;
+        setActiveMenu('detail')
+        break
       case 'change-password':
-        setActiveMenu('change-password');
-        break;
+        setActiveMenu('change-password')
+        break
       case 'email-activation':
-        setActiveMenu('email-activation');
-        break;
+        setActiveMenu('email-activation')
+        break
       case 'map-studentid':
-        setActiveMenu('map-studentid');
-        break;
+        setActiveMenu('map-studentid')
+        break
       default:
-        setActiveMenu('detail');
-        break;
+        setActiveMenu('detail')
+        break
     }
-  }, [location]);
+  }, [location])
 
   return (
     <div className={styles.profile}>
@@ -80,13 +80,15 @@ const ProfilePage = () => {
                 }`}>
                 Email activation
               </Link>
-              {role == 'student' && (<Link
-                to="map-studentid"
-                className={`${styles['profile-item']} ${
-                  activeMenu === 'map-studentid' ? styles['active-menu'] : ''
-                }`}>
-                Map student ID
-              </Link>)}
+              {role == 'student' && (
+                <Link
+                  to="map-studentid"
+                  className={`${styles['profile-item']} ${
+                    activeMenu === 'map-studentid' ? styles['active-menu'] : ''
+                  }`}>
+                  Map student ID
+                </Link>
+              )}
             </ul>
           </Card>
         </div>

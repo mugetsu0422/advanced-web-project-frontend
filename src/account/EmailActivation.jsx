@@ -119,9 +119,9 @@ function EmailActivation() {
       .post(
         `${import.meta.env.VITE_SERVER_HOST}/users/send-activation-code/${
           decodedToken.sub
-          }`,
-          {},
-          {
+        }`,
+        {},
+        {
           headers: {
             Authorization: `Bearer ${token}`,
           },

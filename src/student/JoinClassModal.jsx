@@ -71,10 +71,7 @@ function MyAlert({ showAlert, setShowAlert }) {
 function JoinClassForm({ inputs, handleChange, handleSubmit }) {
   return (
     <>
-      <form
-        css={joinClassForm}
-        id="join-class-form"
-        onSubmit={handleSubmit}>
+      <form css={joinClassForm} id="join-class-form" onSubmit={handleSubmit}>
         <div>
           <input
             css={myInput}

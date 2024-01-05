@@ -15,10 +15,7 @@ import {
   Checkbox,
   Space,
 } from 'antd'
-import {
-  SaveOutlined,
-  SearchOutlined,
-} from '@ant-design/icons'
+import { SaveOutlined, SearchOutlined } from '@ant-design/icons'
 import Cookies from 'js-cookie'
 import axios from 'axios'
 
@@ -41,9 +38,9 @@ const EditableCell = ({
       <Input.Checkbox />
     ) : (
       <Input />
-    );
+    )
 
-  const validationRules = [];
+  const validationRules = []
 
   return (
     <td {...restProps}>
@@ -51,16 +48,15 @@ const EditableCell = ({
         <Form.Item
           name={dataIndex}
           style={{ margin: 0 }}
-          rules={validationRules}
-        >
+          rules={validationRules}>
           {inputNode}
         </Form.Item>
       ) : (
         children
       )}
     </td>
-  );
-};
+  )
+}
 
 const ManageClasses = () => {
   const token = Cookies.get('authToken')

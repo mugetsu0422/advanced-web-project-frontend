@@ -58,7 +58,7 @@ const invitationCodeIcon = css`
   }
 
   @media (max-width: 576px) {
-    padding: 0.5rem
+    padding: 0.5rem;
   }
 `
 

@@ -18,12 +18,12 @@
 .section-row {
     display: flex;
     margin-bottom: 10px;
-  }
-  
-  .detail-topic {
+}
+
+.detail-topic {
     font-weight: 600;
-    margin-right: 10px; 
-  }
+    margin-right: 10px;
+}
 
 .button {
     display: flex;
@@ -62,7 +62,7 @@
 .cancel-button {
     background-color: #6c757d !important;
 }
-  
+
 .cancel-button:hover {
     background-color: #545b62 !important;
 }

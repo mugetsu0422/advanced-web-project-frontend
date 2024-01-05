@@ -170,7 +170,10 @@ const TeacherList = () => {
         </Card.Title>
         <ListGroup css={listGroup} variant="flush">
           <ListGroup.Item>
-            <img src={USER_AVATAR_IMG[creator[0].fullname.length % 8]} alt="avatar" />
+            <img
+              src={USER_AVATAR_IMG[creator[0].fullname.length % 8]}
+              alt="avatar"
+            />
             {creator[0].fullname} (Owner)
           </ListGroup.Item>
           {createListGroupItem(teachers)}

@@ -38,20 +38,20 @@ const EditableCell = ({
       <Input.Checkbox />
     ) : (
       <Input />
-    );
+    )
 
-  const validationRules = [];
+  const validationRules = []
 
   if (dataIndex === 'email') {
     validationRules.push({
       type: 'email',
       message: 'Please enter a valid email address!',
-    });
+    })
   } else if (dataIndex === 'phone') {
     validationRules.push({
       pattern: /^[0-9]*$/, // Adjust the pattern as needed
       message: 'Please enter a valid phone number!',
-    });
+    })
   }
 
   return (
@@ -60,16 +60,15 @@ const EditableCell = ({
         <Form.Item
           name={dataIndex}
           style={{ margin: 0 }}
-          rules={validationRules}
-        >
+          rules={validationRules}>
           {inputNode}
         </Form.Item>
       ) : (
         children
       )}
     </td>
-  );
-};
+  )
+}
 
 const ManageTeacherAccounts = () => {
   const token = Cookies.get('authToken')

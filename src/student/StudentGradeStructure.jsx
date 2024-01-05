@@ -137,7 +137,7 @@ function StudentGradeStructure() {
           </Card.Title>
         </Card.Body>
       </Card>
-      <GradeCompositionList gpList={gpList}/>
+      <GradeCompositionList gpList={gpList} />
     </Container>
   )
 }
@@ -147,7 +147,6 @@ export default StudentGradeStructure
 GradeCompositionList.propTypes = {
   gpList: PropTypes.array.isRequired,
 }
-
 
 const loadGradeComposition = async (id) => {
   const { data = null } = await axios

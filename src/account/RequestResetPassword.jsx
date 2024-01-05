@@ -99,9 +99,8 @@ function RequestResetPassword() {
       )
       .then((response) => {
         if (response.data.success == true)
-        showAlertFunction(response.data.message, 'success')
-        else
-        showAlertFunction(response.data.message, 'danger')
+          showAlertFunction(response.data.message, 'success')
+        else showAlertFunction(response.data.message, 'danger')
       })
       .catch((error) => {
         showAlertFunction(error.message, 'danger')
@@ -110,14 +109,11 @@ function RequestResetPassword() {
 
   return (
     <Container fluid className={`${styles['container-fluid']}`}>
-        {showAlert && (
-          <Alert
-            variant={showAlert.type}
-            className={styles['alert']}
-            dismissible>
-            {showAlert.message}
-          </Alert>
-        )}
+      {showAlert && (
+        <Alert variant={showAlert.type} className={styles['alert']} dismissible>
+          {showAlert.message}
+        </Alert>
+      )}
       <ResetPasswordForm
         handleChange={handleInputChange}
         handleSubmit={handleFormSubmit}
