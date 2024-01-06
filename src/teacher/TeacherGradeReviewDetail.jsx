@@ -119,7 +119,7 @@ const TeacherGradeReviewDetail = () => {
   }
 
   const handleSave = async () => {
-    if (!/^\d+$/.test(updatedGrade)) {
+    if (!/^\d+(\.\d+)?$/.test(updatedGrade)) {
       showAlertFunction('Please enter a valid number for the grade', 'danger')
       return
     }

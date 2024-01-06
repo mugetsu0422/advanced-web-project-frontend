@@ -99,7 +99,7 @@ const TeacherGradeStructure = () => {
 
   const handleSave = () => {
     const compositionsToSend = gradeCompositions.map((composition, index) => ({
-      id: composition.id || '',
+      id: '',
       name: composition.name,
       scale: composition.scale,
       isFinalized: composition.isFinalized,
