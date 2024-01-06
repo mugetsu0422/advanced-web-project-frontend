@@ -25,7 +25,7 @@ function TeacherClassNavBar() {
       <Container fluid className="d-flex mx-0 ps-md-5 my-3">
         <Nav
           variant="underline"
-          defaultActiveKey={segments[sectionPosition]}
+          defaultActiveKey={segments[sectionPosition] || id}
           className={`${styles['nav']}`}>
           <Nav.Item className={`${styles['nav-item']}`}>
             <Link
