@@ -109,14 +109,10 @@ const downloadCSV = (args) => {
 
   const filename = args.filename || 'export.csv'
 
-  if (!csv.match(/^data:text\/csv/i)) {
-    csv = 'data:text/csv;charset=utf-8,' + csv
-  }
-
-  const data = encodeURI(csv)
-
+  csv = 'data:text/csv;charset=utf-8,' + encodeURIComponent('\uFEFF' + csv);
+  
   const link = document.createElement('a')
-  link.setAttribute('href', data)
+  link.setAttribute('href', csv)
   link.setAttribute('download', filename)
   link.click()
 }
